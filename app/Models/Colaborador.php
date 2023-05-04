@@ -5,22 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
+class Colaborador extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'nickname',
         'email',
-        'telefono',
-        'nombre',
-        'biografia',
         'password',
-        'tipo_usuario'
+        'nombre',
+        'apellido',
+        'telefono',
+        'bio',
     ];
-
-    public function tipo_usuario()
-    {
-        return $this->morphTo();
-    }
 }

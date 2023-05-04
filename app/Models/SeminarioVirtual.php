@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Estudiante extends Model
+class SeminarioVirtual extends Model
 {
     use HasFactory;
 
+    protected $table = 'seminarios_virtuales';
+
     protected $fillable = [
-        'nickname',
-        'email',
-        'password',
         'nombre',
-        'apellido',
-        'telefono',
-        'bio',
-        'creditos',
+        'descripcion',
+        'free',
+        'precio',
+        'fecha',
+        'plataforma'
     ];
 }
