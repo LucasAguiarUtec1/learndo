@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'inicio')->name('inicio');
+
+Route::view('/login', 'login')->name('login');
+
+Route::post('/login', [UsuarioController::class, 'createEstudiante'])->name('registro');
+
+Route::get('/Usuarios', [UsuarioController::class, 'show'])->name('usuarios');
