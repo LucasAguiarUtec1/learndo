@@ -18,6 +18,6 @@ Route::view('/', 'inicio')->name('inicio');
 
 Route::view('/login', 'login')->name('login');
 
-Route::post('/login', [UsuarioController::class, 'createEstudiante'])->name('registro');
+Route::post('/Usuario/registro', [UsuarioController::class, 'create'])->name('registrarse');
 
-Route::get('/Usuarios', [UsuarioController::class, 'show'])->name('usuarios');
+Route::view('/Usuario/registro', 'Altausuarios')->name('registro');

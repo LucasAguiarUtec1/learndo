@@ -16,8 +16,7 @@ return new class extends Migration
             $table->morphs('userable'); // userable_id, userable_type
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('nombre');
-            $table->string('apellido');
+            $table->string('nombrecompleto');
             $table->string('telefono');
             $table->string('biografia');
             $table->timestamps();

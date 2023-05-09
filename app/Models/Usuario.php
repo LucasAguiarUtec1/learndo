@@ -17,8 +17,7 @@ class Usuario extends Model
         'nickname',
         'email',
         'password',
-        'nombre',
-        'apellido',
+        'nombrecompleto',
         'telefono',
         'biografia',
     ];

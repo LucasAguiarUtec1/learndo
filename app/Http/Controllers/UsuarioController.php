@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organizador;
 use App\Models\Estudiante;
+use App\Models\Colaborador;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
@@ -14,22 +16,50 @@ class UsuarioController extends Controller
         return view('usuarios', compact('usuarios'));
     }
 
-    public function createEstudiante(Request $request)
+    public function create(Request $request)
     {
+        $rol = $request->rol;
 
-        $estudiante = new Estudiante();
-        $estudiante->creditos = 0;
-        $estudiante->save();
+        if ($rol == "Estudiante") {
+            $estudiante = new Estudiante();
+            $estudiante->creditos = 0;
+            $estudiante->save();
 
-        $estudiante->usuario()->save(new Usuario([
-            'nickname' => $request->nickname,
-            'email' => $request->email,
-            'password' => $request->password,
-            'nombre' => $request->name,
-            'apellido' => $request->lastname,
-            'telefono' => $request->phone,
-            'biografia' => $request->biography,
-        ]));
+            $estudiante->usuario()->save(new Usuario([
+                'nickname' => $request->nickname,
+                'email' => $request->email,
+                'password' => $request->password,
+                'nombrecompleto' => $request->name,
+                'telefono' => $request->phone,
+                'biografia' => $request->biography,
+            ]));
+        } else if ($rol == "Organizador") {
+            $organizador = new Organizador();
+            $organizador->save();
+
+            $organizador->usuario()->save(new Usuario([
+                'nickname' => $request->nickname,
+                'email' => $request->email,
+                'password' => $request->password,
+                'nombrecompleto' => $request->name,
+                'telefono' => $request->phone,
+                'biografia' => $request->biography,
+            ]));
+        } else {
+            $colaborador = new Colaborador();
+            $colaborador->save();
+
+            $colaborador->usuario()->save(new Usuario([
+                'nickname' => $request->nickname,
+                'email' => $request->email,
+                'password' => $request->password,
+                'nombrecompleto' => $request->name,
+                'telefono' => $request->phone,
+                'biografia' => $request->biography,
+            ]));
+        }
+
+
 
         return redirect()->route('inicio');
     }
