@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mi página con Bootstrap</title>
 	<!-- Agregamos los estilos de Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{{asset('css/stylesIniciarSesion.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/stylesInicio')}}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -18,50 +18,41 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Mis Cursos</a>
-				</li>
+				
 			</ul>
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="#">Cerrar Sesión</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Iniciar Sesión</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Registrarse</a>
-				</li>
 			</ul>
 		</div>
 	</nav>
 	<div class="container rounded border border-secondary p-4 mt-4">
-		<div class="text-center">
-			
-			<div class="rounded-circle border border-secondary d-inline-block p-8"> <!-- Aumentado el tamaño del borde -->
-				<div class="bordeContenedor">
-				<img src="{{asset('images/perfil.jpg')}}" width="120" height="120" class="rounded-circle" alt="Foto de perfil">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+			  <h2>Alta Clase</h2>
+			  <form method="POST" action='{{route('registrarcurso')}}'>
+                @csrf
+				<div class="form-group">
+				  <label for="nombreCurso">Nombre del Curso</label>
+				  <input type="text" class="form-control" id="nombreCurso" placeholder="Ingrese el nombre del curso" name="name">
+				</div>
+				<div class="form-group">
+				  <label for="descripcion">Descripción</label>
+				  <textarea class="form-control" id="descripcion" rows="4" placeholder="Ingrese la descripción del curso" name="descripcion"></textarea>
+				</div>
+				<div class="form-group">
+				  <label for="precio">Precio</label>
+				  <input type="text" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
+				</div>
+				<div class="form-group">
+				  <label for="profesor">Profesor</label>
+				  <input type="text" class="form-control" id="profesor" placeholder="Ingrese el nombre del profesor" name="instructor">
+				</div>
+				<div class="text-center">
+				<button type="submit" class="btn btn-primary">Crear Clase</button>
+				</div>
+			  </form>
 			</div>
-			</div>
-			<h4 class="mt-3">Iniciar Sesión</h4>
+		  </div>
 		</div>
-	
-		<form>
-			<div class="form-group">
-				<label for="email">Correo Electrónico</label>
-				<input type="email" class="form-control smaller-input" id="email" placeholder="Ingresa tu correo electrónico"> <!-- Agregada clase smaller-input -->
-			</div>
-			<div class="form-group">
-				<label for="password">Contraseña</label>
-				<input type="password" class="form-control smaller-input" id="password" placeholder="Ingresa tu contraseña"> <!-- Agregada clase smaller-input -->
-			</div>
-			<div class="iniciarSesion">
-				<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-			</div>
-		</form>
 	</div>
 	
 

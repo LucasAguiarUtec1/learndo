@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mi página con Bootstrap</title>
 	<!-- Agregamos los estilos de Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{{asset('images/stylesAltaUsuario.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/stylesIniciarSesion.css')}}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -38,65 +38,42 @@
 			</ul>
 		</div>
 	</nav>
-
-	<!-- Cuerpo de la página -->
-<div class="container rounded border border-secondary p-4 mt-4">
-	<h2>Registrarse</h2>
-	<form method="POST" action="{{route('registrarse')}}" >
-    @csrf
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="nickname">Nickname</label>
-					<input type="text" class="form-control" id="nickname" placeholder="Ingrese su nickname" name="nickname">
-				</div>
-				<div class="form-group">
-					<label for="nombre">Nombre Completo</label>
-					<input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre completo" name="name">
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="text" class="form-control" id="email" placeholder="Ingrese su email" name="email">
-				</div>
-				<div class="form-group">
-					<label for="telefono">Teléfono</label>
-					<input type="text" class="form-control" id="telefono" placeholder="Ingrese su teléfono" name="phone">
-				</div>
-				<div class="form-group">
-					<label for="biografia">Biografía</label>
-					<textarea class="form-control" id="biografia" rows="3" placeholder="Ingrese su biografía" name="biography"></textarea>
-				</div>
-				
+	<div class="container rounded border border-secondary p-4 mt-4">
+		<div class="text-center">
+			
+			<div class="rounded-circle border border-secondary d-inline-block p-8"> <!-- Aumentado el tamaño del borde -->
+				<div class="bordeContenedor">
+				<img src="{{asset('images/perfil.jpg')}}" width="120" height="120" class="rounded-circle" alt="Foto de perfil">
 			</div>
-			<div class="col-md-6">
-				
-				<div class="form-group">
-					<label for="contrasena">Contraseña</label>
-					<input type="password" class="form-control" id="contrasena" placeholder="Ingrese su contraseña">
-				</div>
-					<div class="form-group">
-					<label for="repetirContrasena">Repetir Contraseña</label>
-					<input type="password" class="form-control" id="repetirContrasena" placeholder="Repita su contraseña" name="password">
-				</div>
-				<div class="form-group">
-					<label for="rol">Rol</label>
-					<select class="form-control" id="rol" name="rol">
-						<option>Estudiante</option>
-						<option>Colaborador</option>
-						<option>Organizador</option>
-					</select>
-				</div>
-				<!-- <div class="form-group">
-					<label for="imagen">Imagen de perfil</label>
-					<input type="file" class="form-control-file" id="imagen">
-				</div> -->
 			</div>
+			<h4 class="mt-3">Iniciar Sesión</h4>
 		</div>
-		<div class="registrarse"> 
-		<button type="submit" class="btn btn-primary">Registrarse</button>
-		</div>
-	</form>
-</div>
+	
+		<form method="GET" action="{{route('iniciarsesion')}}">
+			@csrf
+			<div class="form-group">
+				<label for="email">Correo Electrónico</label>
+				<input type="text" class="form-control smaller-input" id="email" placeholder="Ingresa tu correo electrónico" name="email"> <!-- Agregada clase smaller-input -->
+			</div>
+			<div class="form-group">
+				<label for="password">Contraseña</label>
+				<input type="password" class="form-control smaller-input" id="password" placeholder="Ingresa tu contraseña" name="password"> <!-- Agregada clase smaller-input -->
+				@error('email')
+					<br>
+					<span>*{{$message}}</span>
+					<br>
+				@enderror
+			</div>
+			<div>
+				<input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+     			<label for="remember">{{ __('Remember Me') }}</label>
+			  </div>
+			<div class="iniciarSesion">
+				<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+			</div>
+		</form>
+	</div>
+	
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

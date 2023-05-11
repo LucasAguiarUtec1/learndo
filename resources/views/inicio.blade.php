@@ -26,15 +26,26 @@
 				</li>
 			</ul>
 			<ul class="navbar-nav">
+				@if (Auth::check())
 				<li class="nav-item">
-					<a class="nav-link" href="#">Cerrar Sesión</a>
+					<a class="nav-link" href="{{route('logout')}}">Cerrar Sesión</a>
 				</li>
+				@else
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('login')}}">Iniciar Sesión</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('registro')}}">Registrarse</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('maps')}}">Mapa</a>
+				</li>
+				@endif
+				@if(Auth::check() && Auth::user()->userable_type == 'App\Models\Organizador')
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('registrocurso')}}">Crear Curso</a>
+				</li>
+				@endif
 			</ul>
 		</div>
 	</nav>

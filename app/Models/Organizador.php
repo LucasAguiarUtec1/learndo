@@ -13,6 +13,6 @@ class Organizador extends Model
 
     public function usuario()
     {
-        return $this->morphMany(Usuario::class, 'userable');
+        return $this->morphMany(User::class, 'userable');
     }
 }

@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Estudiante extends Model
+class Curso extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'creditos',
+        'instructor',
     ];
 
-    public function usuario()
+    public function clase()
     {
-        return $this->morphMany(User::class, 'userable');
+        return $this->morphMany(Clase::class, 'claseable');
     }
 }
