@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\UsuarioController;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'inicio')->name('inicio');
 
-Route::view('/login', 'login')->name('login');
+Route::view('/login', 'auth.login')->name('login');
 
 Route::get('/iniciarsesion', [UsuarioController::class, 'login'])->name('iniciarsesion');
 
@@ -35,10 +36,12 @@ Route::view('/verificacion', 'auth.verify')->name('verify');
 
 Route::view('/maps', 'maps')->name('maps');
 
-Route::post('/Curso/registro', [CursoController::class, 'create'])->name('registrarcurso');
+Route::post('/Curso/registro', [CursoController::class, 'create'])->name('registrarcurso')->middleware(['auth', 'verified']);
 
-Route::view('/Curso/registro', 'altaCurso')->name('registrocurso');
+Route::view('/Curso/registro', 'altaCurso')->name('registrocurso')->middleware(['auth', 'verified']);
 
-Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::view('/Seminario/registro', 'AltaSeminario')->name('registroseminario')->middleware(['auth', 'verified']);

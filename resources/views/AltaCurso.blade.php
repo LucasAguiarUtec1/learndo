@@ -5,58 +5,61 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mi página con Bootstrap</title>
 	<!-- Agregamos los estilos de Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/stylesInicio.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/stylesAltaCurso')}}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<a class="navbar-brand" href="{{route('inicio')}}">
-			<img src="{{ asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
+			<img src="{{asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#">Mis Cursos</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav">
-				@if (Auth::check())
 				<li class="nav-item">
-					<a class="nav-link" href="{{route('logout')}}">Cerrar Sesión</a>
+					<a class="nav-link" href="#">Cerrar Sesión</a>
 				</li>
-				@else
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('login')}}">Iniciar Sesión</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('registro')}}">Registrarse</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('maps')}}">Mapa</a>
-				</li>
-				@endif
-				@if(Auth::check() && Auth::user()->userable_type == 'App\Models\Organizador')
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('registrocurso')}}">Crear Curso</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('registroseminario')}}">Crear Seminario</a>
-				</li>
-				@endif
 			</ul>
 		</div>
 	</nav>
-
-	<div class="frase">
-		LearnDo el Aprendizaje en tus Manos
+	<div class="container rounded border border-secondary p-4 mt-4">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+			  <h2>Alta Curso</h2>
+			  <form method="POST" action="{{route('registrarcurso')}}">
+				@csrf
+				<div class="form-group">
+				  <label for="nombreCurso">Nombre del Curso</label>
+				  <input type="text" class="form-control" id="nombreCurso" placeholder="Ingrese el nombre del curso" name="name">
+				</div>
+				<div class="form-group">
+				  <label for="descripcion">Descripción</label>
+				  <textarea class="form-control" id="descripcion" rows="4" placeholder="Ingrese la descripción del curso" name="descripcion"></textarea>
+				</div>
+				<div class="form-group">
+				  <label for="precio">Precio</label>
+				  <input type="text" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
+				</div>
+				<div class="form-group">
+				  <label for="profesor">Profesor</label>
+				  <input type="text" class="form-control" id="profesor" placeholder="Ingrese el nombre del profesor" name="instructor">
+				</div>
+				<div class="text-center">
+				<button type="submit" class="btn btn-primary">Crear Clase</button>
+				</div>
+			  </form>
+			</div>
+		  </div>
+		</div>
 	</div>
-
+	
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
