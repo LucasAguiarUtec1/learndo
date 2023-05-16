@@ -30,7 +30,7 @@
 	<!-- Cuerpo de la página -->
 <div class="container rounded border border-secondary p-4 mt-4">
 	<h2>Registrarse</h2>
-	<form method="POST" action="{{route('registrarse')}}" >
+	<form method="POST" action="{{route('register')}}" >
     @csrf
 		<div class="row">
 			<div class="col-md-6">

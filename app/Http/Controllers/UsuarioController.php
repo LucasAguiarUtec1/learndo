@@ -11,67 +11,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AltaRequest;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class UsuarioController extends Controller
 {
+    use HasApiTokens;
 
     public function show()
     {
         $usuarios = User::all();
         return view('usuarios', compact('usuarios'));
     }
-
-    public function create(AltaRequest $request)
-    {
-        $rol = $request->rol;
-
-
-
-        if ($rol == "Estudiante") {
-            $estudiante = new Estudiante();
-            $estudiante->creditos = 0;
-            $estudiante->save();
-
-            $estudiante->usuario()->save(new User([
-                'nickname' => $request->nickname,
-                'email' => $request->email,
-                'password' => $request->password,
-                'nombrecompleto' => $request->name,
-                'telefono' => $request->phone,
-                'biografia' => $request->biography,
-            ]));
-        } else if ($rol == "Organizador") {
-            $organizador = new Organizador();
-            $organizador->save();
-
-            $organizador->usuario()->save(new User([
-                'nickname' => $request->nickname,
-                'email' => $request->email,
-                'password' => $request->password,
-                'nombrecompleto' => $request->name,
-                'telefono' => $request->phone,
-                'biografia' => $request->biography,
-            ]));
-        } else {
-            $colaborador = new Colaborador();
-            $colaborador->save();
-
-            $colaborador->usuario()->save(new User([
-                'nickname' => $request->nickname,
-                'email' => $request->email,
-                'password' => $request->password,
-                'nombrecompleto' => $request->name,
-                'telefono' => $request->phone,
-                'biografia' => $request->biography,
-            ]));
-        }
-
-        $usermodel = User::where('nickname', $request->nickname)->first();
-        $usermodel->sendEmailVerificationNotification();
-
-        return redirect()->route('verify');
-    }
-
 
     public function login(Request $request)
     {

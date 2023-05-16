@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Colaborador;
+use App\Models\Estudiante;
+use App\Models\Organizador;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+
 
 class RegisterController extends Controller
 {
@@ -53,6 +59,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required', 'same:password', 'min:8'],
+            'nickname' => ['required', 'string', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric'],
         ]);
     }
 
@@ -64,10 +73,37 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $rol = null;
+        if ($data['rol'] == 'Estudiante') {
+            $rol = new Estudiante();
+            $rol->creditos = 0;
+            $rol->save();
+        } else if ($data['rol'] == 'Organizador') {
+            $rol = new Organizador();
+            $rol->save();
+        } else {
+            $rol = new Colaborador();
+            $rol->save();
+        }
+
+        $rol->usuario()->save(new User([
+            'nombrecompleto' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+            'nickname' => $data['nickname'],
+            'telefono' => $data['phone'],
+            'biografia' => $data['biography'],
+        ]));
+
+        return User::where('email', $data['email'])->first();
+
+        /**return User::create([
+            'nombrecompleto' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'nickname' => $data['nickname'],
+            'telefono' => $data['phone'],
+            'biografia' => $data['biography'],
+        ]);**/
     }
 }

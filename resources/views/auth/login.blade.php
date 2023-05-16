@@ -1,94 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Mi página con Bootstrap</title>
-	<!-- Agregamos los estilos de Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{{asset('css/stylesIniciarSesion.css')}}">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-<body>
-	<nav class="navbar navbar-expand-lg navbar-light">
-		<a class="navbar-brand" href="{{route('inicio')}}">
-			<img src="{{asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Mis Cursos</a>
-				</li>
-			</ul>
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="#">Cerrar Sesión</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Iniciar Sesión</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Registrarse</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<div class="container rounded border border-secondary p-4 mt-4">
-		<div class="text-center">
-			
-			<div class="rounded-circle border border-secondary d-inline-block p-8"> <!-- Aumentado el tamaño del borde -->
-				<div class="bordeContenedor">
-				<img src="{{asset('images/perfil.jpg')}}" width="120" height="120" class="rounded-circle" alt="Foto de perfil">
-			</div>
-			</div>
-			<h4 class="mt-3">Iniciar Sesión</h4>
-		</div>
-	
-		<form method="GET" action="{{route('iniciarsesion')}}">
-			@csrf
-			<div class="form-group">
-				<label for="email">Correo Electrónico</label>
-				<input type="text" class="form-control smaller-input" id="email" placeholder="Ingresa tu correo electrónico" name="email"> <!-- Agregada clase smaller-input -->
-			</div>
-			<div class="form-group">
-				<label for="password">Contraseña</label>
-				<input type="password" class="form-control smaller-input" id="password" placeholder="Ingresa tu contraseña" name="password"> <!-- Agregada clase smaller-input -->
-				@error('email')
-					<br>
-					<span>*{{$message}}</span>
-					<br>
-				@enderror
-			</div>
-			<div>
-				<input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-     			<label for="remember">{{ __('Remember Me') }}</label>
-			  </div>
-			<div class="iniciarSesion">
-				<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-			</div>
-		</form>
-	</div>
-	
+@extends('layouts.app')
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-	crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
-	integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
-	crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
-	integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
-	crossorigin="anonymous"></script>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Login') }}</div>
 
+                <div class="card-body">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
 
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
-	<!--JAVASCRIPT-->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E"></script>
-	<script src="./custom.js"></script>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-</body>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Login') }}
+                                </button>
+
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

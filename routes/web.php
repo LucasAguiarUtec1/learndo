@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -32,10 +33,12 @@ Auth::routes(['verify' => true]);
 
 Route::view('/verificacion', 'auth.verify')->name('verify');
 
-Auth::routes();
-
 Route::view('/maps', 'maps')->name('maps');
 
 Route::post('/Curso/registro', [CursoController::class, 'create'])->name('registrarcurso');
 
 Route::view('/Curso/registro', 'altaCurso')->name('registrocurso');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
