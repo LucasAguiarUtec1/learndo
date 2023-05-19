@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mi página con Bootstrap</title>
 	<!-- Agregamos Api de google maps -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4CBnz1IbIRqZQ-NULt4Ygcyh-R9D0Qu8"></script>
+	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4CBnz1IbIRqZQ-NULt4Ygcyh-R9D0Qu8&callback=initMap" ></script>
 	<!-- Agregamos los estilos de Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/stylesSeminario.css')}}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -123,8 +123,8 @@
 			});
 }
 
-// Llamada a la función initMap una vez que se haya cargado la API de Google Maps
-google.maps.event.addDomListener(window, 'load', initMap);
+// Llamada a la funciÃ³n initMap una vez que se haya cargado la API de Google Maps
+window.addEventListener('load', initMap);
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -139,7 +139,7 @@ google.maps.event.addDomListener(window, 'load', initMap);
 
 
 	<!--JAVASCRIPT-->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E"></script>
-	<script src="./custom.js"></script>
+<!--	<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+	<script src="./custom.js"></script> -->
 
 </body>

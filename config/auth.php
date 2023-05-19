@@ -7,15 +7,15 @@ return [
     | Authentication Defaults
     |--------------------------------------------------------------------------
     |
-    | This option controls the default authentication "guard" and password
-    | reset options for your application. You may change these defaults
-    | as required, but they're a perfect start for most applications.
+    | Esta opción controla la "guard" de autenticación predeterminada y las opciones de restablecimiento de contraseña 
+    | para su aplicación. Puede cambiar estas opciones según sea necesario, pero son un buen comienzo para la mayoría 
+    | de las aplicaciones.
     |
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'web', //Guardia web predeterminado
+        'passwords' => 'users', //Proveedor de contraseñas de usuario predeterminado
     ],
 
     /*
@@ -23,22 +23,22 @@ return [
     | Authentication Guards
     |--------------------------------------------------------------------------
     |
-    | Next, you may define every authentication guard for your application.
-    | Of course, a great default configuration has been defined for you
-    | here which uses session storage and the Eloquent user provider.
+    | A continuación, puede definir cada guardia de autenticación para su aplicación.
+    | Por supuesto, se ha definido una excelente configuración predeterminada para usted
+    | aquí que utiliza el almacenamiento de sesión y el proveedor de usuarios Eloquent.
     |
-    | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
-    | mechanisms used by this application to persist your user's data.
+    | Todos los controladores de autenticación tienen un proveedor de usuarios. Esto define cómo
+    | los usuarios se recuperan realmente de su base de datos u otros medios de almacenamiento
+    | utilizado por esta aplicación para persistir los datos de sus usuarios.
     |
-    | Supported: "session"
+    | Soportado por autenticación por sesión.
     |
     */
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+            'driver' => 'session', //Driver de sesión
+            'provider' => 'users', //Proveedor de usuarios predeterminado
         ],
     ],
 
@@ -47,29 +47,30 @@ return [
     | User Providers
     |--------------------------------------------------------------------------
     |
-    | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
-    | mechanisms used by this application to persist your user's data.
+    | Todos los controladores de autenticación tienen un proveedor de usuarios. Esto define cómo
+    | los usuarios se recuperan realmente de su base de datos u otros medios de almacenamiento
+    | utilizado por esta aplicación para persistir los datos de sus usuarios.
     |
-    | If you have multiple user tables or models you may configure multiple
-    | sources which represent each model / table. These sources may then
-    | be assigned to any extra authentication guards you have defined.
+    | Si tiene varias tablas o modelos de usuarios, puede configurar múltiples
+    | fuentes que representen cada modelo / tabla. Estas fuentes luego pueden
+    | asignarse a cualquier guarda adicional de autenticación que haya definido.
     |
-    | Supported: "database", "eloquent"
+    | Soportado por "database", "eloquent".
     |
     */
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'driver' => 'eloquent', //Proveedor de usuarios basado en Eloquent
+            'model' => App\Models\User::class, //Modelo usuario predeterminado
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        /* 'users' => [
+            'driver' => 'database', //Proveedor de usuarios basado en base de datos
+            'table' => 'users', //Tabla de usuario predeterminada
+        ], */
     ],
+
 
     /*
     |--------------------------------------------------------------------------

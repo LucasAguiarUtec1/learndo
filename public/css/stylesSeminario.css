@@ -60,34 +60,3 @@ h2 {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
-function mostrarCamposAdicionales(tipo) {
-  const presencialFields=document.getElementById("presencialFields");
-  const virtualFields=document.getElementById("virtualFields");
-
-  if (tipo==="presencial" && presencialFields) {
-    presencialFields.style.display="block";
-
-    if (virtualFields) {
-      virtualFields.style.display="none";
-    }
-  }
-
-  else if (tipo==="virtual" && virtualFields) {
-    virtualFields.style.display="block";
-
-    if (presencialFields) {
-      presencialFields.style.display="none";
-    }
-  }
-
-  else {
-    if (presencialFields) {
-      presencialFields.style.display="none";
-    }
-
-    if (virtualFields) {
-      virtualFields.style.display="none";
-    }
-  }
-}

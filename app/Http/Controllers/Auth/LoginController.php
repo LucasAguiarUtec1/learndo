@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -40,7 +41,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -60,7 +61,7 @@ class LoginController extends Controller
         }
 
         // Autenticar al usuario y redirigir a la página de inicio
-        if (auth()->attempt($credentials, $remember)) {
+        if (Auth::login($user, $remember = false)) {
             $request->session()->regenerate();
             return redirect()->route('inicio');
         } else {

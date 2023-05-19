@@ -54,6 +54,9 @@
 				<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
 			</div>
 		</form>
+		<div class="flex items-center justify-end mt-4">
+			<a class="btn btn-facebook" href="{{url('login/facebook')}}"> Login con facebook </a>
+		</div>
 	</div>
 	
 

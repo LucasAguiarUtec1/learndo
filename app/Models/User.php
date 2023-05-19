@@ -13,6 +13,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     protected $primaryKey = 'nickname';
 
     public $incrementing = false;
@@ -32,6 +34,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'nombrecompleto',
         'telefono',
         'biografia',
+        'fb_id',
     ];
 
     /**
@@ -80,5 +83,20 @@ class User extends Authenticatable implements MustVerifyEmail
             get: fn (string $value) => $value,
             set: fn (string $value) => bcrypt($value),
         );
+    }
+
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
     }
 }

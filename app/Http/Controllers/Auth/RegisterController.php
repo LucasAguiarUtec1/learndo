@@ -89,7 +89,7 @@ class RegisterController extends Controller
         $rol->usuario()->save(new User([
             'nombrecompleto' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
             'nickname' => $data['nickname'],
             'telefono' => $data['phone'],
             'biografia' => $data['biography'],

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nickname')->unique();
+            $table->string('fb_id')->nullable();
             $table->morphs('userable'); // userable_id, userable_type
             $table->string('email')->unique();
             $table->string('nombrecompleto');
