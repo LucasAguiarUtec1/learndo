@@ -5,8 +5,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UsuarioController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,11 @@ Route::get('/', function () {
     return view('inicio');
 })->name('inicio');
 
-Route::view('/login', 'auth.login')->name('login');
+Route::view('/login', 'auth.login')->name('login')->middleware('verified');
+
+Route::get('/login/{driver}', [SocialController::class, 'redirectToProvider']);
+
+Route::get('/login/{driver}/callback', [SocialController::class, 'handleProviderCallback']);
 
 Route::get('/iniciarsesion', [LoginController::class, 'authenticate'])->name('iniciarsesion');
 
@@ -31,7 +35,7 @@ Route::post('/Usuario/registro', [UsuarioController::class, 'create'])->name('re
 
 Route::view('/Usuario/registro', 'auth.register')->name('registro');
 
-//Route::get('/logout', [UsuarioController::class, 'logout'])->name('logout');
+Route::get('/logout', [UsuarioController::class, 'logout'])->name('logout');
 
 Auth::routes(['verify' => true]);
 
@@ -48,7 +52,3 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::view('/Seminario/registro', 'AltaSeminario')->name('registroseminario')->middleware(['auth', 'verified']);
-
-Route::get('/login/{$driver}', [SocialController::class, 'redirectToProvider']);
-
-Route::get('/login/{$driver}/callback', [SocialController::class, 'handleProviderCallback']);

@@ -18,7 +18,27 @@ class SocialController extends Controller
 
     public function handleProviderCallback($driver)
     {
-        $user = Socialite::driver($driver)->user();
-        dd($user);
+        $facebookUser = Socialite::driver($driver)->user();
+
+        $user = User::where('email', $facebookUser->email)->first();
+
+        if (!$user) {
+            $timestamp = \Carbon\Carbon::now()->timestamp;
+            $user = User::create([
+                'nickname' => $facebookUser->name . '12345678',
+                'email' => $facebookUser->email,
+                'nombrecompleto' => $facebookUser->name,
+                'foto_fb' => $facebookUser->avatar,
+                'fb_id' => $facebookUser->id,
+                'email_verified_at' => $timestamp,
+                'userable_type' => 'App\Models\Alumno',
+                'userable_id' => 0,
+                'telefono' => '',
+            ]);
+            return 'exitoo';
+        } else {
+            Auth::login($user, false);
+            return view('inicio');
+        }
     }
 }

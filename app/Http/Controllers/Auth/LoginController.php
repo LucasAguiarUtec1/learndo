@@ -54,11 +54,11 @@ class LoginController extends Controller
 
         // Comprobar si el usuario ha verificado su dirección de correo electrónico
         $user = User::where('email', $request->email)->first();
-        if ($user && !$user->email_verified_at) {
+        /*if ($user && !$user->email_verified_at) {
             return redirect()->back()->withErrors([
                 'email' => 'Tu cuenta aún no ha sido activada. Por favor, confirma tu dirección de correo electrónico.'
             ]);
-        }
+        }*/
 
         // Autenticar al usuario y redirigir a la página de inicio
         if (Auth::login($user, $remember = false)) {
