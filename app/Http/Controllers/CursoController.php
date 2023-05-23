@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Curso;
 use App\Models\Clase;
+use Illuminate\Support\Facades\Auth;
 
 class CursoController extends Controller
 {
@@ -22,6 +23,7 @@ class CursoController extends Controller
             'descripcion' => $request->descripcion,
             'precio' => $request->precio,
             'free' => $free,
+            'organizador_id' => Auth::user()->id,
         ]));
 
         return redirect()->route('inicio');

@@ -20,10 +20,16 @@ class Clase extends Model
         'descripcion',
         'precio',
         'free',
+        'organizador_id',
     ];
 
     public function claseable()
     {
         return $this->morphTo();
+    }
+
+    public function Organizador()
+    {
+        return $this->belongsTo('App\Models\Organizador');
     }
 }

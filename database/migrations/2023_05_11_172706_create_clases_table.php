@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('precio');
             $table->boolean('free');
             $table->morphs('claseable'); // claseable_id, claseable_type
+            $table->unsignedBigInteger('organizador_id');
+            $table->foreign('organizador_id')->references('id')->on('organizadores')->onDelete('cascade');
             $table->timestamps();
         });
     }

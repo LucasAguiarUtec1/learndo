@@ -43,12 +43,14 @@ Route::view('/verificacion', 'auth.verify')->name('verify');
 
 Route::view('/maps', 'maps')->name('maps');
 
-Route::post('/Curso/registro', [CursoController::class, 'create'])->name('registrarcurso')->middleware(['auth', 'verified']);
+Route::post('/Curso/registro', [CursoController::class, 'create'])->name('registrarcurso')->middleware('auth');
 
-Route::view('/Curso/registro', 'altaCurso')->name('registrocurso')->middleware(['auth', 'verified']);
+Route::view('/Curso/registro', 'altaCurso')->name('registrocurso')->middleware('auth');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::view('/Seminario/registro', 'AltaSeminario')->name('registroseminario')->middleware(['auth', 'verified']);
+Route::view('/Seminario/registro', 'AltaSeminario')->name('registroseminario')->middleware('auth');
+
+Route::post('/register/facebook', [SocialController::class, 'refreshInfo'])->name('refreshinfo')->middleware('auth');

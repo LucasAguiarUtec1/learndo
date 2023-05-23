@@ -15,4 +15,9 @@ class Organizador extends Model
     {
         return $this->morphMany(User::class, 'userable');
     }
+
+    public function misClases()
+    {
+        return $this->hasMany('App\Models\Clase');
+    }
 }
