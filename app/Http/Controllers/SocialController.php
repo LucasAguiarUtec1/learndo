@@ -40,7 +40,7 @@ class SocialController extends Controller
             ]);
             Auth::login($user, false);
             $user = Auth::user();
-            $user->sendEmailVerificationNotification();
+            //$user->sendEmailVerificationNotification();
             return view('auth.registroFacebook');
         } else {
             Auth::login($user, false);

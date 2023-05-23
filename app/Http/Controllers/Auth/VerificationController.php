@@ -26,6 +26,7 @@ class VerificationController extends Controller
     public function verify(EmailVerificationRequest $request)
     {
         $request->fulfill();
-        return redirect($this->redirect('inicio'))->with('verified', true);
+        //return redirect($this->redirect('inicio'))->with('verified', true);
+        return redirect()->route('inicio');
     }
 }
