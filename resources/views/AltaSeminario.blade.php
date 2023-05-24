@@ -5,13 +5,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mi página con Bootstrap</title>
 	<!-- Agregamos Api de google maps -->
-	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4CBnz1IbIRqZQ-NULt4Ygcyh-R9D0Qu8&callback=initMap" ></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4CBnz1IbIRqZQ-NULt4Ygcyh-R9D0Qu8&callback=initMap" async defer></script>
 	<!-- Agregamos los estilos de Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/stylesSeminario.css')}}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<!--JAVASCRIPT-->     <script src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E</script>     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+	<!--JAVASCRIPT-->     <script> src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E" </script>     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+	
 </head>
 <body>
+	<script>
+		function mostrarCamposAdicionales(tipo) {
+			var presencialFields = document.getElementById("presencialFields");
+			var virtualFields = document.getElementById("virtualFields");
+	
+			if (tipo === "Presencial") {
+				presencialFields.style.display = "block";
+				virtualFields.style.display = "none";
+			} else if (tipo === "Virtual") {
+            presencialFields.style.display = "none";
+            virtualFields.style.display = "block";
+        } else {
+            presencialFields.style.display = "block";
+            virtualFields.style.display = "none";
+        }
+    }</script>
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<a class="navbar-brand" href="{{route('inicio')}}">
 			<img src="{{asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
@@ -83,22 +100,7 @@
 		</div>
 	</div>
 	
-	<script>
-		function mostrarCamposAdicionales(tipo) {
-			var presencialFields = document.getElementById("presencialFields");
-			var virtualFields = document.getElementById("virtualFields");
 	
-			if (tipo === "presencial") {
-				presencialFields.style.display = "block";
-				virtualFields.style.display = "none";
-			} else if (tipo === "virtual") {
-            presencialFields.style.display = "none";
-            virtualFields.style.display = "block";
-        } else {
-            presencialFields.style.display = "none";
-            virtualFields.style.display = "none";
-        }
-    }</script>
 	
 	<script>
 		var map;
