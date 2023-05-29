@@ -75,7 +75,7 @@ class CursoController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'pdf_file' => 'required|mimes:pdf|max:2048',
+            'pdf_file' => 'required|mimes:pdf',
             'name' => 'required',
         ]);
 

@@ -109,7 +109,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form method="GET" action="{{route('uploadPDF')}}" enctype="multipart/form-data">
+					<form method="POST" action="{{route('uploadPDF')}}" enctype="multipart/form-data">
 						@csrf
 						<div class="form-group">
 							<label for="nombre-leccion">Nombre de la Lección</label>
@@ -250,7 +250,7 @@
 
       $.ajax({
         url: url,
-        method: 'GET',
+        method: 'POST',
         data: formData,
         processData: false,
         contentType: false,

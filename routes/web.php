@@ -69,4 +69,4 @@ Route::post('/Curso/{id}/modulos/crear', [CursoController::class, 'crearModulo']
 
 Route::get('/Curso/{id}/modulos/{idMod}/eliminar', [CursoController::class, 'eliminarModulo'])->name('eliminarModulo')->middleware('auth');
 
-Route::get('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')->middleware('auth');
+Route::post('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')->middleware('auth');
