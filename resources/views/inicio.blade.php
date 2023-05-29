@@ -19,11 +19,13 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="{{route('inicio')}}">Inicio <span class="sr-only">(current)</span></a>
 				</li>
+				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))
 				<li class="nav-item">
-					<a class="nav-link" href="#">Mis Cursos</a>
+					<a class="nav-link" href="{{route('miscursos')}}">Mis Cursos</a>
 				</li>
+				@endif
 			</ul>
 			<ul class="navbar-nav">
 				@if (Auth::check())

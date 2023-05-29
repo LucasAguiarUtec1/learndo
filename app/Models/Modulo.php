@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Seminario extends Model
+class Modulo extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'fecha',
-        'ubicacion',
-        'tipo',
-        'plataforma',
+        'nombre',
+        'descripcion',
     ];
 
-    public function clase()
+    public function curso()
     {
-        return $this->morphMany(Clase::class, 'claseable');
+        return $this->belongsTo('App\Models\Curso');
     }
 }

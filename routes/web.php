@@ -53,4 +53,20 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::view('/Seminario/registro', 'AltaSeminario')->name('registroseminario')->middleware('auth');
 
+Route::post('/Seminario/registro', [App\Http\Controllers\SeminarioController::class, 'create'])->name('registrarseminario')->middleware('auth');
+
 Route::post('/register/facebook', [SocialController::class, 'refreshInfo'])->name('refreshinfo')->middleware('auth');
+
+Route::get('/Curso/misCursos', [CursoController::class, 'misCursos'])->name('miscursos')->middleware('auth');
+
+Route::get('/Curso/misCursos/Eliminar/{id}', [CursoController::class, 'eliminar'])->name('eliminarcurso')->middleware('auth');
+
+Route::get('/Seminario/misSeminarios/Eliminar/{id}', [App\Http\Controllers\SeminarioController::class, 'delete'])->name('eliminarseminario')->middleware('auth');
+
+Route::get('/Curso/{id}/modulos', [CursoController::class, 'modulos'])->name('modulos')->middleware('auth');
+
+Route::post('/Curso/{id}/modulos/crear', [CursoController::class, 'crearModulo'])->name('crearModulo')->middleware('auth');
+
+Route::get('/Curso/{id}/modulos/{idMod}/eliminar', [CursoController::class, 'eliminarModulo'])->name('eliminarModulo')->middleware('auth');
+
+Route::get('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')->middleware('auth');
