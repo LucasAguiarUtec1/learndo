@@ -10,7 +10,14 @@
 <body>
     <div class="container">
         <h1>Perfil de {{$usuario->nickname}}</h1>
-        
+        <h1> </h1>
+        <n>Nombre completo: {{$usuario->nombrecompleto}}</n>
+        <h1> </h1>
+        <n>E-Mail: {{$usuario->email}}</n>
+        <h1> </h1>
+        <n>Teléfono: {{$usuario->telefono}}</n>
+        <h1> </h1>
+        <n>Biografía: {{$usuario->biografia}}</n>
             
 
 	<!-- Add your scripts here -->

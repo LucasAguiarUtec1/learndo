@@ -22,14 +22,12 @@
             @foreach($usuarios as $usuario)
                 <tbody>
                     <tr>
-                        <td>{{$usuario->nickname}}</td>
+                        <td><a href="{{route('verperfil', $usuario->nickname)}}">{{$usuario->nickname}}</a></td>
                         <td>{{$usuario->email}}</td>
                         <td>{{$usuario->nombrecompleto}}</td>
                         <td>{{$usuario->telefono}}</td>
                     </tr>
-                    <!-- Add more rows for each user -->
                 </tbody>
-                <a href="{{route('verperfil', $usuario->nickname)}}">{{$usuario->nickname}}</a>
             @endforeach
             </table>
         </div>

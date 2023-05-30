@@ -75,8 +75,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected function biografia(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => ucwords($value),
-            set: fn (string $value) => htmlspecialchars($value),
+            get: fn ($value) => is_string($value) ? ucwords($value) : null,
+            set: fn ($value) => is_string($value) ? htmlspecialchars($value) : null,
         );
     }
 
