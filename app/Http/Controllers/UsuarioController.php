@@ -18,6 +18,18 @@ class UsuarioController extends Controller
         return view('usuarios', compact('usuarios'));
     }
 
+    public function listar()
+    {
+        $usuarios = User::all();
+        return view('verUsuarios', ['usuarios' => $usuarios]);
+    }
+
+    public function verperfil($nickname)
+    {
+        $usuario = User::find($nickname);
+        return view('PerfilUsuario', ['usuario' => $usuario]);
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -39,7 +51,6 @@ class UsuarioController extends Controller
             'email' => 'No se pudo iniciar sesión. Por favor, comprueba tus credenciales e inténtalo de nuevo.',
         ]);
     }
-
 
     public function logout(Request $request)
     {
