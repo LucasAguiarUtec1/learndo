@@ -14,10 +14,18 @@
         <n>Nombre completo: {{$usuario->nombrecompleto}}</n>
         <h1> </h1>
         <n>E-Mail: {{$usuario->email}}</n>
+        @if($usuario->telefono)
         <h1> </h1>
         <n>Teléfono: {{$usuario->telefono}}</n>
+        @endif
+        @if($usuario->biografia)
         <h1> </h1>
         <n>Biografía: {{$usuario->biografia}}</n>
+        @endif
+        <h1> </h1>
+        @if($usuario->foto_fb)
+        <n>¿Foto?:</n> <img src="{{$usuario->foto_fb}}" alt="My Facebook Photo">
+        @endif
             
 
 	<!-- Add your scripts here -->
