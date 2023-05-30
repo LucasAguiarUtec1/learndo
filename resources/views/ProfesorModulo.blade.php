@@ -48,7 +48,10 @@
 			</div>
 		</div>
 		@foreach($modulos as $modulo)
-		<?php $lecciones = $modulo->lecciones ?>
+		<?php 
+			$lecciones = $modulo->lecciones;
+			$multimedias = $modulo->multimedia;			
+		?>
 		<div class="card mt-4 modulo" id="modulo-1">
 			<div class="card-header">
 				<h5 class="mb-0">{{$modulo->nombre}}</h5>
@@ -60,14 +63,16 @@
 					<li class="list-group-item">
 						<img src="{{asset('images/libro.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
 						<a href="#" class="open-pdf-link" data-leccion-id="{{ $leccion->id }}">{{$leccion->nombre}}</a>
-						<button class="btn btn-danger float-right">Eliminar</button>
+						<a href="{{route('eliminarLeccion', ['idCurso' => $clase->id, 'idLeccion' => $leccion->id])}}" class="btn btn-danger float-right">Eliminar</a>
 					</li>
 					@endforeach
+					@foreach($multimedias as $multimedia)
 					<li class="list-group-item">
 						<img src="{{asset('images/multimedia.png')}}" alt="Icono de video" class="mr-3" width="30" height="30">
-						<a href="#">Contenido Multimedia</a>
-						<button class="btn btn-danger float-right">Eliminar</button>
+						<a href="{{$multimedia->link}}" target="_blank">Clase {{$multimedia->id}}</a>
+						<a href="{{route('eliminarMultimedia', ['idCurso' => $clase->id, 'idMultimedia' => $multimedia->id])}}" class="btn btn-danger float-right">Eliminar</a>
 					</li>
+					@endforeach
 					<li class="list-group-item">
 						<img src="{{asset('images/lapiz.png')}}" alt="Icono de lápiz" class="mr-3" width="30" height="30">
 						<a href="#">Evaluaciones</a>
@@ -80,7 +85,7 @@
 								Añadir Lección
 							</button>
 	
-							<button class="btn btn-success" data-toggle="modal" data-target="#multimedia-modal">
+							<button class="btn btn-success" data-toggle="modal" data-target="#multimedia-modal" data-modulo-id="{{$modulo->id}}">
 								<img src="{{asset('images/multimedia.png')}}" alt="Icono" class="mr-2" width="20" height="20">
 								Añadir Contenido Multimedia
 							</button>
@@ -195,32 +200,38 @@
 	</div>
   </div>
 -->
+
+
+
 <!-- Modal para añadir contenido multimedia -->
 <div class="modal fade" id="multimedia-modal" tabindex="-1" role="dialog" aria-labelledby="multimedia-modal-label" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="multimedia-modal-label">Añadir Contenido Multimedia</h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-		  <form>
-			<div class="form-group">
-			  <label for="video-url">URL del video</label>
-			  <input type="text" class="form-control" id="video-url" placeholder="Ingrese la URL del video">
-			</div>
-		  </form>
-		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-		  <button type="button" class="btn btn-primary">Guardar</button>
-		</div>
-	  </div>
-	</div>
-  </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="multimedia-modal-label">Añadir Contenido Multimedia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{route('agregarMultimedia')}}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="video-url">URL del video</label>
+                        <input type="text" class="form-control" id="video-url" placeholder="Ingrese la URL del video">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="guardar-multimedia-btn">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 	
+
 	<script>
 		// Obtener todos los elementos con la clase "modulo"
 		var modulos = document.querySelectorAll(".modulo");
@@ -236,7 +247,7 @@
 		});
 	</script>
 
-
+<!-- Ajax para agregar lecciones -->
 <script>
   $('#leccion-modal').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget);
@@ -285,6 +296,7 @@
   });
 </script>
 
+<!-- Ajax para ver lecciones -->
 <script>
 	$(document).ready(function() {
 		$('.open-pdf-link').click(function(e) {
@@ -314,7 +326,64 @@
 	});
 	</script>
 
+	<!-- Ajax para agregar multimedia-->
+	<script>
+  $('#multimedia-modal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget);
+    var moduloId = button.data('modulo-id');
+    var form = $(this).find('form');
+    var action = form.attr('action');
+    action = action.replace('{modulo}', moduloId);
+    form.attr('action', action);
 
+    function agregarMultimedia(moduloId) {
+      var videoUrl = $('#video-url').val();
+      var url = 'http://localhost/learndo/public/agregarMultimedia';
+      var formData = new FormData(form[0]);
+      formData.append('moduloId', moduloId);
+      formData.append('videoUrl', videoUrl);
+
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          alert(response.message);
+          $('#multimedia-modal').modal('hide');
+          location.reload();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          if (jqXHR.status === 422) {
+            var errors = jqXHR.responseJSON.errors;
+            // Mostrar los mensajes de error al usuario
+            for (var key in errors) {
+              if (errors.hasOwnProperty(key)) {
+                var errorMessage = errors[key][0];
+                alert(errorMessage);
+              }
+            }
+          }
+        }
+      });
+    }
+
+    $('#multimedia-modal').on('click', '.btn-primary', function(e) {
+      e.preventDefault();
+      agregarMultimedia(moduloId);
+      $('#multimedia-modal').modal('hide');
+    });
+  });
+
+		// Función para validar si una URL es de YouTube
+		function isValidYouTubeUrl(url) {
+			// Expresión regular para validar la URL de YouTube
+			var youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+/;
+			return youtubeRegex.test(url);
+		}
+
+	</script>
 
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

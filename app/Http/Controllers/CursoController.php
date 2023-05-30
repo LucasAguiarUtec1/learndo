@@ -10,6 +10,7 @@ use App\Models\Modulo;
 use App\Models\Leccion;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Multimedia;
 
 class CursoController extends Controller
 {
@@ -108,5 +109,29 @@ class CursoController extends Controller
             'url' => $url,
             'name' => $leccion->nombre_archivo,
         ]]);
+    }
+
+    public function eliminarLeccion($idCurso, $idLeccion)
+    {
+        $leccion = Leccion::find($idLeccion);
+        Storage::disk('public')->delete($leccion->path);
+        $leccion->delete();
+        return redirect()->route('modulos', $idCurso);
+    }
+
+    public function agregarMultimedia(Request $request)
+    {
+        $multimedia = new Multimedia();
+        $multimedia->link = $request->input('videoUrl');
+        $multimedia->modulo_id = $request->input('moduloId');
+        $multimedia->save();
+        return $response = ['message' => 'Multimedia agregada correctamente'];
+    }
+
+    public function eliminarMultimedia($idCurso, $idMultimedia)
+    {
+        $multimedia = Multimedia::find($idMultimedia);
+        $multimedia->delete();
+        return redirect()->route('modulos', $idCurso);
     }
 }

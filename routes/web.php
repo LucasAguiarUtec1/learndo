@@ -76,3 +76,9 @@ Route::get('/usuarios', [App\Http\Controllers\UsuarioController::class, 'listar'
 Route::get('/usuarios/{nickname}/profile', [App\Http\Controllers\UsuarioController::class, 'verperfil'])->name('verperfil');
 
 Route::get('/openPDF', [CursoController::class, 'verLeccion'])->name('openPDF')->middleware('auth');
+
+Route::get('/eliminarLeccion/{idCurso}/{idLeccion}', [CursoController::class, 'eliminarLeccion'])->name('eliminarLeccion')->middleware('auth');
+
+Route::post('/agregarMultimedia', [CursoController::class, 'agregarMultimedia'])->name('agregarMultimedia')->middleware('auth');
+
+Route::get('/eliminarMultimedia/{idCurso}/{idMultimedia}', [CursoController::class, 'eliminarMultimedia'])->name('eliminarMultimedia')->middleware('auth');

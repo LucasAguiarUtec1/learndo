@@ -1,46 +1,49 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-  body {
-      background-image: linear-gradient(135deg, rgba(57, 62, 70, 1) 0%, rgba(78, 204, 163, 1) 100%);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+body {
+  background-image: linear-gradient(135deg, rgba(57, 62, 70, 1) 0%, rgba(78, 204, 163, 1) 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  nav{
-    padding: 50px;
-    background-color: #ffffff;
-    border-radius: 2px;
-    border-color: black;
-    color:black;
-    font-weight: bold;;
-  }
-  
- .frase{
+nav {
+  padding: 50px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  border-color: black;
+  color: black;
+  font-weight: bold;
+  ;
+}
+
+.frase {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
-  color:black;
-  font-weight: bold;;
+  color: black;
+  font-weight: bold;
+  ;
   font-size: 50px;
   margin: auto;
-  width: 50%; 
-  margin: auto; 
-  height: 80vh; 
-  display: flex; 
-  justify-content: center; 
+  width: 50%;
+  margin: auto;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
-		
- }
 
- h2{
+}
+
+h2 {
   padding-top: 20px;
   text-align: center;
   padding-bottom: 20px;
- }
- 
- .container.rounded.border.border-secondary.p-4.mt-4 {
+}
+
+.container.rounded.border.border-secondary.p-4.mt-4 {
   border: 10px solid black;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.575);
@@ -53,15 +56,25 @@ html, body {
   border-radius: 50px;
 }
 
-.text-center{
+.text-center {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
-.container{
+.container {
   padding-top: 20px;
 }
+
 .bg-light-gray {
-  background-color: #f6f6f6; /* Cambia este valor al gris claro deseado */
+  background-color: #f6f6f6;
+  /* Cambia este valor al gris claro deseado */
 }
 
+alert {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}

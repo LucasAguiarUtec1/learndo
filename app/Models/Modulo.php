@@ -23,4 +23,9 @@ class Modulo extends Model
     {
         return $this->hasMany('App\Models\Leccion');
     }
+
+    public function multimedia()
+    {
+        return $this->hasMany('App\Models\Multimedia');
+    }
 }
