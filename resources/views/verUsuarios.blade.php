@@ -63,7 +63,6 @@
                     <th>Nombre de usuario</th>
                      <th>Email</th>
                      <th>Nombre completo</th>
-                    <th>Teléfono</th>
                 </tr>
              </thead>
             @foreach($usuarios as $usuario)
@@ -72,7 +71,6 @@
                         <td><a href="{{route('verperfil', $usuario->nickname)}}">{{$usuario->nickname}}</a></td>
                         <td>{{$usuario->email}}</td>
                         <td>{{$usuario->nombrecompleto}}</td>
-                        <td>{{$usuario->telefono}}</td>
                     </tr>
                 </tbody>
             @endforeach
