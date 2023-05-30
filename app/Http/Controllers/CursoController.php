@@ -8,6 +8,8 @@ use App\Models\Clase;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Modulo;
 use App\Models\Leccion;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class CursoController extends Controller
 {
@@ -85,13 +87,26 @@ class CursoController extends Controller
         if ($request->hasFile('pdf_file')) {
             $file = $request->file('pdf_file');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('pdfs', $fileName);
+            $path = 'pdfs/' . $fileName;
+            Storage::disk('public')->put('pdfs/' . $fileName, \File::get($file));
             $leccion->path = $path;
             $leccion->modulo_id = $moduloId;
+            $leccion->nombre_archivo = $fileName;
             $leccion->save();
             return $response = ['message' => 'El archivo se subio correctamente'];
         } else {
             return $response = ['message' => 'Debe Subir un Archivo PDF', 400];
         }
+    }
+
+    public function verLeccion(Request $request)
+    {
+        $leccion = Leccion::where('id', $request->input('leccionId'))->first();
+        $url = Storage::disk('public')->url($leccion->path);
+        $url = substr($url, 18);
+        return response()->json(['response' => [
+            'url' => $url,
+            'name' => $leccion->nombre_archivo,
+        ]]);
     }
 }

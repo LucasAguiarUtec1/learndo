@@ -74,3 +74,5 @@ Route::post('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')
 Route::get('/usuarios', [App\Http\Controllers\UsuarioController::class, 'listar'])->name('ListarUsuarios');
 
 Route::get('/usuarios/{nickname}/profile', [App\Http\Controllers\UsuarioController::class, 'verperfil'])->name('verperfil');
+
+Route::get('/openPDF', [CursoController::class, 'verLeccion'])->name('openPDF')->middleware('auth');

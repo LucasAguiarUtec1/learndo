@@ -15,5 +15,11 @@ class Leccion extends Model
         'nombre',
         'path',
         'modulo_id',
+        'nombre_archivo',
     ];
+
+    public function modulo()
+    {
+        return $this->belongsTo('App\Models\Modulo');
+    }
 }

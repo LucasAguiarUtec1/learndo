@@ -48,6 +48,7 @@
 			</div>
 		</div>
 		@foreach($modulos as $modulo)
+		<?php $lecciones = $modulo->lecciones ?>
 		<div class="card mt-4 modulo" id="modulo-1">
 			<div class="card-header">
 				<h5 class="mb-0">{{$modulo->nombre}}</h5>
@@ -55,11 +56,13 @@
 	
 			<div class="card-body">
 				<ul class="list-group">
+					@foreach($lecciones as $leccion)
 					<li class="list-group-item">
 						<img src="{{asset('images/libro.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
-						<a href="#">Lecciones</a>
+						<a href="#" class="open-pdf-link" data-leccion-id="{{ $leccion->id }}">{{$leccion->nombre}}</a>
 						<button class="btn btn-danger float-right">Eliminar</button>
 					</li>
+					@endforeach
 					<li class="list-group-item">
 						<img src="{{asset('images/multimedia.png')}}" alt="Icono de video" class="mr-3" width="30" height="30">
 						<a href="#">Contenido Multimedia</a>
@@ -282,7 +285,34 @@
   });
 </script>
 
-  
+<script>
+	$(document).ready(function() {
+		$('.open-pdf-link').click(function(e) {
+			e.preventDefault(); // Evita el comportamiento predeterminado del enlace
+	
+			var leccionId = $(this).data('leccion-id'); // Obtiene el ID de la lección
+	
+			// Realiza la solicitud AJAX al controlador
+			$.ajax({
+				url: 'http://localhost/learndo/public/openPDF',
+				type: 'GET',
+				data: { leccionId: leccionId },
+				success: function(response) {
+					if (response.response.url) {
+						var url = 'http://localhost/learndo/public/' + response.response.url; // Obtiene la URL del PDF
+						window.open(url, '_blank');
+					} else {
+						console.error("No se encontró la URL del PDF en la respuesta.");
+					}
+				},
+				error: function(error) {
+					// Se ejecuta si ocurrió un error en la solicitud AJAX
+					console.log(error);
+				}
+			});
+		});
+	});
+	</script>
 
 
 
