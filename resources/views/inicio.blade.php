@@ -28,6 +28,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('miscursos')}}">Mis Cursos</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('paypal')}}">paypal</a>
+				</li>
 				@endif
 			</ul>
 			<ul class="navbar-nav">
@@ -59,7 +62,7 @@
 				@endif
 				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante'))
 				<li class="nav-item active">
-					<a class="nav-link" href="{{route('comprar')}}">Comprar<span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="{{route('comprar')}}">Comprar</a>
 				</li>
 				@endif
 			</ul>

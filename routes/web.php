@@ -92,3 +92,5 @@ Route::get('/encontrarSeminario', [CursoController::class, 'encontrarSeminario']
 Route::get('/Seminario/{nombre}', [SeminarioController::class, 'verSeminario'])->name('verSeminario')->middleware('auth');
 
 Route::get('/Cursos/Comprar', [ClaseController::class, 'show'])->name('comprar')->middleware('auth');
+
+Route::view('/paypal', 'paypal')->name('paypal');
