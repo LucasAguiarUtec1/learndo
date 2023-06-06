@@ -31,6 +31,9 @@
 				@endif
 			</ul>
 			<ul class="navbar-nav">
+			<li class="nav-item">
+					<a class="nav-link" href="{{route('ListarUsuarios')}}">Usuarios</a>
+				</li>
 				@if (Auth::check())
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('logout')}}">Cerrar Sesión</a>
