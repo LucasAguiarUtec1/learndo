@@ -5,11 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mi página con Bootstrap</title>
 	<!-- Agregamos los estilos de Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/stylesInicio.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/styleMisCursos.css')}}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
 		<a class="navbar-brand" href="{{route('inicio')}}">
 			<img src="{{ asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
 		</a>
@@ -19,10 +19,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="{{route('inicio')}}">Inicio</a>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="{{route('mapa')}}">Mapa</a>
+					<a class="nav-link" href="{{route('inicio')}}">Inicio <span class="sr-only">(current)</span></a>
 				</li>
 				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))
 				<li class="nav-item">
@@ -31,9 +28,6 @@
 				@endif
 			</ul>
 			<ul class="navbar-nav">
-			<li class="nav-item">
-					<a class="nav-link" href="{{route('ListarUsuarios')}}">Usuarios</a>
-				</li>
 				@if (Auth::check())
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('logout')}}">Cerrar Sesión</a>
@@ -57,34 +51,35 @@
 					<a class="nav-link" href="{{route('registroseminario')}}">Crear Seminario</a>
 				</li>
 				@endif
-				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante'))
-				<li class="nav-item active">
-					<a class="nav-link" href="{{route('comprar')}}">Comprar<span class="sr-only">(current)</span></a>
-				</li>
-				@endif
 			</ul>
 		</div>
 	</nav>
 
-	<div class="frase">
-		LearnDo el Aprendizaje en tus Manos
-	</div>
+    <div class="container">
+        <h1>Lista de Usuarios</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre de usuario</th>
+                     <th>Email</th>
+                     <th>Nombre completo</th>
+                </tr>
+             </thead>
+            @foreach($usuarios as $usuario)
+                <tbody>
+                    <tr>
+                        <td><a href="{{route('verperfil', $usuario->nickname)}}">{{$usuario->nickname}}</a></td>
+                        <td>{{$usuario->email}}</td>
+                        <td>{{$usuario->nombrecompleto}}</td>
+                    </tr>
+                </tbody>
+            @endforeach
+            </table>
+        </div>
+            
 
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-	crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
-	integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
-	crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
-	integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
-	crossorigin="anonymous"></script>
-
-
-
-	<!--JAVASCRIPT-->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E"></script>
+	<!-- Add your scripts here -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="./custom.js"></script>
-
 </body>
+</html>

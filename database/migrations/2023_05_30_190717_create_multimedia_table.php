@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seminarios', function (Blueprint $table) {
+        Schema::create('multimedia', function (Blueprint $table) {
             $table->id();
-            $table->string('fecha');
-            $table->string('ubicacion')->nullable();
-            $table->string('tipo');
-            $table->string('plataforma')->nullable();
+            $table->string('link');
+            $table->unsignedBigInteger('modulo_id');
+            $table->foreign('modulo_id')->references('id')->on('modulos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seminarios');
+        Schema::dropIfExists('multimedia');
     }
 };

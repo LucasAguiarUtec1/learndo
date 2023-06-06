@@ -17,4 +17,9 @@ class Curso extends Model
     {
         return $this->morphMany(Clase::class, 'claseable');
     }
+
+    public function modulos()
+    {
+        return $this->hasMany('App\Models\Modulo');
+    }
 }

@@ -1,0 +1,285 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-image: linear-gradient(135deg, rgba(57, 62, 70, 1) 0%, rgba(78, 204, 163, 1) 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav {
+  padding: 50px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  border-color: black;
+  color: black;
+  font-weight: bold;
+  ;
+}
+
+.frase {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: black;
+  font-weight: bold;
+  ;
+  font-size: 50px;
+  margin: auto;
+  width: 50%;
+  margin: auto;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+h2 {
+  padding-top: 20px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.container.rounded.border.border-secondary.p-4.mt-4 {
+  border: 10px solid black;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.575);
+  width: 60%;
+}
+
+
+.rounded-circle.border.border-secondary.d-inline-block.p-1 {
+  border: 10px solid black;
+  border-radius: 50px;
+}
+
+.text-center {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.container {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+}
+
+.container-center {
+  padding-left: 10%;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerCard {
+  margin: 20px auto;
+
+
+}
+
+.card {
+  margin-bottom: 20px;
+  /* Agrega un margen inferior a las tarjetas */
+  max-width: 300px;
+  /* Limita la anchura máxima de las tarjetas */
+  margin: auto;
+  /* Centra las tarjetas horizontalmente */
+  margin-bottom: 20px;
+}
+
+.pagination {
+  padding-top: 40px;
+  margin-left: 25%;
+  margin-right: 30%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  /* Aumenté el ancho para que quepa el texto */
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #2196F3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  transform: translateX(70px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.on-text,
+.off-text {
+  left: 45px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0 4px;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.on-text {
+  left: 5px;
+  opacity: 0;
+}
+
+.off-text {
+  right: 5px;
+  opacity: 1;
+}
+
+input:checked+.slider .on-text {
+  opacity: 1;
+}
+
+input:checked+.slider .off-text {
+  opacity: 0;
+}
+
+
+.toggle-button {
+  padding-left: 48%;
+
+}
+
+.credits-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 33.33%;
+  /* Nuevo ancho del modal (1/3 del ancho de la pantalla) */
+  max-width: 400px;
+  /* Puedes ajustar el valor máximo según tus necesidades */
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+}
+
+#paypalBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0070ba;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#paypalBtn img {
+  width: 100px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+}
+
+input[type="text"],
+input[type="checkbox"] {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.custom-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: linear-gradient(135deg, rgba(57, 62, 70, 1) 0%, rgba(78, 204, 163, 1) 100%);
+
+}
+
+.custom-pagination .pagination {
+  margin: 0;
+}
+
+.pagination .page-item {
+  background-color: transparent;
+  border: none;
+}
+
+.pagination .page-link {
+  color: #007bff;
+}
+
+.custom-pagination .page-link:hover {
+  background-color: #eaeaea;
+  opacity: 0;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+}

@@ -1,0 +1,48 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    background-image: linear-gradient(135deg, rgba(57, 62, 70, 1) 0%, rgba(78, 204, 163, 1) 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav {
+    padding: 50px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    border-color: black;
+    color: black;
+    font-weight: bold;
+}
+
+.seminar-container {
+    margin: 50px auto;
+    width: 80%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.seminar-info {
+    text-align: center;
+}
+
+.seminar-info img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.seminar-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.seminar-info p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}

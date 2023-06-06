@@ -9,11 +9,8 @@ class Clase extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'nombre';
+    protected $table = 'clases';
 
-    public $incrementing = false;
-
-    protected $keyType = 'string';
 
     protected $fillable = [
         'nombre',
@@ -21,6 +18,7 @@ class Clase extends Model
         'precio',
         'free',
         'organizador_id',
+        'foto'
     ];
 
     public function claseable()

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\SeminarioController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
@@ -53,4 +55,40 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::view('/Seminario/registro', 'AltaSeminario')->name('registroseminario')->middleware('auth');
 
+Route::post('/Seminario/registro', [App\Http\Controllers\SeminarioController::class, 'create'])->name('registrarseminario')->middleware('auth');
+
 Route::post('/register/facebook', [SocialController::class, 'refreshInfo'])->name('refreshinfo')->middleware('auth');
+
+Route::get('/Curso/misCursos', [CursoController::class, 'misCursos'])->name('miscursos')->middleware('auth');
+
+Route::get('/Curso/misCursos/Eliminar/{id}', [CursoController::class, 'eliminar'])->name('eliminarcurso')->middleware('auth');
+
+Route::get('/Seminario/misSeminarios/Eliminar/{id}', [App\Http\Controllers\SeminarioController::class, 'delete'])->name('eliminarseminario')->middleware('auth');
+
+Route::get('/Curso/{id}/modulos', [CursoController::class, 'modulos'])->name('modulos')->middleware('auth');
+
+Route::post('/Curso/{id}/modulos/crear', [CursoController::class, 'crearModulo'])->name('crearModulo')->middleware('auth');
+
+Route::get('/Curso/{id}/modulos/{idMod}/eliminar', [CursoController::class, 'eliminarModulo'])->name('eliminarModulo')->middleware('auth');
+
+Route::post('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')->middleware('auth');
+
+Route::get('/usuarios', [App\Http\Controllers\UsuarioController::class, 'listar'])->name('ListarUsuarios');
+
+Route::get('/usuarios/{nickname}/profile', [App\Http\Controllers\UsuarioController::class, 'verperfil'])->name('verperfil');
+
+Route::get('/openPDF', [CursoController::class, 'verLeccion'])->name('openPDF')->middleware('auth');
+
+Route::get('/eliminarLeccion/{idCurso}/{idLeccion}', [CursoController::class, 'eliminarLeccion'])->name('eliminarLeccion')->middleware('auth');
+
+Route::post('/agregarMultimedia', [CursoController::class, 'agregarMultimedia'])->name('agregarMultimedia')->middleware('auth');
+
+Route::get('/eliminarMultimedia/{idCurso}/{idMultimedia}', [CursoController::class, 'eliminarMultimedia'])->name('eliminarMultimedia')->middleware('auth');
+
+Route::get('/mapita', [SeminarioController::class, 'getUbicaciones'])->name('mapa')->middleware('auth');
+
+Route::get('/encontrarSeminario', [CursoController::class, 'encontrarSeminario'])->name('encontrarSeminario')->middleware('auth');
+
+Route::get('/Seminario/{nombre}', [SeminarioController::class, 'verSeminario'])->name('verSeminario')->middleware('auth');
+
+Route::get('/Cursos/Comprar', [ClaseController::class, 'show'])->name('comprar')->middleware('auth');

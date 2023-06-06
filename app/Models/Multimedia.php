@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Seminario extends Model
+class Multimedia extends Model
 {
     use HasFactory;
 
+    protected $table = 'multimedia';
+
     protected $fillable = [
-        'fecha',
-        'ubicacion',
-        'tipo',
-        'plataforma',
+        'link',
+        'modulo_id',
     ];
 
-    public function clase()
+    public function modulo()
     {
-        return $this->morphMany(Clase::class, 'claseable');
+        return $this->belongsTo('App\Models\Modulo');
     }
 }
