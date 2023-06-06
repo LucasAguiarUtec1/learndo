@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\SeminarioController;
 use App\Http\Controllers\SocialController;

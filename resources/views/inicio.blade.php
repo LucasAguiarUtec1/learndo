@@ -24,9 +24,6 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="{{route('mapa')}}">Mapa</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="{{route('mapa')}}">Mapa<span class="sr-only">(current)</span></a>
-				</li>
 				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('miscursos')}}">Mis Cursos</a>
@@ -55,6 +52,11 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('registroseminario')}}">Crear Seminario</a>
+				</li>
+				@endif
+				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante'))
+				<li class="nav-item active">
+					<a class="nav-link" href="{{route('comprar')}}">Comprar<span class="sr-only">(current)</span></a>
 				</li>
 				@endif
 			</ul>

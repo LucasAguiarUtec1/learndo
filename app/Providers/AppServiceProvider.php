@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
             'Seminario' => 'App\Models\Seminario',
             'Curso' => 'App\Models\Curso',
         ]);**/
+
+        Paginator::useBootstrap();
     }
 }

@@ -112,7 +112,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Créditos</span>
 					</div>
-					<input type="text" class="form-control form-control-sm" value="1000.00" readonly>
+					<input type="text" class="form-control form-control-sm" value="{{Auth::user()->creditos}}" readonly>
 					<div class="input-group-append">
 						<span class="input-group-text">$</span>
 					</div>
@@ -124,184 +124,55 @@
 	<div class="container-center" id="cursosContainer" style="display: block;">
 		<div class="containerCard mt-5">
 			<div class="row">
+				@foreach($cursos as $curso)
 				<div class="col-md-2">
 					<div class="card">
-						<img src="descarga.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
+						@if($curso->foto != null)
+						<img src="{{ asset($curso->foto) }}" class="card-img-top img-fluid border-bottom" alt="..." style="width: 100%; height: 200px;">
+						@else
+						<img src="{{asset('images/perfil.jpg')}}" class="card-img-top img-fluid border-bottom" alt="..." style="width: 100%; height: 200px;">
+						@endif
 						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te enseña,
-								mira
-								tensa siempre</p>
+							<h5 class="card-title">{{$curso->nombre}}</h5>
+							<p class="card-text">{{$curso->descripcion}}</p>
 							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
-					<div class="card">
-						<img src="descarga.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
-						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te enseña,
-								mira
-								tensa siempre</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card">
-						<img src="descarga.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
-						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te enseña,
-								mira
-								tensa siempre</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card">
-						<img src="descarga.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
-						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te enseña,
-								mira
-								tensa siempre</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card">
-						<img src="descarga.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
-						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te enseña,
-								mira
-								tensa siempre</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
-						</div>
-					</div>
-				</div>
+				@endforeach
 			</div>
+			
 		</div>
-		<div class="pagination">
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled">
-					<div class="btn-group" role="group" aria-label="Navegación">
-						<button type="button" class="btn btn-primary"><i class="fas fa-arrow-left"></i></button>
-					</div>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-					<div class="btn-group" role="group" aria-label="Navegación">
-						<button type="button" class="btn btn-primary"><i class="fas fa-arrow-right"></i></button>
-					</div>
-				</li>
-			</ul>
+		<div class="custom-pagination">
+			{{ $cursos->links() }}
 		</div>
 	</div>
 
 	<div class="container-center" id="seminariosContainer" style="display: none;">
 		<div class="containerCard mt-5">
 			<div class="row">
+				@foreach($seminarios as $seminario)
 				<div class="col-md-2">
 					<div class="card">
-						<img src="d.jpg" class="card-img-top img-fluid border-bottom" alt="..."
+						@if($seminario->foto != null)
+						<img src="{{asset($seminario->foto)}}" class="card-img-top img-fluid border-bottom" alt="..."
 							style="width: 100%; height: 200px;">
+						@else
+						<img src="{{asset('images/perfil.jpg')}}" class="card-img-top img-fluid border-bottom" alt="..."
+							style="width: 100%; height: 200px;">
+						@endif
 						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te
-								enseña,
-								mira
-								tensa siempre</p>
+							<h5 class="card-title">{{$seminario->nombre}}</h5>
+							<p class="card-text">{{$seminario->descripcion}}</p>
 							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
-					<div class="card">
-						<img src="d.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
-						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te
-								enseña,
-								mira
-								tensa siempre</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card">
-						<img src="d.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
-						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te
-								enseña,
-								mira
-								tensa siempre</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card">
-						<img src="d.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
-						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te
-								enseña,
-								mira
-								tensa siempre</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card">
-						<img src="d.jpg" class="card-img-top img-fluid border-bottom" alt="..."
-							style="width: 100%; height: 200px;">
-						<div class="card-body border-top">
-							<h5 class="card-title">Clases de CsGo</h5>
-							<p class="card-text">Sos un pete aprende a jugar bien al jueguito pibe, el joaco te
-								enseña,
-								mira
-								tensa siempre</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
-						</div>
-					</div>
-				</div>
+				@endforeach
 			</div>
 		</div>
-
-		<div class="pagination">
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled">
-					<div class="btn-group" role="group" aria-label="Navegación">
-						<button type="button" class="btn btn-primary"><i class="fas fa-arrow-left"></i></button>
-					</div>
-				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-					<div class="btn-group" role="group" aria-label="Navegación">
-						<button type="button" class="btn btn-primary"><i class="fas fa-arrow-right"></i></button>
-					</div>
-				</li>
-			</ul>
+		<div class="custom-pagination">
+			{{ $seminarios->links() }}
 		</div>
 	</div>
 
