@@ -22,6 +22,9 @@
 					<a class="nav-link" href="{{route('inicio')}}">Inicio</a>
 				</li>
 				<li class="nav-item active">
+					<a class="nav-link" href="{{route('mapa')}}">Mapa</a>
+				</li>
+				<li class="nav-item active">
 					<a class="nav-link" href="{{route('mapa')}}">Mapa<span class="sr-only">(current)</span></a>
 				</li>
 				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))

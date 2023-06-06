@@ -17,14 +17,13 @@ class SeminarioController extends Controller
     {
         $request->validate([
             'image' => 'nullable|image',
-            'fecha' => 'required|date',
-            'tipo' => 'required|in:Presencial,Online',
+            'fecha' => 'required',
+            'tipo' => 'required',
             'ubi' => 'required_if:tipo,Presencial',
-            'plataforma' => 'required_if:tipo,Online',
+            'plataforma' => 'required_if:tipo,Virtual',
             'name' => 'required|string|max:255',
-            'descripcion' => 'required|string',
+            'descripcion' => 'required',
             'precio' => 'required|numeric',
-            'free' => 'boolean',
         ]);
 
 

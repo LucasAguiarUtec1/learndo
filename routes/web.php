@@ -89,3 +89,5 @@ Route::get('/mapita', [SeminarioController::class, 'getUbicaciones'])->name('map
 Route::get('/encontrarSeminario', [CursoController::class, 'encontrarSeminario'])->name('encontrarSeminario')->middleware('auth');
 
 Route::get('/Seminario/{nombre}', [SeminarioController::class, 'verSeminario'])->name('verSeminario')->middleware('auth');
+
+Route::get('/Cursos/Comprar', [ClaseController::class, 'show'])->name('comprar')->middleware('auth');
