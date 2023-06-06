@@ -5,11 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Mi página con Bootstrap</title>
 	<!-- Agregamos los estilos de Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{{asset('css/styleMisCursos.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/stylePerfilUsuario.css')}}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+
+
+
+
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light">
 		<a class="navbar-brand" href="{{route('inicio')}}">
 			<img src="{{ asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
 		</a>
@@ -54,29 +59,95 @@
 			</ul>
 		</div>
 	</nav>
+	<!-- Cuerpo de la página -->
+	<div class="container mx-auto my-5">
+		<div class="row">
+			<div class="col-md-4 text-center">
+				@if($usuario->foto_fb)
+					<img src="{{$usuario->foto_fb}}" alt="Foto de perfil fb" class="img-fluid rounded-circle"
+					style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+				@endif
+				@if($usuario->foto)
+					<img src="{{ asset($usuario->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle"
+					style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+				@endif
+				<h4 style="padding-top: 10px; padding-bottom: 10px;"><strong>{{$usuario->nickname}}</strong></h4>
+				<div>
+					<button id="edit-button" class="btn btn-primary align-content-center text-center">Editar</button>
+					<button id="mensaje-button" class="btn btn-primary align-content-center text-center" >Enviar Mensaje</button>
+				</div>
+			</div>
+			<div class="col-md-8" style="padding: 30px;">
+				<h4><strong>{{$usuario->nombrecompleto}}</strong></h4>
+				<p>{{$usuario->biografia}}</p>
+					
+				<!-- Modal -->
+				<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editModalLabel">Editar Perfil</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="mb-3">
+									<label for="nameInput" class="form-label">Nombre</label>
+									<input type="text" class="form-control" id="nameInput"
+										placeholder="Ingrese su nombre">
+								</div>
+								<div class="mb-3">
+									<label for="nicknameInput" class="form-label">Nickname</label>
+									<input type="text" class="form-control" id="nicknameInput"
+										placeholder="Ingrese su nickname">
+								</div>
+								<div class="mb-3">
+									<label for="bioInput" class="form-label">Biografía</label>
+									<textarea class="form-control" id="bioInput" rows="3"
+										placeholder="Ingrese su biografía"></textarea>
+								</div>
+								<div class="mb-3">
+									<label for="photoInput" class="form-label">Foto</label>
+									<input type="file" class="form-control" id="photoInput">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+								<button type="button" class="btn btn-primary">Guardar cambios</button>
+							</div>
+						</div>
+					</div>
+				</div>
 
-    <div class="container">
-        <h1>Perfil de {{$usuario->nickname}}</h1>
-        <h1> </h1>
-        <n>Nombre completo: {{$usuario->nombrecompleto}}</n>
-        <h1> </h1>
-        <n>E-Mail: {{$usuario->email}}</n>
-        @if($usuario->telefono)
-        <h1> </h1>
-        <n>Teléfono: {{$usuario->telefono}}</n>
-        @endif
-        @if($usuario->biografia)
-        <h1> </h1>
-        <n>Biografía: {{$usuario->biografia}}</n>
-        @endif
-        <h1> </h1>
-        @if($usuario->foto_fb)
-        <n>¿Foto?:</n> <img src="{{$usuario->foto_fb}}" alt="My Facebook Photo">
-        @endif
-            
+				<script>
+					document.getElementById("edit-button").addEventListener("click", function () {
+						$('#editModal').modal('show');
+					});
+				</script>
 
-	<!-- Add your scripts here -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="./custom.js"></script>
+
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+					integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+					crossorigin="anonymous"></script>
+				<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+					integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+					crossorigin="anonymous"></script>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+					integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+					crossorigin="anonymous"></script>
+
+
+
+				<!--JAVASCRIPT-->
+				<script src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E"></script>
+				<script src="./custom.js"></script>
+
 </body>
+
+
+
+
 </html>
