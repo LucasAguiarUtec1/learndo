@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('precio');
             $table->boolean('free');
+            $table->string('foto')->nullable();
             $table->morphs('claseable'); // claseable_id, claseable_type
             $table->unsignedBigInteger('organizador_id');
             $table->foreign('organizador_id')->references('id')->on('organizadores')->onDelete('cascade');

@@ -11,6 +11,7 @@ use App\Models\Leccion;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Multimedia;
+use App\Models\Seminario;
 
 class CursoController extends Controller
 {
@@ -133,5 +134,22 @@ class CursoController extends Controller
         $multimedia = Multimedia::find($idMultimedia);
         $multimedia->delete();
         return redirect()->route('modulos', $idCurso);
+    }
+
+    public function encontrarSeminario(Request $request)
+    {
+        $latitud = $request->input('latitud');
+        $longitud = $request->input('longitud');
+
+        $ubicacion = $latitud . ', ' . $longitud;
+        $seminario = Seminario::where('ubicacion', $ubicacion)->first();
+        $clase = $seminario->clase()->first();
+
+        return response()->json(['response' => [
+            'titulo' => $clase->nombre,
+            'descripcion' => $clase->descripcion,
+            'precio' => $clase->precio,
+            'fecha' => $seminario->fecha,
+        ]]);
     }
 }

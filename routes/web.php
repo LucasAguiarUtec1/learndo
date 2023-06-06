@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\SeminarioController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
@@ -82,3 +83,9 @@ Route::get('/eliminarLeccion/{idCurso}/{idLeccion}', [CursoController::class, 'e
 Route::post('/agregarMultimedia', [CursoController::class, 'agregarMultimedia'])->name('agregarMultimedia')->middleware('auth');
 
 Route::get('/eliminarMultimedia/{idCurso}/{idMultimedia}', [CursoController::class, 'eliminarMultimedia'])->name('eliminarMultimedia')->middleware('auth');
+
+Route::get('/mapita', [SeminarioController::class, 'getUbicaciones'])->name('mapa')->middleware('auth');
+
+Route::get('/encontrarSeminario', [CursoController::class, 'encontrarSeminario'])->name('encontrarSeminario')->middleware('auth');
+
+Route::get('/Seminario/{nombre}', [SeminarioController::class, 'verSeminario'])->name('verSeminario')->middleware('auth');

@@ -30,7 +30,7 @@
 	<!-- Cuerpo de la página -->
 <div class="container rounded border border-secondary p-4 mt-4">
 	<h2>Registrarse</h2>
-	<form method="POST" action="{{route('register')}}" >
+	<form method="POST" action="{{route('register')}}" enctype="multipart/form-data">
     @csrf
 		<div class="row">
 			<div class="col-md-6">
@@ -114,10 +114,10 @@
 						<br>
 					@enderror
 				</div>
-				<!-- <div class="form-group">
+				 <div class="form-group">
 					<label for="imagen">Imagen de perfil</label>
-					<input type="file" class="form-control-file" id="imagen">
-				</div> -->
+					<input type="file" class="form-control-file" id="imagen" name="image">
+				</div> 
 			</div>
 		</div>
 		<div class="registrarse"> 

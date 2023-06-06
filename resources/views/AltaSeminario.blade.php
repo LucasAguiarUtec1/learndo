@@ -45,23 +45,43 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<h2>Alta Seminario</h2>
-				<form method="POST" action="{{route('registrarseminario')}}">
+				<form method="POST" action="{{route('registrarseminario')}}" enctype="multipart/form-data">
 					@csrf
 					<div class="form-group">
 						<label for="nombreSeminario">Nombre del Seminario</label>
-						<input type="text" class="form-control" id="nombreCurso" placeholder="Ingrese el nombre del curso" name="name">
+						<input type="text" class="form-control" id="nombreCurso" placeholder="Ingrese el nombre del curso" name="name" value="{{old('name')}}">
+						@error('name')
+						<br>
+							<small>*{{$message}}</small>
+						<br>
+					@enderror
 					</div>
 					<div class="form-group">
 						<label for="descripcion">Descripción</label>
-						<textarea class="form-control" id="descripcion" rows="4" placeholder="Ingrese la descripción del curso" name="descripcion"></textarea>
+						<textarea class="form-control" id="descripcion" rows="4" placeholder="Ingrese la descripción del curso" name="descripcion" value="{{old('descripcion')}}"></textarea>
+						@error('descripcion')
+						<br>
+							<small>*{{$message}}</small>
+						<br>
+					@enderror
 					</div>
 					<div class="form-group">
 						<label for="fecha">Fecha</label>
-						<input type="date" class="form-control" id="fecha" name="fecha">
+						<input type="date" class="form-control" id="fecha" name="fecha" value="{{old('fecha')}}">
+						@error('fecha')
+						<br>
+							<small>*{{$message}}</small>
+						<br>
+					@enderror
 					</div>
 					<div class="form-group">
 						<label for="hora">Hora</label>
-						<input type="time" class="form-control" id="hora" name="hora">
+						<input type="time" class="form-control" id="hora" name="hora" value="{{old('hora')}}">
+						@error('hora')
+						<br>
+							<small>*{{$message}}</small>
+						<br>
+					@enderror
 					</div>
 					<div class="form-group">
 						<label for="tipo">Tipo</label>
@@ -78,21 +98,45 @@
 						</div>
 						<div class="form-group">
 							<label for="maxParticipantes">Máximo de participantes</label>
-							<input type="number" class="form-control" id="maxParticipantes" placeholder="Ingrese el máximo de participantes" name="participantes">
+							<input type="number" class="form-control" id="maxParticipantes" placeholder="Ingrese el máximo de participantes" name="participantes" value="{{old('participantes')}}">
+							@error('participantes')
+						<br>
+							<small>*{{$message}}</small>
+						<br>
+					@enderror
 						</div>
 						
 					</div>
 					<div id="virtualFields" style="display: none;">
 						<div class="form-group">
 							<label for="plataforma">Plataforma</label>
-							<input type="text" class="form-control" id="plataforma" placeholder="Ingrese la plataforma" name="plataforma">
+							<input type="text" class="form-control" id="plataforma" placeholder="Ingrese la plataforma" name="plataforma" value="{{old('plataforma')}}">
+							@error('plataforma')
+						<br>
+							<small>*{{$message}}</small>
+						<br>
+					@enderror
 						</div>
 						
 					</div>
 					<div class="form-group">
 						<label for="precio">Precio</label>
-						<input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
+						<input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio" value="{{old('precio')}}">
+						@error('precio')
+						<br>
+							<small>*{{$message}}</small>
+						<br>
+					@enderror
 					</div>
+					<div class="form-group">
+						<label for="imagen">Imagen de perfil</label>
+						<input type="file" class="form-control-file" id="imagen" name="image" value="{{old('image')}}">
+						@error('image')
+						<br>
+							<small>*{{$message}}</small>
+						<br>
+					@enderror
+					</div> 
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">Crear Clase</button>
 					</div>
