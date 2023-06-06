@@ -73,8 +73,12 @@
 				@endif
 				<h4 style="padding-top: 10px; padding-bottom: 10px;"><strong>{{$usuario->nickname}}</strong></h4>
 				<div>
+					@if(Auth::check() && Auth::user()->nickname == $usuario->nickname)
 					<button id="edit-button" class="btn btn-primary align-content-center text-center">Editar</button>
+					@endif
+					@if(Auth::check() && Auth::user()->nickname != $usuario->nickname)
 					<button id="mensaje-button" class="btn btn-primary align-content-center text-center" >Enviar Mensaje</button>
+					@endif
 				</div>
 			</div>
 			<div class="col-md-8" style="padding: 30px;">
