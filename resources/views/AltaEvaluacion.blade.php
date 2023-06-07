@@ -79,13 +79,13 @@
                                 <input type="text" class="form-control" name="opcion" placeholder="Respuesta">
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-danger eliminar-opcion" style="padding top: 10px;">Eliminar</button>
+                                <button class="btn btn-danger eliminar-opcion" style="padding top: 10px;" type="button">Eliminar</button>
                             </div>
                             </div>
                         </div>
                 </div>
-                <button class="btn btn-primary agregar-opcion">Agregar Respuesta</button>
-                    <button class="btn btn-danger eliminar-pregunta">Eliminar Pregunta</button>
+                <button class="btn btn-primary agregar-opcion" type="button">Agregar Respuesta</button>
+                    <button class="btn btn-danger eliminar-pregunta" type="button">Eliminar Pregunta</button>
             </div>
         </div>
     </div>
