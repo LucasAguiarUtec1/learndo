@@ -90,9 +90,9 @@
 								Añadir Contenido Multimedia
 							</button>
 	
-							<button class="btn btn-success" data-toggle="modal" data-target="#evaluacion-modal">
+							<button class="btn btn-success">
 								<img src="{{asset('images/lapiz.png')}}" alt="Icono" class="mr-2" width="20" height="20">
-								Añadir Evaluación
+								<a href="{{route('crearEv', ['idMod' => $modulo->id])}}">Añadir Evaluación</a>
 							</button>
 							<a href="{{route('eliminarModulo', ['id' => $clase->id, 'idMod' => $modulo->id])}}" class="btn btn-danger float-right mt-2">Eliminar Módulo</a>
 						</div>

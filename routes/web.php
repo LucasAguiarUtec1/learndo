@@ -7,6 +7,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\SeminarioController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EvaluacionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +71,10 @@ Route::get('/Curso/{id}/modulos', [CursoController::class, 'modulos'])->name('mo
 Route::post('/Curso/{id}/modulos/crear', [CursoController::class, 'crearModulo'])->name('crearModulo')->middleware('auth');
 
 Route::get('/Curso/{id}/modulos/{idMod}/eliminar', [CursoController::class, 'eliminarModulo'])->name('eliminarModulo')->middleware('auth');
+
+Route::get('/modulos/{idMod}/crearEv', [EvaluacionController::class, 'crearEv'])->name('crearEv')->middleware('auth');
+
+Route::post('/modulos/{idMod}/crearEvaluacion', [EvaluacionController::class, 'crearEvaluacion'])->name('crearEvaluacion')->middleware('auth');
 
 Route::post('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')->middleware('auth');
 
