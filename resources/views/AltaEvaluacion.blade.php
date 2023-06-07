@@ -50,11 +50,14 @@
         <div id="preguntas-container">
             <!-- Aquí se agregarán las tarjetas de preguntas dinámicamente -->
         </div>
-        <button id="agregar-pregunta" class="btn btn-primary">Agregar Pregunta</button>
+        
         <button id="alta-evaluacion" class="btn btn-success">Aceptar</button>
+        <button id="agregar-pregunta" class="btn btn-primary" type="button">Agregar Pregunta</button>
     </div>
 
+
     <!-- Plantilla de tarjeta de pregunta oculta -->
+    
     <div id="plantilla-pregunta" style="display: none;">
         <div class="card mb-3">
             <div class="card-body">
