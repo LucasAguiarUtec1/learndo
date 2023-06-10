@@ -9,6 +9,7 @@ use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,3 +95,7 @@ Route::get('/Seminario/{nombre}', [SeminarioController::class, 'verSeminario'])-
 Route::get('/Cursos/Comprar', [ClaseController::class, 'show'])->name('comprar')->middleware('auth');
 
 Route::view('/paypal', 'paypal')->name('paypal');
+
+Route::get('/paypal/pay', [PaymentController::class, 'payWithPayPal']);
+
+Route::get('/paypal/status', [PaymentController::class, 'payPalStatus']);
