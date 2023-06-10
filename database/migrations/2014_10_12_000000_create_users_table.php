@@ -22,7 +22,6 @@
                 $table->string('password')->nullable();
                 $table->string('telefono');
                 $table->string('biografia')->nullable();
-                $table->string('foto_fb')->nullable();
                 $table->string('foto')->nullable();
                 $table->rememberToken('token', 100);
                 $table->timestamps();

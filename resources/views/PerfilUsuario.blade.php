@@ -63,14 +63,7 @@
 	<div class="container mx-auto my-5">
 		<div class="row">
 			<div class="col-md-4 text-center">
-				@if($usuario->foto_fb)
-					<img src="{{$usuario->foto_fb}}" alt="Foto de perfil fb" class="img-fluid rounded-circle"
-					style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
-				@endif
-				@if($usuario->foto)
-					<img src="{{ asset($usuario->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle"
-					style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
-				@endif
+					<img src="{{asset($usuario->foto)}}" alt="Foto de perfil">
 				<h4 style="padding-top: 10px; padding-bottom: 10px;"><strong>{{$usuario->nickname}}</strong></h4>
 				<div>
 					@if(Auth::check() && Auth::user()->nickname == $usuario->nickname)
