@@ -366,9 +366,9 @@ class MessagesController extends Controller
                         }
                     }
                     // upload
-                    $avatar = Str::uuid() . "." . $file->extension();
-                    $update = User::where('id', Auth::user()->id)->update(['avatar' => $avatar]);
-                    $file->storeAs(config('chatify.user_avatar.folder'), $avatar, config('chatify.storage_disk_name'));
+                    $avatar = 'images/' . $fileName;;
+                    $update = User::where('id', Auth::user()->id)->update(['foto' => $avatar]);
+                    Storage::disk('public')->put('images/' . $fileName, \File::get($file));
                     $success = $update ? 1 : 0;
                 } else {
                     $msg = "File extension not allowed!";

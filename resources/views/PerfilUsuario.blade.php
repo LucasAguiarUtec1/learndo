@@ -63,7 +63,8 @@
 	<div class="container mx-auto my-5">
 		<div class="row">
 			<div class="col-md-4 text-center">
-					<img src="{{asset($usuario->foto)}}" alt="Foto de perfil">
+					<img src="{{ asset('storage/' . $usuario->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle"
+                    style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
 				<h4 style="padding-top: 10px; padding-bottom: 10px;"><strong>{{$usuario->nickname}}</strong></h4>
 				<div>
 					@if(Auth::check() && Auth::user()->nickname == $usuario->nickname)
