@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Chatify\Contracts\ChatifyUser;
+use Chatify\Traits\ChatifyMessenger;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -35,11 +37,25 @@ class User extends Authenticatable implements MustVerifyEmail
         'telefono',
         'biografia',
         'fb_id',
-        'foto_fb',
         'userable_type',
         'userable_id',
         'foto',
     ];
+
+    public function getChatifyId()
+    {
+        return $this->id;
+    }
+
+    public function getChatifyName()
+    {
+        return $this->nickname;
+    }
+
+    public function getChatifyAvatar()
+    {
+        return $this->foto;
+    }
 
     /**
      * The attributes that should be hidden for serialization.

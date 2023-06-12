@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Organizador;
 use App\Models\Colaborador;
+use Illuminate\Support\Facades\Storage;
 
 
 class SocialController extends Controller
@@ -31,7 +32,6 @@ class SocialController extends Controller
                 'nickname' => $facebookUser->name . '12345678',
                 'email' => $facebookUser->email,
                 'nombrecompleto' => $facebookUser->name,
-                'foto_fb' => $facebookUser->avatar,
                 'fb_id' => $facebookUser->id,
                 'email_verified_at' => $timestamp,
                 'userable_type' => 'App\Models\Alumno',
@@ -52,6 +52,14 @@ class SocialController extends Controller
     {
         $user = User::where('email', Auth::user()->email)->first();
         $user->nickname = $request->nick;
+        $path = null;
+        if ($request['image'] != null) {
+            $file = $request['image'];
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = 'images/' . $fileName;
+            Storage::disk('public')->put('images/' . $fileName, \File::get($file));
+        }
+        $user->foto = $path;
         $user->save();
         switch ($request->rol) {
             case 'Estudiante':

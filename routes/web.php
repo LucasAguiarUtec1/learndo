@@ -79,9 +79,9 @@ Route::post('/modulos/{idMod}/crearEvaluacion', [EvaluacionController::class, 'c
 
 Route::post('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')->middleware('auth');
 
-Route::get('/usuarios', [App\Http\Controllers\UsuarioController::class, 'listar'])->name('ListarUsuarios');
+Route::get('/usuarios', [UsuarioController::class, 'listar'])->name('ListarUsuarios')->middleware('auth');
 
-Route::get('/usuarios/{nickname}/profile', [App\Http\Controllers\UsuarioController::class, 'verperfil'])->name('verperfil');
+Route::get('/usuarios/{nickname}/profile', [UsuarioController::class, 'verperfil'])->name('verperfil')->middleware('auth');
 
 Route::get('/openPDF', [CursoController::class, 'verLeccion'])->name('openPDF')->middleware('auth');
 
