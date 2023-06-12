@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Chatify\Models\Message;
+use Chatify\Models\Conversation;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -39,6 +41,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'userable_id',
         'foto',
     ];
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'from_id');
+    }
+
+    public function chats()
+    {
+        return $this->belongsToMany(Conversation::class, 'chatify_conversation_user', 'user_id', 'conversation_id')
+            ->orderBy('created_at', 'desc');
+    }
 
     public function getChatifyId()
     {

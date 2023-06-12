@@ -51,7 +51,7 @@ class MessagesController extends Controller
         if ($request['type'] == 'user') {
             $fetch = User::where('id', $request['id'])->first();
             if ($fetch) {
-                $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
+                $userAvatar = Chatify::getUserWithAvatar($fetch)->foto;
             }
         }
 
