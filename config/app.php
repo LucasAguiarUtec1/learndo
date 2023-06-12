@@ -169,7 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Chatify\ChatifyServiceProvider::class,
+        \Chatify\ChatifyServiceProvider::class,
 
     ])->toArray(),
 
