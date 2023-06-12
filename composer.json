@@ -15,10 +15,17 @@
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
+<<<<<<< Updated upstream
         "paypal/paypal-checkout-sdk": "^1.0",
         "paypal/rest-api-sdk-php": "^1.6",
         "socialiteproviders/facebook": "^4.1",
-        "srmklive/paypal": "~3.0",
+        "srmklive/paypal": "~3.0"
+
+        "munafio/chatify": "^1.6",
+        "pusher/pusher-php-server": "^7.2",
+        "socialiteproviders/facebook": "^4.1"
+
+    
         "stripe/stripe-php": "^10.15"
     },
     "require-dev": {
