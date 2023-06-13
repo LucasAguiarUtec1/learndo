@@ -49,6 +49,7 @@ class UsuarioController extends Controller
 
         return redirect()->back()->withErrors([
             'email' => 'No se pudo iniciar sesión. Por favor, comprueba tus credenciales e inténtalo de nuevo.',
+            'password' => 'No se pudo iniciar sesión. Por favor, comprueba tus credenciales e inténtalo de nuevo.',
         ]);
     }
 

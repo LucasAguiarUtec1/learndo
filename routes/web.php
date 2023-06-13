@@ -34,7 +34,7 @@ Route::get('/login/{driver}', [SocialController::class, 'redirectToProvider']);
 
 Route::get('/login/{driver}/callback', [SocialController::class, 'handleProviderCallback']);
 
-Route::get('/iniciarsesion', [LoginController::class, 'authenticate'])->name('iniciarsesion');
+Route::post('/iniciarsesion', [LoginController::class, 'authenticate'])->name('iniciarsesion');
 
 Route::post('/Usuario/registro', [UsuarioController::class, 'create'])->name('registrarse');
 
