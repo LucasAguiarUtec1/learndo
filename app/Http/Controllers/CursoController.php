@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\Multimedia;
 use App\Models\Seminario;
 use App\Models\User;
-
+ //
 
 class CursoController extends Controller
 {
