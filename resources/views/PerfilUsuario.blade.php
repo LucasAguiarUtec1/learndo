@@ -71,7 +71,9 @@
 					<button id="edit-button" class="btn btn-primary align-content-center text-center">Editar</button>
 					@endif
 					@if(Auth::check() && Auth::user()->nickname != $usuario->nickname)
-					<button id="mensaje-button" class="btn btn-primary align-content-center text-center" >Enviar Mensaje</button>
+					<button id="mensaje-button" class="btn btn-primary align-content-center text-center" >
+					<a href="{{route('chat', $usuario->id)}}" style="color: white;">Enviar Mensaje</a>
+					</button>
 					@endif
 				</div>
 			</div>
