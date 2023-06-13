@@ -56,9 +56,13 @@
                 {{-- header back button, avatar and user name --}}
                 <div class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
                     <a href="#" class="show-listView"><i class="fas fa-arrow-left"></i></a>
-                    <div class="avatar av-s header-avatar" style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px;">
+                    <div *ngIf="foto">
+                        <div class="avatar av-s header-avatar" style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px; background-image: url('{{ asset('storage/' . $foto) }}');">
+                        </div>
                     </div>
-                    <a href="#" class="user-name">{{ config('chatify.name') }}</a>
+                    <div *ngIf="nombre">
+                        <a href="#" class="user-name">{{ $nombre }}</a>
+                    </div>
                 </div>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
@@ -104,7 +108,7 @@
             <p>Información de usuario</p>
             <a href="#"><i class="fas fa-times"></i></a>
         </nav>
-        {!! view('Chatify::layouts.info')->render() !!}
+        {!! view('Chatify::layouts.info')->with('nombre', $nombre)->with('foto', $foto)->render() !!}
     </div>
 </div>
 

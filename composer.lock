@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfeb42d08036a986ca7040912a1e1af0",
+    "content-hash": "a48bf254b5e9f38c787d68ddf5b023d7",
     "packages": [
         {
             "name": "brick/math",
@@ -2555,15 +2555,24 @@
             ],
             "authors": [
                 {
-                    "name": "PayPal",
-                    "homepage": "https://github.com/paypal/paypalhttp_php/contributors"
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
                 }
             ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
             "support": {
-                "issues": "https://github.com/paypal/paypalhttp_php/issues",
-                "source": "https://github.com/paypal/paypalhttp_php/tree/1.0.1"
+                "email": "info@paragonie.com",
+                "issues": "https://github.com/paragonie/random_compat/issues",
+                "source": "https://github.com/paragonie/random_compat"
             },
-            "time": "2021-09-14T21:35:26+00:00"
+            "time": "2020-10-15T08:29:30+00:00"
         },
         {
             "name": "paragonie/sodium_compat",
