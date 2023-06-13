@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Multimedia;
 use App\Models\Seminario;
+use App\Models\User;
+
 
 class CursoController extends Controller
 {
@@ -110,6 +112,12 @@ class CursoController extends Controller
             'url' => $url,
             'name' => $leccion->nombre_archivo,
         ]]);
+    }
+    public function verProfesores()
+    {
+        $profesores = User::where('userable_type', 'App\Models\Organizador');
+        return view('altaCurso',compact('profesores'));
+
     }
 
     public function eliminarLeccion($idCurso, $idLeccion)
