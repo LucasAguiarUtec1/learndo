@@ -1,6 +1,6 @@
 <?php
 
-namespace Chatify\Http\Controllers\Api;
+namespace App\Http\Controllers\vendor\Chatify\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -51,7 +51,7 @@ class MessagesController extends Controller
         if ($request['type'] == 'user') {
             $fetch = User::where('id', $request['id'])->first();
             if ($fetch) {
-                $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
+                $userAvatar = Chatify::getUserWithAvatar($fetch)->foto;
             }
         }
 
@@ -366,9 +366,9 @@ class MessagesController extends Controller
                         }
                     }
                     // upload
-                    $avatar = Str::uuid() . "." . $file->extension();
-                    $update = User::where('id', Auth::user()->id)->update(['avatar' => $avatar]);
-                    $file->storeAs(config('chatify.user_avatar.folder'), $avatar, config('chatify.storage_disk_name'));
+                    $avatar = 'images/' . $fileName;;
+                    $update = User::where('id', Auth::user()->id)->update(['foto' => $avatar]);
+                    Storage::disk('public')->put('images/' . $fileName, \File::get($file));
                     $success = $update ? 1 : 0;
                 } else {
                     $msg = "File extension not allowed!";
