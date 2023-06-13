@@ -409,7 +409,9 @@ function IDinfo(id) {
         // focus on messaging input
         messageInput.focus();
         // update info in view
+        const usertype = data.fetch.userable_type.trim().replace('App\\Models\\', '');
         $(".messenger-infoView .info-name").text(data.fetch.nickname);
+        $(".messenger-infoView .info-ut").text(usertype);
         $(".m-header-messaging .user-name").text(data.fetch.nickname);
         // Star status
         data.favorite > 0
