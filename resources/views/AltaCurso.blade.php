@@ -47,17 +47,7 @@
 				  <label for="precio">Precio</label>
 				  <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
 				</div>
-				<div class="form-group">
-				  <label for="profesor">Profesor</label>
-				  <select name="profesores">
-				  @foreach($profesores as $profesor)
-				 
-				 
-				  <option value="{{profesor.id}}">{{profesores.nombre}}</option>
-				  @endforeach
-				</select>
-
-				</div>
+				<input type="text" class="form-control" id="profesor" placeholder="Ingrese el nombre del profesor" name="instructor">
 				<div class="text-center">
 				<button type="submit" class="btn btn-primary">Crear Clase</button>
 				</div>
