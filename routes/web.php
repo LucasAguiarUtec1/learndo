@@ -107,3 +107,5 @@ Route::get('/paypal/pay', [PaymentController::class, 'payWithPayPal']);
 Route::get('/paypal/status', [PaymentController::class, 'payPalStatus']);
 
 Route::get('/chatify/{id}', [MessagesController::class, 'index'])->name('chat');
+
+Route::get('/chatify', [MessagesController::class, 'index'])->name('chat_inicio');
