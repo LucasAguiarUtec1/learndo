@@ -49,7 +49,6 @@ Route::view('/maps', 'maps')->name('maps');
 
 Route::post('/Curso/registro', [CursoController::class, 'create'])->name('registrarcurso')->middleware('auth');
 
-Route::get('/Curso/registro', [CursoController::class,'verProfesores'])->name('registrocurso')->middleware('auth');
 
 Auth::routes();
 

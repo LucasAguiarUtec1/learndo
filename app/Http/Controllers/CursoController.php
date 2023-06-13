@@ -113,12 +113,9 @@ class CursoController extends Controller
             'name' => $leccion->nombre_archivo,
         ]]);
     }
-    public function verProfesores()
-    {
-        $profesores = User::where('userable_type', 'App\Models\Organizador');
-        return view('altaCurso',compact('profesores'));
+   
+   
 
-    }
 
     public function eliminarLeccion($idCurso, $idLeccion)
     {
