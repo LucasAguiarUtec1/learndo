@@ -393,12 +393,13 @@ function IDinfo(id) {
           return;
         }
         // avatar photo
+        const baseUrl = window.location.origin+'/learndo/public/';
         $(".messenger-infoView")
           .find(".avatar")
-          .css("background-image", 'url("' + data.user_avatar + '")');
+          .css("background-image", 'url("'+baseUrl+'storage/'+data.fetch.foto+'")');
         $(".header-avatar").css(
           "background-image",
-          'url("' + data.user_avatar + '")'
+          'url("'+baseUrl+'storage/'+data.fetch.foto+'")'
         );
         // Show shared and actions
         $(".messenger-infoView-btns .delete-conversation").show();
@@ -408,8 +409,10 @@ function IDinfo(id) {
         // focus on messaging input
         messageInput.focus();
         // update info in view
-        $(".messenger-infoView .info-name").text(data.fetch.name);
-        $(".m-header-messaging .user-name").text(data.fetch.name);
+        const usertype = data.fetch.userable_type.trim().replace('App\\Models\\', '');
+        $(".messenger-infoView .info-name").text(data.fetch.nickname);
+        $(".messenger-infoView .info-ut").text(usertype);
+        $(".m-header-messaging .user-name").text(data.fetch.nickname);
         // Star status
         data.favorite > 0
           ? $(".add-to-favorite").addClass("favorite")

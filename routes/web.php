@@ -11,6 +11,7 @@ use App\Http\Controllers\EvaluacionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\vendor\Chatify\MessagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::get('/login/{driver}', [SocialController::class, 'redirectToProvider']);
 
 Route::get('/login/{driver}/callback', [SocialController::class, 'handleProviderCallback']);
 
-Route::get('/iniciarsesion', [LoginController::class, 'authenticate'])->name('iniciarsesion');
+Route::post('/iniciarsesion', [LoginController::class, 'authenticate'])->name('iniciarsesion');
 
 Route::post('/Usuario/registro', [UsuarioController::class, 'create'])->name('registrarse');
 
@@ -103,3 +104,7 @@ Route::view('/paypal', 'paypal')->name('paypal');
 Route::get('/paypal/pay', [PaymentController::class, 'payWithPayPal']);
 
 Route::get('/paypal/status', [PaymentController::class, 'payPalStatus']);
+
+Route::get('/chatify/{id}', [MessagesController::class, 'index'])->name('chat');
+
+Route::get('/chatify', [MessagesController::class, 'index'])->name('chat_inicio');

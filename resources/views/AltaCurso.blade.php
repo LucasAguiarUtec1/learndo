@@ -47,11 +47,7 @@
 				  <label for="precio">Precio</label>
 				  <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
 				</div>
-				<div class="form-group">
-				
-				  <label for="instructor">instructor</label>
-				  <input type="text" class="form-control" id="profesor" placeholder="Ingrese el instructor" name="instructor">
-				</div>
+				<input type="text" class="form-control" id="profesor" placeholder="Ingrese el nombre del profesor" name="instructor">
 				<div class="text-center">
 				<button type="submit" class="btn btn-primary">Crear Clase</button>
 				</div>

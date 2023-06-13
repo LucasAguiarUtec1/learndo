@@ -50,7 +50,7 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        $remember = $request->filled('remember');
+        //$remember = $request->filled('remember');
 
         // Comprobar si el usuario ha verificado su dirección de correo electrónico
         $user = User::where('email', $request->email)->first();

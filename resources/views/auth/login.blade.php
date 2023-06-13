@@ -37,18 +37,18 @@
 			<h4 class="mt-3">Iniciar Sesión</h4>
 		</div>
 	
-		<form method="GET" action="{{route('iniciarsesion')}}">
+		<form method="POST" action="{{route('iniciarsesion')}}">
             @csrf
 			<div class="form-group">
 				<label for="email">Correo Electrónico</label>
-				<input type="email" class="form-control smaller-input" id="email" placeholder="Ingresa tu correo electrónico" name="email"> <!-- Agregada clase smaller-input -->
+				<input type="email" class="form-control smaller-input" id="email" placeholder="Ingresa tu correo electrónico" name="email" required> <!-- Agregada clase smaller-input -->
 				@error('email')
 					<div class="alert alert-danger">*{{ $message }}</div>
 				@enderror
 			</div>
 			<div class="form-group">
 				<label for="password">Contraseña</label>
-				<input type="password" class="form-control smaller-input" id="password" placeholder="Ingresa tu contraseña" name="password"> <!-- Agregada clase smaller-input -->
+				<input type="password" class="form-control smaller-input" id="password" placeholder="Ingresa tu contraseña" name="password" required> <!-- Agregada clase smaller-input -->
 			</div>
 			<div class="iniciarSesion">
 				<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
