@@ -82,7 +82,7 @@ Route::post('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')
 
 Route::get('/usuarios', [UsuarioController::class, 'listar'])->name('ListarUsuarios')->middleware('auth');
 
-Route::get('/usuarios/{nickname}/profile', [UsuarioController::class, 'verperfil'])->name('verperfil')->middleware('auth');
+Route::get('/usuarios/{id}/profile', [UsuarioController::class, 'verperfil'])->name('verperfil')->middleware('auth');
 
 Route::get('/openPDF', [CursoController::class, 'verLeccion'])->name('openPDF')->middleware('auth');
 

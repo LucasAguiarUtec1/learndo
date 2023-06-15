@@ -24,9 +24,9 @@ class UsuarioController extends Controller
         return view('verUsuarios', ['usuarios' => $usuarios]);
     }
 
-    public function verperfil($nickname)
+    public function verperfil($id)
     {
-        $usuario = User::find($nickname);
+        $usuario = User::find($id);
         return view('PerfilUsuario', compact('usuario'));
     }
 
