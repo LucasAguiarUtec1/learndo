@@ -20,11 +20,11 @@
             @endif
 
             <div class="btn-group" role="group">
-                @can ('manageCategories')
+                @if(Auth::check() && Auth::user()->userable_type == 'App\Models\Organizador')
                     <button type="button" class="btn btn-secondary" data-open-modal="edit-category">
                         {{ trans('forum::general.edit') }}
                     </button>
-                @endcan
+                @endif
             </div>
         </div>
 
