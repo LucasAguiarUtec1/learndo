@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/styleForum.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/stylesInicio.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 
 
     <title>
@@ -41,193 +43,71 @@
     <!-- Vue.Draggable (https://github.com/SortableJS/Vue.Draggable) -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.23.2/vuedraggable.umd.min.js"></script>
 
-    <style>
-    body
-    {
-        padding: 0;
-        background: #f8fafc;
-    }
-
-    textarea
-    {
-        min-height: 200px;
-    }
-
-    table tr td
-    {
-        white-space: nowrap;
-    }
-
-    a
-    {
-        text-decoration: none;
-    }
-
-    .deleted
-    {
-        opacity: 0.65;
-    }
-
-    #main
-    {
-        padding: 2em;
-    }
-
-    .shadow-sm
-    {
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    }
-
-    .card.category
-    {
-        margin-bottom: 1em;
-    }
-
-    .list-group .list-group
-    {
-        min-height: 1em;
-        margin-top: 1em;
-    }
-
-    .btn svg.feather
-    {
-        width: 16px;
-        height: 16px;
-        stroke-width: 3px;
-        vertical-align: -2px;
-    }
-
-    .modal-title svg.feather
-    {
-        margin-right: .5em;
-        vertical-align: -3px;
-    }
-
-    .category .subcategories
-    {
-        background: #fff;
-    }
-
-    .category > .list-group-item
-    {
-        z-index: 1000;
-    }
-
-    .category .subcategories .list-group-item:first-child
-    {
-        border-radius: 0;
-    }
-
-    .timestamp
-    {
-        border-bottom: 1px dotted var(--bs-gray);
-        cursor: help;
-    }
-
-    .fixed-bottom-right
-    {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-    }
-
-    .fade-enter-active, .fade-leave-active
-    {
-        transition: opacity .3s;
-    }
-    .fade-enter, .fade-leave-to
-    {
-        opacity: 0;
-    }
-
-    .mask
-    {
-        display: none;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: rgba(50, 50, 50, .2);
-        opacity: 0;
-        transition: opacity .2s ease;
-        z-index: 1020;
-    }
-    .mask.show
-    {
-        opacity: 1;
-    }
-
-    .form-check
-    {
-        user-select: none;
-    }
-
-    .sortable-chosen
-    {
-        background: var(--bs-light);
-    }
-
-    @media (max-width: 575.98px)
-    {
-        #main
-        {
-            padding: 1em;
-        }
-    }
-    </style>
+    
 </head>
 <body>
-    <nav class="v-navbar navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url(config('forum.web.router.prefix')) }}">Laravel Forum</a>
-            <button class="navbar-toggler" type="button" :class="{ collapsed: isCollapsed }" @click="isCollapsed = ! isCollapsed">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" :class="{ show: !isCollapsed }">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url(config('forum.web.router.prefix')) }}">{{ trans('forum::general.index') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('forum.recent') }}">{{ trans('forum::threads.recent') }}</a>
-                    </li>
-                    @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('forum.unread') }}">{{ trans('forum::threads.unread_updated') }}</a>
-                        </li>
-                    @endauth
-                </ul>
-                <ul class="navbar-nav">
-                    @if (Auth::check())
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" @click="isUserDropdownCollapsed = ! isUserDropdownCollapsed">
-                                {{ $username }}
-                            </a>
-                            <div class="dropdown-menu" :class="{ show: ! isUserDropdownCollapsed }" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Log out
-                                </a>
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/login') }}">Log in</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/register') }}">Register</a>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <nav class="navbar navbar-expand-lg navbar-light">
+		<a class="navbar-brand" href="{{route('inicio')}}">
+			<img src="{{ asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="{{route('inicio')}}">Inicio</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="{{route('mapa')}}">Mapa</a>
+				</li>
+				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('miscursos')}}">Mis Cursos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('paypal')}}">paypal</a>
+				</li>
+				@endif
+			</ul>
+			<ul class="navbar-nav">
+			<li class="nav-item">
+					<a class="nav-link" href="{{route('ListarUsuarios')}}">Usuarios</a>
+				</li>
+				@if (Auth::check())
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('logout')}}">Cerrar Sesión</a>
+				</li>
+				@else
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('login')}}">Iniciar Sesión</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('registro')}}">Registrarse</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('maps')}}">Mapa</a>
+				</li>
+				@endif
+				@if(Auth::check() && Auth::user()->userable_type == 'App\Models\Organizador')
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('registrocurso')}}">Crear Curso</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('registroseminario')}}">Crear Seminario</a>
+				</li>
+				@endif
+				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante'))
+				<li class="nav-item active">
+					<a class="nav-link" href="{{route('comprar')}}">Comprar</a>
+				</li>
+				@endif
+			</ul>
+		</div>
+	</nav>
 
     <div id="main" class="container">
-        @include('forum::partials.breadcrumbs')
+        
         @include('forum::partials.alerts')
 
         @yield('content')
