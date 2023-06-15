@@ -2,19 +2,19 @@
 
 return [
 
-    'actions' => 'Post actions',
-    'created' => 'Post created',
-    'delete' => 'Delete post|Delete posts',
-    'deleted' => 'Post deleted|Posts deleted',
-    'edit' => 'Edit post',
-    'last' => 'Last post',
-    'perma_deleted' => 'Post permanently deleted|Posts permanently deleted',
-    'post' => 'Post|Posts',
-    'restore' => 'Restore post|Restore posts',
-    'restored' => 'Post restored|Posts restored',
-    'select_all' => 'Select all posts',
-    'updated' => 'Post updated|Posts updated',
-    'view' => 'View post',
-    'your_post' => 'Your post',
+    'actions' => 'Acciones de publicación',
+    'created' => 'Publicación creada',
+    'delete' => 'Eliminar publicación|Eliminar publicaciones',
+    'deleted' => 'Publicación eliminada|Publicaciones eliminadas',
+    'edit' => 'Editar publicación',
+    'last' => 'Última publicación',
+    'perma_deleted' => 'Publicación eliminada permanentemente|Publicaciones eliminadas permanentemente',
+    'post' => 'Publicación|Publicaciones',
+    'restore' => 'Restaurar publicación|Restaurar publicaciones',
+    'restored' => 'Publicación restaurada|Publicaciones restauradas',
+    'select_all' => 'Seleccionar todas las publicaciones',
+    'updated' => 'Publicación actualizada|Publicaciones actualizadas',
+    'view' => 'Ver publicación',
+    'your_post' => 'Tu publicación'
 
 ];

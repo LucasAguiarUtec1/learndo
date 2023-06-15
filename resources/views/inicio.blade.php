@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light">
 		<a class="navbar-brand" href="{{route('inicio')}}">
 			<img src="{{ asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
 		</a>
@@ -20,6 +20,9 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
 					<a class="nav-link" href="{{route('inicio')}}">Inicio</a>
+				</li>
+                <li class="nav-item active">
+					<a class="nav-link" href="{{route('forum.index')}}">Foro</a>
 				</li>
 				<li class="nav-item active">
 					<a class="nav-link" href="{{route('mapa')}}">Mapa</a>

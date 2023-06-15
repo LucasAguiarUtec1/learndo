@@ -58,6 +58,9 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="{{route('inicio')}}">Inicio</a>
 				</li>
+                <li class="nav-item active">
+					<a class="nav-link" href="{{route('forum.index')}}">Foro</a>
+				</li>
 				<li class="nav-item active">
 					<a class="nav-link" href="{{route('mapa')}}">Mapa</a>
 				</li>

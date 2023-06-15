@@ -2,8 +2,8 @@
 
 return [
 
-    'category_threads_enabled' => 'The category must have threads enabled.',
-    'category_has_no_threads' => 'The category must not contain threads.',
-    'category_is_empty' => 'The category must be empty.',
+    'category_threads_enabled' => 'La categoría debe tener los hilos habilitados.',
+    'category_has_no_threads' => 'La categoría no debe contener hilos.',
+    'category_is_empty' => 'La categoría debe estar vacía.'
 
 ];

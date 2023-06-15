@@ -2,22 +2,22 @@
 
 return [
 
-    'access_controlled_by_private_ancestor' => 'The ancestor category :category is set as private and controls access to this category.',
+    'access_controlled_by_private_ancestor' => 'La categoría ancestral :category está configurada como privada y controla el acceso a esta categoría.',
     'actions' => 'Acciones de categoría',
     'category' => 'Categoría|Categorías',
-    'confirm_nonempty_delete' => 'Sí, quiero eliminar esta categoría y todo dentro',
+    'confirm_nonempty_delete' => 'Sí, quiero eliminar permanentemente esta categoría y todo lo que contiene',
     'create' => 'Crear categoría',
     'created' => 'Categoría creada',
     'deleted' => 'Categoría eliminada|Categorías eliminadas',
-    'disable_threads' => 'Deshabilitar hilos',
-    'enable_threads' => 'Habilitar hilos',
-    'make_private' => 'Hacer privado',
-    'make_public' => 'Hacer público',
-    'mark_read' => 'Marcar como leído',
-    'marked_read' => 'Categoría marcada como leída',
-    'restored' => 'Categoría restaurada',
+    'disable_threads' => 'Desactivar hilos',
+    'enable_threads' => 'Activar hilos',
+    'make_private' => 'Hacer privada',
+    'make_public' => 'Hacer pública',
+    'mark_read' => 'Marcar hilos en esta categoría como leídos',
+    'marked_read' => 'Los hilos nuevos/actualizados en :category han sido marcados como leídos',
+    'restored' => 'Categoría restaurada|Categorías restauradas',
     'subcategories' => 'Subcategorías',
-    'threads_disabled' => 'La creación de hilos está deshabilitada en esta categoría',
+    'threads_disabled' => 'La creación de nuevos hilos está desactivada en esta categoría',
     'updated' => 'Categoría actualizada|Categorías actualizadas',
 
 ];
