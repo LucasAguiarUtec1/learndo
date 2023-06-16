@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         \Chatify\ChatifyServiceProvider::class,
+        TeamTeaTime\Forum\ForumServiceProvider::class,
 
     ])->toArray(),
 

@@ -17,11 +17,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $table = 'users';
 
-    protected $primaryKey = 'nickname';
+    protected $primaryKey = 'id';
 
     public $incrementing = false;
 
-    protected $keyType = 'string';
+    protected $keyType = 'id';
 
     /**
      * The attributes that are mass assignable.

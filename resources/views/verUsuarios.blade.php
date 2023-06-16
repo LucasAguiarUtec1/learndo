@@ -68,7 +68,7 @@
             @foreach($usuarios as $usuario)
                 <tbody>
                     <tr>
-                        <td><a href="{{route('verperfil', $usuario->nickname)}}">{{$usuario->nickname}}</a></td>
+                        <td><a href="{{route('verperfil', $usuario->id)}}">{{$usuario->nickname}}</a></td>
                         <td>{{$usuario->email}}</td>
                         <td>{{$usuario->nombrecompleto}}</td>
                     </tr>
