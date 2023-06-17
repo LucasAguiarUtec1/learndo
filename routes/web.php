@@ -48,6 +48,8 @@ Route::view('/verificacion', 'auth.verify')->name('verify');
 
 Route::view('/maps', 'maps')->name('maps');
 
+Route::view('/Curso/registro', 'AltaCurso')->name('registrocurso')->middleware('auth');
+
 Route::post('/Curso/registro', [CursoController::class, 'create'])->name('registrarcurso')->middleware('auth');
 
 
