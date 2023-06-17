@@ -34,7 +34,7 @@ class SocialController extends Controller
                 'nombrecompleto' => $facebookUser->name,
                 'fb_id' => $facebookUser->id,
                 'email_verified_at' => $timestamp,
-                'userable_type' => 'App\Models\Alumno',
+                'userable_type' => 'App\Models\Estudiante',
                 'userable_id' => 0,
                 'telefono' => '',
             ]);
