@@ -55,8 +55,8 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             // La autenticación ha sido exitosa
-            dd(Auth::user());
-            return redirect()->intended('inicio');
+            //dd(Auth::user());
+            return redirect()->intended('/');
         } else {
             // Las credenciales no son válidas
             dd($credentials);
