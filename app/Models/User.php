@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Chatify\Contracts\ChatifyUser;
-use Chatify\Traits\ChatifyMessenger;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Chatify\Models\Message;
+use Chatify\Models\Conversation;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -17,11 +18,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $table = 'users';
 
-    protected $primaryKey = 'nickname';
+    protected $primaryKey = 'id';
 
     public $incrementing = false;
 
-    protected $keyType = 'string';
+    protected $keyType = 'id';
 
     /**
      * The attributes that are mass assignable.
@@ -41,6 +42,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'userable_id',
         'foto',
     ];
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'from_id');
+    }
+
+    public function chats()
+    {
+        return $this->belongsToMany(Conversation::class, 'chatify_conversation_user', 'user_id', 'conversation_id')
+            ->orderBy('created_at', 'desc');
+    }
 
     public function getChatifyId()
     {
@@ -96,12 +108,9 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
-    protected function password(): Attribute
+    protected function setPasswordAttribute(string $value)
     {
-        return new Attribute(
-            get: fn (string $value) => $value,
-            set: fn (string $value) => bcrypt($value),
-        );
+        $this->attributes['password'] = Hash::make($value);
     }
 
     public function getRememberToken()

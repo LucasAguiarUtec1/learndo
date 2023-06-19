@@ -13,6 +13,8 @@
 	
 </head>
 <body>
+@extends('layouts.app')
+@section('content')
 	<script>
 		function mostrarCamposAdicionales(tipo) {
 			var presencialFields = document.getElementById("presencialFields");
@@ -29,18 +31,7 @@
             virtualFields.style.display = "none";
         }
     }</script>
-	<nav class="navbar navbar-expand-lg navbar-light">
-		<a class="navbar-brand" href="{{route('inicio')}}">
-			<img src="{{asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			</ul>
-			</ul>
-		</div>
-	</nav>
+	
 	<div class="container rounded border border-secondary p-4 mt-4">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
@@ -189,5 +180,5 @@ window.addEventListener('load', initMap);
 	<!--JAVASCRIPT-->
 <!--	<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 	<script src="./custom.js"></script> -->
-
+@endsection
 </body>

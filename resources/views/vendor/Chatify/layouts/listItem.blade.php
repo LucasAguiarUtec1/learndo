@@ -10,8 +10,8 @@
             </td>
             {{-- center side --}}
             <td>
-                <p data-id="{{ Auth::user()->id }}" data-type="user">Saved Messages <span>You</span></p>
-                <span>Save messages secretly</span>
+                <p data-id="{{ Auth::user()->id }}" data-type="user">Mensajes guardados <span>Tú</span></p>
+                <span>Guarda mensajes en privado</span>
             </td>
         </tr>
     </table>
@@ -31,19 +31,19 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
                 <span class="activeStatus"></span>
             @endif
         <div class="avatar av-m"
-        style="background-image: url('{{ $user->avatar }}');">
+        style="background-image: url('{{ asset('storage/' . $user->foto) }}');">
         </div>
         </td>
         {{-- center side --}}
         <td>
         <p data-id="{{ $user->id }}" data-type="user">
-            {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }}
+            {{ strlen($user->nickname) > 12 ? trim(substr($user->nickname,0,12)).'..' : $user->nickname }}
             <span class="contact-item-time" data-time="{{$lastMessage->created_at}}">{{ $lastMessage->timeAgo }}</span></p>
         <span>
             {{-- Last Message user indicator --}}
             {!!
                 $lastMessage->from_id == Auth::user()->id
-                ? '<span class="lastMessageIndicator">You :</span>'
+                ? '<span class="lastMessageIndicator">Tú :</span>'
                 : ''
             !!}
             {{-- Last message body --}}
@@ -52,7 +52,7 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
                 $lastMessageBody
             !!}
             @else
-            <span class="fas fa-file"></span> Attachment
+            <span class="fas fa-file"></span> Adjunto
             @endif
         </span>
         {{-- New messages counter --}}
@@ -69,13 +69,13 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
         {{-- Avatar side --}}
         <td>
         <div class="avatar av-m"
-        style="background-image: url('{{ $user->avatar }}');">
+            style="background-image: url('{{ asset('storage/' . $user->foto) }}');">
         </div>
         </td>
         {{-- center side --}}
         <td>
             <p data-id="{{ $user->id }}" data-type="user">
-            {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }}
+            {{ strlen($user->nickname) > 12 ? trim(substr($user->nickname,0,12)).'..' : $user->nickname }}
         </td>
 
     </tr>

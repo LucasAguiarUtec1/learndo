@@ -1,6 +1,6 @@
 <?php
 
-namespace Chatify\Http\Controllers;
+namespace App\Http\Controllers\vendor\Chatify;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -44,10 +44,24 @@ class MessagesController extends Controller
     public function index($id = null)
     {
         $messenger_color = Auth::user()->messenger_color;
+        $fetch = null;
+        if ($id != null) {
+            $fetch = User::where('id', $id)->first();
+            return view('Chatify::pages.app', [
+                'id' => $id ?? 0,
+                'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
+                'dark_mode' => Auth::user()->dark_mode < 1 ? 'light' : 'dark',
+                'nombre' => $fetch->nickname,
+                'foto' => $fetch->foto,
+                'user' => $fetch,
+            ]);
+        }
         return view('Chatify::pages.app', [
             'id' => $id ?? 0,
             'messengerColor' => $messenger_color ? $messenger_color : Chatify::getFallbackColor(),
             'dark_mode' => Auth::user()->dark_mode < 1 ? 'light' : 'dark',
+            'nombre' => $fetch,
+            'foto' => $fetch,
         ]);
     }
 
@@ -379,14 +393,15 @@ class MessagesController extends Controller
 
         // shared with its template
         for ($i = 0; $i < count($shared); $i++) {
+            $imagePath = asset('storage/attachments/' . $shared[$i]);
             $sharedPhotos .= view('Chatify::layouts.listItem', [
                 'get' => 'sharedPhoto',
-                'image' => Chatify::getAttachmentUrl($shared[$i]),
+                'image' => $imagePath,
             ])->render();
         }
         // send the response
-        return Response::json([
-            'shared' => count($shared) > 0 ? $sharedPhotos : '<p class="message-hint"><span>Nothing shared yet</span></p>',
+        return response()->json([
+            'shared' => count($shared) > 0 ? $sharedPhotos : '<p class="message-hint"><span>Aún no se han compartido imágenes</span></p>',
         ], 200);
     }
 
@@ -446,23 +461,28 @@ class MessagesController extends Controller
         if ($request->hasFile('avatar')) {
             // allowed extensions
             $allowed_images = Chatify::getAllowedImages();
-
+        
             $file = $request->file('avatar');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = 'images/' . $fileName;
+        
+            // Update the user's "foto" field in the database
+            $update = User::where('id', Auth::user()->id)->update(['foto' => $path]);
+        
+            $success = $update ? 1 : 0;
+        
             // check file size
             if ($file->getSize() < Chatify::getMaxUploadSize()) {
                 if (in_array(strtolower($file->extension()), $allowed_images)) {
                     // delete the older one
-                    if (Auth::user()->avatar != config('chatify.user_avatar.default')) {
-                        $avatar = Auth::user()->avatar;
+                    if (Auth::user()->foto != config('chatify.user_avatar.default')) {
+                        $avatar = Auth::user()->foto;
                         if (Chatify::storage()->exists($avatar)) {
                             Chatify::storage()->delete($avatar);
                         }
                     }
                     // upload
-                    $avatar = Str::uuid() . "." . $file->extension();
-                    $update = User::where('id', Auth::user()->id)->update(['avatar' => $avatar]);
-                    $file->storeAs(config('chatify.user_avatar.folder'), $avatar, config('chatify.storage_disk_name'));
-                    $success = $update ? 1 : 0;
+                    $file->storeAs(config('chatify.user_avatar.folder'), $fileName, config('chatify.storage_disk_name'));
                 } else {
                     $msg = "File extension not allowed!";
                     $error = 1;

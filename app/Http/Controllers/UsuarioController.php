@@ -24,9 +24,9 @@ class UsuarioController extends Controller
         return view('verUsuarios', ['usuarios' => $usuarios]);
     }
 
-    public function verperfil($nickname)
+    public function verperfil($id)
     {
-        $usuario = User::find($nickname);
+        $usuario = User::find($id);
         return view('PerfilUsuario', compact('usuario'));
     }
 
@@ -49,6 +49,7 @@ class UsuarioController extends Controller
 
         return redirect()->back()->withErrors([
             'email' => 'No se pudo iniciar sesión. Por favor, comprueba tus credenciales e inténtalo de nuevo.',
+            'password' => 'No se pudo iniciar sesión. Por favor, comprueba tus credenciales e inténtalo de nuevo.',
         ]);
     }
 

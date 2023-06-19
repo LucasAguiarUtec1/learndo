@@ -11,18 +11,15 @@ class Pregunta extends Model
 
     protected $fillable = [
         'pregunta',
-        'respuesta1',
-        'correct1',
-        'respuesta2',
-        'correct2',
-        'respuesta3',
-        'correct3',
-        'respuesta4',
-        'correct4',
     ];
 
     public function evaluacion()
     {
         return $this->belongsTo('App\Models\Evaluacion');
+    }
+
+    public function preguntas()
+    {
+        return $this->hasMany('App\Models\Respuesta');
     }
 }

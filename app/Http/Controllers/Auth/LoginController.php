@@ -61,7 +61,7 @@ class LoginController extends Controller
             // Las credenciales no son válidas
             dd($credentials);
             return redirect()->back()->withErrors([
-                'email' => 'No se pudo iniciar sesión. Por favor, comprueba tus credenciales e inténtalo de nuevo.',
+                'email' => 'No se pudo iniciar sesión. Error.',
             ]);
         }
     }

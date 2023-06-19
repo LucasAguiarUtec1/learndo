@@ -11,10 +11,11 @@ use App\Http\Controllers\EvaluacionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\vendor\Chatify\MessagesController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Route
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -33,7 +34,7 @@ Route::get('/login/{driver}', [SocialController::class, 'redirectToProvider']);
 
 Route::get('/login/{driver}/callback', [SocialController::class, 'handleProviderCallback']);
 
-Route::get('/iniciarsesion', [LoginController::class, 'authenticate'])->name('iniciarsesion');
+Route::post('/iniciarsesion', [LoginController::class, 'authenticate'])->name('iniciarsesion');
 
 Route::post('/Usuario/registro', [UsuarioController::class, 'create'])->name('registrarse');
 
@@ -47,9 +48,10 @@ Route::view('/verificacion', 'auth.verify')->name('verify');
 
 Route::view('/maps', 'maps')->name('maps');
 
+Route::view('/Curso/registro', 'AltaCurso')->name('registrocurso')->middleware('auth');
+
 Route::post('/Curso/registro', [CursoController::class, 'create'])->name('registrarcurso')->middleware('auth');
 
-Route::view('/Curso/registro', 'altaCurso')->name('registrocurso')->middleware('auth');
 
 Auth::routes();
 
@@ -59,7 +61,7 @@ Route::view('/Seminario/registro', 'AltaSeminario')->name('registroseminario')->
 
 Route::post('/Seminario/registro', [App\Http\Controllers\SeminarioController::class, 'create'])->name('registrarseminario')->middleware('auth');
 
-Route::post('/register/facebook', [SocialController::class, 'refreshInfo'])->name('refreshinfo')->middleware('auth');
+Route::post('/register/facebook', [SocialController::class, 'refreshinfo'])->name('refreshinfo');
 
 Route::get('/Curso/misCursos', [CursoController::class, 'misCursos'])->name('miscursos')->middleware('auth');
 
@@ -81,7 +83,7 @@ Route::post('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')
 
 Route::get('/usuarios', [UsuarioController::class, 'listar'])->name('ListarUsuarios')->middleware('auth');
 
-Route::get('/usuarios/{nickname}/profile', [UsuarioController::class, 'verperfil'])->name('verperfil')->middleware('auth');
+Route::get('/usuarios/{id}/profile', [UsuarioController::class, 'verperfil'])->name('verperfil')->middleware('auth');
 
 Route::get('/openPDF', [CursoController::class, 'verLeccion'])->name('openPDF')->middleware('auth');
 
@@ -104,3 +106,7 @@ Route::view('/paypal', 'paypal')->name('paypal');
 Route::get('/paypal/pay', [PaymentController::class, 'payWithPayPal']);
 
 Route::get('/paypal/status', [PaymentController::class, 'payPalStatus']);
+
+Route::get('/chatify/{id}', [MessagesController::class, 'index'])->name('chat');
+
+Route::get('/chatify', [MessagesController::class, 'index'])->name('chat_inicio');

@@ -9,26 +9,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light">
-		<a class="navbar-brand" href="{{route('inicio')}}">
-			<img src="{{asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="#">Mis Cursos</a>
-				</li>
-			</ul>
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="#">Cerrar Sesión</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
+@extends('layouts.app')
+@section('content')
 	<div class="container rounded border border-secondary p-4 mt-4">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
@@ -45,12 +27,9 @@
 				</div>
 				<div class="form-group">
 				  <label for="precio">Precio</label>
-				  <input type="text" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
+				  <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
 				</div>
-				<div class="form-group">
-				  <label for="profesor">Profesor</label>
-				  <input type="text" class="form-control" id="profesor" placeholder="Ingrese el nombre del profesor" name="instructor">
-				</div>
+				<input type="text" class="form-control" id="profesor" placeholder="Ingrese el nombre del profesor" name="instructor">
 				<div class="text-center">
 				<button type="submit" class="btn btn-primary">Crear Clase</button>
 				</div>
@@ -76,5 +55,5 @@
 	<!--JAVASCRIPT-->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E"></script>
 	<script src="./custom.js"></script>
-
+@endsection
 </body>

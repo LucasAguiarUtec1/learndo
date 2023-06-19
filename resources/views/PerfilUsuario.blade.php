@@ -14,63 +14,24 @@
 
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light">
-		<a class="navbar-brand" href="{{route('inicio')}}">
-			<img src="{{ asset('images/1.png')}}" width="150" height="50" class="d-inline-block align-top" alt="Logo de Mi Página">
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="{{route('inicio')}}">Inicio <span class="sr-only">(current)</span></a>
-				</li>
-				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('miscursos')}}">Mis Cursos</a>
-				</li>
-				@endif
-			</ul>
-			<ul class="navbar-nav">
-				@if (Auth::check())
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('logout')}}">Cerrar Sesión</a>
-				</li>
-				@else
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('login')}}">Iniciar Sesión</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('registro')}}">Registrarse</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('maps')}}">Mapa</a>
-				</li>
-				@endif
-				@if(Auth::check() && Auth::user()->userable_type == 'App\Models\Organizador')
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('registrocurso')}}">Crear Curso</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('registroseminario')}}">Crear Seminario</a>
-				</li>
-				@endif
-			</ul>
-		</div>
-	</nav>
+@extends('layouts.app')
+@section('content')
+
 	<!-- Cuerpo de la página -->
 	<div class="container mx-auto my-5">
 		<div class="row">
 			<div class="col-md-4 text-center">
-					<img src="{{asset($usuario->foto)}}" alt="Foto de perfil">
+					<img src="{{ asset('storage/' . $usuario->foto) }}" alt="Foto de perfil" class="img-fluid rounded-circle"
+                    style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
 				<h4 style="padding-top: 10px; padding-bottom: 10px;"><strong>{{$usuario->nickname}}</strong></h4>
 				<div>
 					@if(Auth::check() && Auth::user()->nickname == $usuario->nickname)
 					<button id="edit-button" class="btn btn-primary align-content-center text-center">Editar</button>
 					@endif
 					@if(Auth::check() && Auth::user()->nickname != $usuario->nickname)
-					<button id="mensaje-button" class="btn btn-primary align-content-center text-center" >Enviar Mensaje</button>
+					<button id="mensaje-button" class="btn btn-primary align-content-center text-center" >
+					<a href="{{route('chat', $usuario->id)}}" style="color: white;">Enviar Mensaje</a>
+					</button>
 					@endif
 				</div>
 			</div>
@@ -141,7 +102,7 @@
 				<!--JAVASCRIPT-->
 				<script src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E"></script>
 				<script src="./custom.js"></script>
-
+@endsection
 </body>
 
 

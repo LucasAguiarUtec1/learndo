@@ -33,3 +33,7 @@ html, body {
   align-items: center;
 		
  }
+
+ .transparent-container {
+  background-color: transparent;
+}
