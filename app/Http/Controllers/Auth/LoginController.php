@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -61,12 +62,12 @@ class LoginController extends Controller
         }*/
 
         // Autenticar al usuario y redirigir a la página de inicio
-        if (Auth::login($user, $remember = false)) {
+        if (Auth::login($user)) {
             $request->session()->regenerate();
             return redirect()->route('inicio');
         } else {
             return redirect()->back()->withErrors([
-                'email' => 'No se pudo iniciar sesión. Por favor, comprueba tus credenciales e inténtalo de nuevo.',
+                 'email' => 'No se pudo iniciar sesión. Error.',
             ]);
         }
     }

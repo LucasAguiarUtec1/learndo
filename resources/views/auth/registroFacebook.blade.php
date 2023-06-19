@@ -36,6 +36,7 @@
 		</div>
 		<form method="POST" action="{{route('refreshinfo')}}" enctype="multipart/form-data">
 			@csrf
+			<input type="hidden" name="email_user" value="{{ $user->email }}">
 		  <div class="form-group">
 			<label for="nickname">Nickname</label>
 			<input type="text" class="form-control shorter-input" id="nickname" placeholder="Ingrese su nickname" name="nick">

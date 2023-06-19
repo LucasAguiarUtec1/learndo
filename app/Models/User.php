@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Chatify\Models\Message;
 use Chatify\Models\Conversation;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -108,12 +109,9 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
-    protected function password(): Attribute
+    protected function setPasswordAttribute(string $value)
     {
-        return new Attribute(
-            get: fn (string $value) => $value,
-            set: fn (string $value) => bcrypt($value),
-        );
+        $this->attributes['password'] = Hash::make($value);
     }
 
     public function getRememberToken()

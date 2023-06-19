@@ -61,7 +61,7 @@ Route::view('/Seminario/registro', 'AltaSeminario')->name('registroseminario')->
 
 Route::post('/Seminario/registro', [App\Http\Controllers\SeminarioController::class, 'create'])->name('registrarseminario')->middleware('auth');
 
-Route::post('/register/facebook', [SocialController::class, 'refreshInfo'])->name('refreshinfo')->middleware('auth');
+Route::post('/register/facebook', [SocialController::class, 'refreshinfo'])->name('refreshinfo');
 
 Route::get('/Curso/misCursos', [CursoController::class, 'misCursos'])->name('miscursos')->middleware('auth');
 

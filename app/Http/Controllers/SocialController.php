@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class SocialController extends Controller
 {
+
     public function redirectToProvider($driver)
     {
         return Socialite::driver($driver)->redirect();
@@ -38,19 +39,27 @@ class SocialController extends Controller
                 'userable_id' => 0,
                 'telefono' => '',
             ]);
-            Auth::login($user, false);
-            $user = Auth::user();
+            Auth::login($user);
+            session()->save();
+            //if (Auth::check()) {
+                // El usuario está autenticado
+            //    dd('El usuario está autenticado');
+            //} else {
+                // El usuario no está autenticado
+            //    dd('El usuario no está autenticado');
+            //}
+            //$user = Auth::user();
             //$user->sendEmailVerificationNotification();
-            return view('auth.registroFacebook');
+            return view('auth.registroFacebook', ['user' => $user]);
         } else {
-            Auth::login($user, false);
+            Auth::login($user);
             return view('inicio');
         }
     }
 
-    public function refreshInfo(Request $request)
+    public function refreshinfo(Request $request)
     {
-        $user = User::where('email', Auth::user()->email)->first();
+        $user = User::where('email', $request->email_user)->first();
         $user->nickname = $request->nick;
         $path = null;
         if ($request['image'] != null) {
