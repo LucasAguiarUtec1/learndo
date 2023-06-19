@@ -30,7 +30,7 @@
 				  <label for="precio">Precio</label>
 				  <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
 				</div>
-				<input type="text" class="form-control" id="profesor" placeholder="Ingrese el nombre del profesor" name="instructor">
+				<input type="hidden" id="profesor" name="instructor" value="{{ Auth::user()->email }}">
 				<div class="form-group">
 					<label for="color">Color en el foro</label>
 					<input type="color" id="color" name="color">
