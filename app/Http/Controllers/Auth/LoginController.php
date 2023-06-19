@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -48,23 +50,16 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+
         $credentials = $request->only('email', 'password');
 
-        $remember = $request->filled('remember');
-
-        // Comprobar si el usuario ha verificado su dirección de correo electrónico
-        $user = User::where('email', $request->email)->first();
-        /*if ($user && !$user->email_verified_at) {
-            return redirect()->back()->withErrors([
-                'email' => 'Tu cuenta aún no ha sido activada. Por favor, confirma tu dirección de correo electrónico.'
-            ]);
-        }*/
-
-        // Autenticar al usuario y redirigir a la página de inicio
-        if (Auth::login($user, $remember = false)) {
-            $request->session()->regenerate();
-            return redirect()->route('inicio');
+        if (Auth::attempt($credentials)) {
+            // La autenticación ha sido exitosa
+            dd(Auth::user());
+            return redirect()->intended('inicio');
         } else {
+            // Las credenciales no son válidas
+            dd($credentials);
             return redirect()->back()->withErrors([
                 'email' => 'No se pudo iniciar sesión. Por favor, comprueba tus credenciales e inténtalo de nuevo.',
             ]);

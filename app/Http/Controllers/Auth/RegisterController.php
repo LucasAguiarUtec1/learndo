@@ -98,7 +98,7 @@ class RegisterController extends Controller
         $rol->usuario()->save(new User([
             'nombrecompleto' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => $data['password'],
             'nickname' => $data['nickname'],
             'telefono' => $data['phone'],
             'biografia' => $data['biography'],
@@ -106,14 +106,5 @@ class RegisterController extends Controller
         ]));
 
         return User::where('email', $data['email'])->first();
-
-        /**return User::create([
-            'nombrecompleto' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'nickname' => $data['nickname'],
-            'telefono' => $data['phone'],
-            'biografia' => $data['biography'],
-        ]);**/
     }
 }

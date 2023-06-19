@@ -10,21 +10,16 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^10.8",
-        "laravel/sanctum": "^3.2",
-        "laravel/socialite": "^5.6",
+        "laravel/cashier": "^14.12",
+        "laravel/framework": "^10.0",
+        "laravel/sanctum": "^3.0",
+        "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.8",
-        "laravel/ui": "^4.2",
-<<<<<<< Updated upstream
-        "paypal/paypal-checkout-sdk": "^1.0",
-        "paypal/rest-api-sdk-php": "^1.6",
-        "socialiteproviders/facebook": "^4.1",
-        "srmklive/paypal": "~3.0"
-=======
+        "laravel/ui": "^4.0",
         "munafio/chatify": "^1.6",
         "pusher/pusher-php-server": "^7.2",
-        "socialiteproviders/facebook": "^4.1"
->>>>>>> Stashed changes
+        "socialiteproviders/facebook": "^4.1",
+        "stripe/stripe-php": "^10.15"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -32,7 +27,7 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.1",
+        "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {

@@ -19,7 +19,7 @@
                 $table->string('email')->unique();
                 $table->string('nombrecompleto');
                 $table->timestamp('email_verified_at')->nullable();
-                $table->string('password')->nullable();
+                $table->longText('password')->nullable();
                 $table->string('telefono');
                 $table->string('biografia')->nullable();
                 $table->string('foto')->nullable();
