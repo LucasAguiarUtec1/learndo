@@ -12,6 +12,7 @@ class Modulo extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'aceptado',
     ];
 
     public function curso()

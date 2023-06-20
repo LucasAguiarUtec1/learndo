@@ -8,10 +8,12 @@ use App\Models\Clase;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Modulo;
 use App\Models\Leccion;
+use App\Models\Colaboracion;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Multimedia;
 use App\Models\Seminario;
+use App\Models\Evaluacion;
 use App\Models\User;
  //
 
@@ -40,7 +42,9 @@ class CursoController extends Controller
     public function misCursos()
     {
         $cursos = Clase::where('organizador_id', Auth::user()->id)->get();
-        return view('misCursos', compact('cursos'));
+        $colaboraciones = Colaboracion::where('usuario_id', Auth::user()->id)->get();
+        $cursos_colaborador = Clase::whereIn('id', $colaboraciones->pluck('clase_id'))->get();
+        return view('misCursos', compact('cursos', 'colaboraciones', 'cursos_colaborador'));
     }
 
     public function eliminar($id)
@@ -57,7 +61,8 @@ class CursoController extends Controller
         $clase = Clase::find($id);
         $curso = $clase->claseable;
         $modulos = $curso->modulos;
-        return view('ProfesorModulo', compact('modulos', 'clase'));
+        $evaluaciones = Evaluacion::where('modulo_id', $curso->id)->get();
+        return view('ProfesorModulo', compact('modulos', 'clase', 'evaluaciones'));
     }
 
     public function crearModulo(Request $request, $id)
@@ -67,6 +72,19 @@ class CursoController extends Controller
         $modulo->nombre = $request->name;
         $modulo->descripcion = $request->descripcion;
         $modulo->curso_id = $curso->id;
+        $modulo->aceptado = 1;
+        $modulo->save();
+        return redirect()->route('modulos', $id);
+    }
+
+    public function sugerirModulo(Request $request, $id)
+    {
+        $curso = Clase::find($id)->claseable;
+        $modulo = new Modulo();
+        $modulo->nombre = $request->name;
+        $modulo->descripcion = $request->descripcion;
+        $modulo->curso_id = $curso->id;
+        $modulo->aceptado = 0;
         $modulo->save();
         return redirect()->route('modulos', $id);
     }
@@ -75,6 +93,14 @@ class CursoController extends Controller
     {
         $modulo = Modulo::find($idMod);
         $modulo->delete();
+        return redirect()->route('modulos', $id);
+    }
+
+    public function aceptarModulo($id, $idMod)
+    {
+        $modulo = Modulo::find($idMod);
+        $modulo->aceptado = 1;
+        $modulo->save();
         return redirect()->route('modulos', $id);
     }
 

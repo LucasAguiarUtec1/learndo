@@ -31,18 +31,26 @@
 			<div class="card-body" style="display: none;">
 				<ul class="list-group">
 					@foreach($cursos as $curso)
-					@if($curso->claseable_type == 'App\Models\Curso')
-					<li class="list-group-item">
-						<img src="{{asset('images/cursos.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
-						@if(Auth::user()->userable_type=='App\Models\Organizador')
-						<a href="{{route('modulos', $curso->id)}}">{{$curso->nombre}}</a>
-						@else
-						<a href="#">{{$curso->nombre}}</a>
+						@if($curso->claseable_type == 'App\Models\Curso')
+							<li class="list-group-item">
+							<img src="{{asset('images/cursos.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
+								<a href="{{route('modulos', $curso->id)}}">{{$curso->nombre}}</a>
+							@endif
+							@if(Auth::user()->userable_type=='App\Models\Estudiante')
+								<a href="#">{{$curso->nombre}}</a>
+							@endif
+							<a href="{{route('eliminarcurso', $curso->id)}}" class="btn btn-danger float-right eliminarBtn">Eliminar</a>
+							</li>
 						@endif
-						<a href="{{route('eliminarcurso', $curso->id)}}" class="btn btn-danger float-right eliminarBtn">Eliminar</a>
-					</li>
-					@endif
 					@endforeach
+					@if(Auth::user()->userable_type=='App\Models\Colaborador')
+						@foreach($cursos_colaborador as $curso_c)
+							<li class="list-group-item">
+							<img src="{{asset('images/cursos.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
+							<a href="{{route('modulos', $curso_c->id)}}">{{$curso_c->nombre}}</a>
+						@endforeach
+					@endif
 				</ul>
 				
 			</div>
@@ -50,31 +58,33 @@
 			<button class="btn btn-secondary mt-2 text-center" onclick="toggleButtonContentCursos('modulo-1')">Mostrar Cursos</button>
 			<div class="contenido-adicional" id="boton-adicional-cursos" style="display: none;"></div>
 		</div>
-	
-		<div class="card mt-4 modulo" id="modulo-2">
-			<div class="card-header">
-				<h5 class="mb-0">Mis seminarios</h5>
-			</div>
-	
-			<div class="card-body" style="display: none;">
-				<ul class="list-group">
-					@foreach($cursos as $curso)
-					@if($curso->claseable_type == 'App\Models\Seminario')
-					<li class="list-group-item">
-						<img src="{{asset('images/seminario.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
-						<a href="#">{{$curso->nombre}}</a>
-						<a href="{{route('eliminarseminario', $curso->id)}}" class="btn btn-danger float-right eliminarBtn">Eliminar</a>
 
-					</li>
-					@endif
-					@endforeach
-				</ul>
-				
+		@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))
+			<div class="card mt-4 modulo" id="modulo-2">
+				<div class="card-header">
+					<h5 class="mb-0">Mis seminarios</h5>
+				</div>
+		
+				<div class="card-body" style="display: none;">
+					<ul class="list-group">
+						@foreach($cursos as $curso)
+						@if($curso->claseable_type == 'App\Models\Seminario')
+						<li class="list-group-item">
+							<img src="{{asset('images/seminario.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
+							<a href="#">{{$curso->nombre}}</a>
+							<a href="{{route('eliminarseminario', $curso->id)}}" class="btn btn-danger float-right eliminarBtn">Eliminar</a>
+
+						</li>
+						@endif
+						@endforeach
+					</ul>
+					
+				</div>
+		
+				<button class="btn btn-secondary mt-2" style="text-center;" onclick="toggleButtonContent('modulo-2')">Mostrar Seminarios</button>
+				<div class="contenido-adicional" id="boton-adicional-seminarios" style="display: none;"></div>
 			</div>
-	
-			<button class="btn btn-secondary mt-2" style="text-center;" onclick="toggleButtonContent('modulo-2')">Mostrar Seminarios</button>
-			<div class="contenido-adicional" id="boton-adicional-seminarios" style="display: none;"></div>
-		</div>
+		@endif
 	</div>
 
 	<script>

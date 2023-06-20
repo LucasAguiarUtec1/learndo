@@ -21,13 +21,22 @@
 				<h5 class="mb-0">{{$clase->nombre}}</h5>
 			</div>
 		</div>
-	
-		<div class="row mt-4">
-			<div class="col-sm-12 col-md-6">
-				<button class="btn btn-success" data-toggle="modal" data-target="#modulo-modal">Añadir Módulo</button>
+		@if(Auth::user()->userable_type=='App\Models\Organizador')
+			<div class="row mt-4">
+				<div class="col-sm-12 col-md-6">
+					<button class="btn btn-success" data-toggle="modal" data-target="#modulo-modal">Añadir Módulo</button>
+				</div>
 			</div>
-		</div>
+		@endif
+		@if(Auth::user()->userable_type=='App\Models\Colaborador')
+			<div class="row mt-4">
+				<div class="col-sm-12 col-md-6">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#sug-modulo-modal">Sugerir Módulo</button>
+				</div>
+			</div>
+		@endif
 		@foreach($modulos as $modulo)
+		@if($modulo->aceptado)
 		<?php 
 			$lecciones = $modulo->lecciones;
 			$multimedias = $modulo->multimedia;			
@@ -54,32 +63,122 @@
 					</li>
 					@endforeach
 					<li class="list-group-item">
-						<img src="{{asset('images/lapiz.png')}}" alt="Icono de lápiz" class="mr-3" width="30" height="30">
-						<a href="#">Evaluaciones</a>
-						<button class="btn btn-danger float-right">Eliminar</button>
+						@foreach($evaluaciones as $evaluacion)
+							<img src="{{asset('images/lapiz.png')}}" alt="Icono de lápiz" class="mr-3" width="30" height="30">
+							<a href="#">{{$evaluacion->nombre}}</a>
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
+							<button class="btn btn-danger float-right">Eliminar</button>
+							@endif
+							<br>
+							<br>
+						@endforeach
 					</li>
 					<div class="card">
 						<div class="card-body text-center">
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
 							<button class="btn btn-success" data-toggle="modal" data-target="#leccion-modal" data-modulo-id="{{$modulo->id}}">
 								<img src="{{asset('images/libro.png')}}" alt="Icono" class="mr-2" width="20" height="20">
 								Añadir Lección
 							</button>
-	
+							@endif
+
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
 							<button class="btn btn-success" data-toggle="modal" data-target="#multimedia-modal" data-modulo-id="{{$modulo->id}}">
 								<img src="{{asset('images/multimedia.png')}}" alt="Icono" class="mr-2" width="20" height="20">
 								Añadir Contenido Multimedia
 							</button>
-	
+							@endif
+
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
 							<button class="btn btn-success">
 								<img src="{{asset('images/lapiz.png')}}" alt="Icono" class="mr-2" width="20" height="20">
 								<a href="{{route('crearEv', ['idMod' => $modulo->id])}}">Añadir Evaluación</a>
 							</button>
+							@endif
+
+							@if(Auth::user()->userable_type=='App\Models\Colaborador')
+							<button class="btn btn-primary" data-toggle="modal" data-target="#leccion-modal" data-modulo-id="{{$modulo->id}}">
+								<img src="{{asset('images/libro.png')}}" alt="Icono" class="mr-2" width="20" height="20">
+								Sugerir Lección
+							</button>
+							@endif
+
+							@if(Auth::user()->userable_type=='App\Models\Colaborador')
+							<button class="btn btn-primary" data-toggle="modal" data-target="#multimedia-modal" data-modulo-id="{{$modulo->id}}">
+								<img src="{{asset('images/multimedia.png')}}" alt="Icono" class="mr-2" width="20" height="20">
+								Sugerir Contenido Multimedia
+							</button>
+							@endif
+						
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
 							<a href="{{route('eliminarModulo', ['id' => $clase->id, 'idMod' => $modulo->id])}}" class="btn btn-danger float-right mt-2">Eliminar Módulo</a>
+							@endif
 						</div>
 					</div>
 				</ul>
 			</div>
 		</div>
+		@endif
+		@endforeach
+
+
+
+
+
+
+		@foreach($modulos as $modulo)
+		@if(!$modulo->aceptado)
+		<?php 
+			$lecciones = $modulo->lecciones;
+			$multimedias = $modulo->multimedia;			
+		?>
+		<div class="card mt-4 modulo" id="modulo-1" style="opacity: 0.7;">
+			<div class="card-header">
+				<h5 class="mb-0">{{$modulo->nombre}}</h5>
+			</div>
+	
+			<div class="card-body">
+				<ul class="list-group">
+					@foreach($lecciones as $leccion)
+					<li class="list-group-item">
+						<img src="{{asset('images/libro.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
+						<a href="#" class="open-pdf-link" data-leccion-id="{{ $leccion->id }}">{{$leccion->nombre}}</a>
+						<a href="{{route('eliminarLeccion', ['idCurso' => $clase->id, 'idLeccion' => $leccion->id])}}" class="btn btn-danger float-right">Eliminar</a>
+					</li>
+					@endforeach
+					@foreach($multimedias as $multimedia)
+					<li class="list-group-item">
+						<img src="{{asset('images/multimedia.png')}}" alt="Icono de video" class="mr-3" width="30" height="30">
+						<a href="{{$multimedia->link}}" target="_blank">Clase {{$multimedia->id}}</a>
+						<a href="{{route('eliminarMultimedia', ['idCurso' => $clase->id, 'idMultimedia' => $multimedia->id])}}" class="btn btn-danger float-right">Eliminar</a>
+					</li>
+					@endforeach
+					<li class="list-group-item">
+						@foreach($evaluaciones as $evaluacion)
+							<img src="{{asset('images/lapiz.png')}}" alt="Icono de lápiz" class="mr-3" width="30" height="30">
+							<a href="#">{{$evaluacion->nombre}}</a>
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
+							<button class="btn btn-danger float-right">Eliminar</button>
+							@endif
+							<br>
+							<br>
+						@endforeach
+					</li>
+					<div class="card">
+						<div class="card-body text-center d-flex justify-content-center">
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
+							<a href="{{route('aceptarModulo', ['id' => $clase->id, 'idMod' => $modulo->id])}}" class="btn btn-success float-right mt-2">Aceptar sugerencia</a>
+							@endif
+
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
+							<a href="{{route('eliminarModulo', ['id' => $clase->id, 'idMod' => $modulo->id])}}" class="btn btn-danger float-right mt-2">Rechazar sugerencia</a>
+							@endif
+						</div>
+					</div>
+				</ul>
+			</div>
+		</div>
+		@endif
 		@endforeach
 	</div>
 
@@ -130,6 +229,38 @@
 				</div>
 				<div class="modal-body">
 					<form method="POST" action="{{route('crearModulo', $clase->id)}}">
+						@csrf
+						<div class="form-group">
+							<label for="nombre-modulo">Nombre Del Modulo</label>
+							<input type="text" class="form-control" id="nombre-modulo" placeholder="Ingrese el nombre del Modulo" name="name">
+						</div>
+						<div class="form-group">
+							<label for="descripcion">Descripción:</label>
+							<textarea class="form-control" id="descripcion" rows="5" name="descripcion"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+							<button type="submit" class="btn btn-primary">Guardar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>	
+	</div>
+
+	<!-- Modal para sugerir Modulo -->
+	<div class="modal fade" id="sug-modulo-modal" tabindex="-1" role="dialog" aria-labelledby="modulo-modal-label"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modulo-modal-label">Sugerir Modulo</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="POST" action="{{route('sugerirModulo', $clase->id)}}">
 						@csrf
 						<div class="form-group">
 							<label for="nombre-modulo">Nombre Del Modulo</label>

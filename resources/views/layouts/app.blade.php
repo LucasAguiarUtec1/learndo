@@ -19,10 +19,11 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="{{route('mapa')}}">Mapa</a>
 				</li>
-				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))
+
 				<li class="nav-item">
-					<a class="nav-link" href="{{route('miscursos')}}">Mis Cursos</a>
+					<a class="nav-link" href="{{route('miscursos')}}">Cursos</a>
 				</li>
+				@if(Auth::check() && (Auth::user()->userable_type == 'App\Models\Estudiante' || Auth::user()->userable_type == 'App\Models\Organizador'))
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('paypal')}}">paypal</a>
 				</li>

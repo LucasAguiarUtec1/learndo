@@ -78,7 +78,11 @@ Route::get('/Curso/{id}/modulos', [CursoController::class, 'modulos'])->name('mo
 
 Route::post('/Curso/{id}/modulos/crear', [CursoController::class, 'crearModulo'])->name('crearModulo')->middleware('auth');
 
+Route::post('/Curso/{id}/modulos/sugerir', [CursoController::class, 'sugerirModulo'])->name('sugerirModulo')->middleware('auth');
+
 Route::get('/Curso/{id}/modulos/{idMod}/eliminar', [CursoController::class, 'eliminarModulo'])->name('eliminarModulo')->middleware('auth');
+
+Route::get('/Curso/{id}/modulos/{idMod}/accept', [CursoController::class, 'aceptarModulo'])->name('aceptarModulo')->middleware('auth');
 
 Route::get('/modulos/{idMod}/crearEv', [EvaluacionController::class, 'crearEv'])->name('crearEv')->middleware('auth');
 
@@ -119,4 +123,5 @@ Route::get('/chatify', [MessagesController::class, 'index'])->name('chat_inicio'
 Route::post('/enviarInvitacion', [UsuarioController::class, 'enviarInvitacion'])->name('enviarInvitacion');
 
 Route::get('/aceptar-invitacion/{cursoId}/{usuarioId}/{eltoken}', [ColaboracionController::class, 'aceptarInvitacion'])->name('aceptar.invitacion')->middleware('auth');
+
 
