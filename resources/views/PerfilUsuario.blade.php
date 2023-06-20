@@ -38,6 +38,40 @@
 			<div class="col-md-8" style="padding: 30px;">
 				<h4><strong>{{$usuario->nombrecompleto}}</strong></h4>
 				<p>{{$usuario->biografia}}</p>
+				@if($usuario->userable_type == 'App\Models\Organizador')
+					<h4 style="padding-top: 10px; padding-bottom: 10px;"><strong>Profesor en los siguientes cursos:</strong></h4>
+					@php
+						$imprimioCurso = false;
+					@endphp
+					@php
+						$imprimioSem = false;
+					@endphp
+					@foreach($cursos as $curso)
+						@if($curso->claseable_type == 'App\Models\Curso')
+							<a href="{{route('modulos', $curso->id)}}">{{$curso->nombre}}</a>
+							<br>
+							@php
+								$imprimioCurso = true;
+							@endphp
+						@endif
+					@endforeach
+					@if(!$imprimioCurso)
+						<p>Aún no es profesor de ningún curso</p>
+					@endif
+					<h4 style="padding-top: 10px; padding-bottom: 10px;"><strong>Profesor en los siguientes seminarios:</strong></h4>
+					@foreach($cursos as $curso)
+						@if($curso->claseable_type == 'App\Models\Seminario')
+							<a href="{{route('modulos', $curso->id)}}">{{$curso->nombre}}</a>
+							<br>
+							@php
+								$imprimioSem = true;
+							@endphp
+						@endif
+					@endforeach
+					@if(!$imprimioSem)
+						<p>Aún no es profesor de ningún seminario</p>
+					@endif
+				@endif
 					
 				<!-- Modal -->
 				<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"

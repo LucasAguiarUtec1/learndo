@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Clase;
 use Illuminate\Http\Request;
 use Illuminate\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
@@ -27,7 +28,8 @@ class UsuarioController extends Controller
     public function verperfil($id)
     {
         $usuario = User::find($id);
-        return view('PerfilUsuario', compact('usuario'));
+        $cursos = Clase::where('organizador_id', $usuario->id)->get();
+        return view('PerfilUsuario', compact('usuario'), compact('cursos'));
     }
 
     public function login(Request $request)

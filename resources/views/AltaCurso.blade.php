@@ -6,6 +6,7 @@
 	<title>Mi página con Bootstrap</title>
 	<!-- Agregamos los estilos de Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/stylesAltaCurso.css')}}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -29,7 +30,11 @@
 				  <label for="precio">Precio</label>
 				  <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
 				</div>
-				<input type="text" class="form-control" id="profesor" placeholder="Ingrese el nombre del profesor" name="instructor">
+				<input type="hidden" id="profesor" name="instructor" value="{{ Auth::user()->email }}">
+				<div class="form-group">
+					<label for="color">Color en el foro</label>
+					<input type="color" id="color" name="color">
+				</div>
 				<div class="text-center">
 				<button type="submit" class="btn btn-primary">Crear Clase</button>
 				</div>
@@ -38,7 +43,42 @@
 		  </div>
 		</div>
 	</div>
+
 	
+	<script>
+		$(document).ready(function() {
+			$('form').on('submit', function(event) {
+			event.preventDefault(); // Evita que el formulario se envíe normalmente
+
+			// Obtiene el nombre del curso ingresado
+			var formData = {
+				title: $('#nombreCurso').val(),
+				description: $('#descripcion').val(),
+				color: $('#color').val(),
+				accepts_threads: 1,
+				is_private: 0,
+				_token: '{{ csrf_token() }}'
+			};
+
+			// Realiza una solicitud AJAX al controlador del foro para crear la sección
+			$.ajax({
+				url: '{{ Forum::route('category.store') }}', // Reemplaza con la ruta adecuada para crear la sección del foro
+				method: 'POST',
+				data: formData,
+				success: function(response) {
+				// Sección creada exitosamente, puedes redirigir a otra página o realizar otras acciones
+				$('form')[0].submit();
+				// Aquí puedes agregar el código para redirigir a la página deseada o realizar otras acciones necesarias
+				},
+				error: function(xhr, status, error) {
+				// Ocurrió un error al crear la sección del foro
+				alert('Ocurrió un error al crear la sección del foro.');
+				console.error(xhr.responseText);
+				}
+			});
+			});
+		});
+	</script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
