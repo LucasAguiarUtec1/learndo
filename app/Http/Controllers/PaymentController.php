@@ -36,7 +36,7 @@ class PaymentController extends Controller
     public function payWithPayPal($total, $currency)
     {
         $payer = new \PayPal\Api\Payer();
-        $payer->setPaymentMethod('paypal');
+        $payer->setPaymentMethod('paypal'); 
 
         $amount = new \PayPal\Api\Amount();
         $amount->setTotal($total);

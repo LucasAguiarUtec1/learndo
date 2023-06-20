@@ -40,6 +40,8 @@
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<h2>Detalles de compra</h2>
+			<label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" disabled>
 			<label for="precio">Precio:</label>
 			<input type="text" id="precio" disabled>
 
@@ -89,8 +91,9 @@
 						@endif
 						<div class="card-body border-top">
 							<h5 class="card-title">{{$curso->nombre}}</h5>
-							<p class="card-text">{{$curso->descripcion}}</p>
-							<a href="#" class="btn btn-primary comprarBtn">Comprar</a>
+								Precio:	<h5 class="card-precio">{{$curso->precio}}</h5>
+							<p class="card-text">Descripcion : {{$curso->descripcion}}</p>
+							<a href="#" class="btn btn-primary comprarBtn" data-curso-id='{{$curso->id}}'>Comprar</a>
 						</div>
 					</div>
 				</div>
@@ -149,11 +152,20 @@
 		
 
 		comprarButtons.forEach(function (button) {
-			button.addEventListener("click", function () {
-				document.getElementById("modal").style.display = "block";
-				overlay.style.display = "block";
-			});
-		});
+        button.addEventListener("click", function () {
+            // Obtener los datos del curso/seminario correspondiente al botón "Comprar" clicado
+            const precio = button.closest(".card-body").querySelector(".card-precio").textContent;
+            const nombre = button.closest(".card-body").querySelector(".card-title").textContent;
+
+            // Establecer los valores en los campos del modal
+            document.getElementById("precio").value = precio;
+            document.getElementById("nombre").value = nombre;
+
+            // Mostrar el modal y el overlay
+            document.getElementById("modal").style.display = "block";
+            overlay.style.display = "block";
+        });
+    });
 
 		document.getElementById("aplicarDescuento").addEventListener("change", function () {
 			updatePrecioFinal();
@@ -164,7 +176,7 @@
 		});
 
 		function updatePrecioFinal() {
-			const precio = 100; // Precio base
+			const precio = parseInt(button.closest(".card-body").querySelector(".card-precio").textContent);
 			const creditos = parseInt(document.getElementById("creditos").value);
 			const aplicarDescuento = document.getElementById("aplicarDescuento").checked;
 
@@ -183,7 +195,7 @@
 		const toggleButton = document.getElementById('toggleButton');
 		const seminariosContainer = document.getElementById('seminariosContainer');
 		const cursosContainer = document.getElementById('cursosContainer');
-
+		
 		// Agregar un listener para el cambio de estado del botón
 		toggleButton.addEventListener('change', function () {
 			if (toggleButton.checked) {
@@ -208,7 +220,7 @@
 		integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
 		crossorigin="anonymous"></script>
 
-
+		
 
 	<!--JAVASCRIPT-->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js%22%3E"></script>
