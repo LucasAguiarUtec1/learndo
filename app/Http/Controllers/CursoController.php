@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Modulo;
 use App\Models\Leccion;
 use App\Models\Colaboracion;
+use App\Models\comprados;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Multimedia;
@@ -44,7 +45,14 @@ class CursoController extends Controller
         $cursos = Clase::where('organizador_id', Auth::user()->id)->get();
         $colaboraciones = Colaboracion::where('usuario_id', Auth::user()->id)->get();
         $cursos_colaborador = Clase::whereIn('id', $colaboraciones->pluck('clase_id'))->get();
-        return view('misCursos', compact('cursos', 'colaboraciones', 'cursos_colaborador'));
+
+        $comprados = comprados::where('user_id', Auth::user()->id)->get();
+        $cursoIds = $comprados->pluck('curso_id')->toArray();
+        $cursosEstudiante = Curso::whereIn('id', $cursoIds)->get();
+        $cursosEstudianteIds = $cursosEstudiante->pluck('id')->toArray();
+        $cursos_estudiante = Clase::whereIn('claseable_id', $cursosEstudianteIds)->get();
+
+        return view('misCursos', compact('cursos', 'colaboraciones', 'cursos_colaborador', 'cursos_estudiante'));
     }
 
     public function eliminar($id)

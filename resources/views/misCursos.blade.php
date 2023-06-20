@@ -37,9 +37,6 @@
 							@if(Auth::user()->userable_type=='App\Models\Organizador')
 								<a href="{{route('modulos', $curso->id)}}">{{$curso->nombre}}</a>
 							@endif
-							@if(Auth::user()->userable_type=='App\Models\Estudiante')
-								<a href="#">{{$curso->nombre}}</a>
-							@endif
 							<a href="{{route('eliminarcurso', $curso->id)}}" class="btn btn-danger float-right eliminarBtn">Eliminar</a>
 							</li>
 						@endif
@@ -49,6 +46,13 @@
 							<li class="list-group-item">
 							<img src="{{asset('images/cursos.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
 							<a href="{{route('modulos', $curso_c->id)}}">{{$curso_c->nombre}}</a>
+						@endforeach
+					@endif
+					@if(Auth::user()->userable_type=='App\Models\Estudiante')
+						@foreach($cursos_estudiante as $curso_e)
+							<li class="list-group-item">
+							<img src="{{asset('images/cursos.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
+							<a href="{{route('modulos', $curso_e->id)}}">{{$curso_e->nombre}}</a>
 						@endforeach
 					@endif
 				</ul>
