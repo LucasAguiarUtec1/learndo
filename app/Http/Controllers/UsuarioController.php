@@ -29,7 +29,8 @@ class UsuarioController extends Controller
     {
         $usuario = User::find($id);
         $cursos = Clase::where('organizador_id', $usuario->id)->get();
-        return view('PerfilUsuario', compact('usuario'), compact('cursos'));
+        $cursos_propios = Clase::where('organizador_id', Auth::User()->id)->get();
+        return view('PerfilUsuario', compact('usuario', 'cursos', 'cursos_propios'));
     }
 
     public function login(Request $request)
