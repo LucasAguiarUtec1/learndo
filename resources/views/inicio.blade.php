@@ -7,6 +7,22 @@
 	<!-- Agregamos los estilos de Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/stylesInicio.css') }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="manifest" href="/learndo/public/manifest.json">
+		{{-- PWA assets --}}
+		<script>
+			if ('serviceWorker' in navigator) {
+			  window.addEventListener('load', () => {
+				navigator.serviceWorker.register('serviceworker.js')
+	  .then(registration => {
+		console.log('ServiceWorker registrado con éxito:', registration.scope);
+	  })
+	  .catch(error => {
+		console.log('Error al registrar el ServiceWorker:', error);
+	  });
+	
+			  });
+			}
+		  </script>
 </head>
 <body>
 @extends('layouts.app')

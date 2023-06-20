@@ -28,6 +28,10 @@ Route::get('/', function () {
     return view('inicio');
 })->name('inicio');
 
+Route::get('/offline', function () {
+    return view('vendor.laravelpwa.offline');
+});
+
 Route::view('/login', 'auth.login')->name('login')->middleware('verified');
 
 Route::get('/login/{driver}', [SocialController::class, 'redirectToProvider']);
