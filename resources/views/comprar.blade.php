@@ -35,30 +35,29 @@
 	</div>
 
 	
-
 	<div id="modal" class="modal">
-		<div class="modal-content">
-			<span class="close">&times;</span>
-			<h2>Detalles de compra</h2>
-			<label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" disabled>
-			<label for="precio">Precio:</label>
-			<input type="text" id="precio" disabled>
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Detalles de compra</h2>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" disabled>
+    <label for="precio">Precio:</label>
+    <input type="int" id="precio" disabled>
 
-			<label for="creditos">Créditos:</label>
-			<input type="text" id="creditos">
+    <label for="creditos">Créditos:</label>
 
-			<label for="aplicarDescuento">Aplicar descuento con créditos:</label>
-			<input type="checkbox" id="aplicarDescuento">
+    <label for="price">Seleccione cantidad de créditos a usar:</label>
+    <input type="range" name="creditos" id="creditos" min="0" max="0" step="1" value="0">
+    <input type="checkbox" id="aplicarDescuento">
 
-			<label for="precioFinal">Precio final:</label>
-			<input type="text" id="precioFinal" disabled>
+    <label for="precioFinal">Precio final:</label>
+    <input type="int" id="precioFinal" disabled>
 
-			<button id="paypalBtn">
-				<img src="paypal.jpg" alt="PayPal">
-			</button>
-		</div>
-	</div>
+    <button id="paypalBtn">
+      <img src="paypal.jpg" alt="PayPal">
+    </button>
+  </div>
+</div>
 
 
 	<div class="container mt-5">
@@ -69,7 +68,11 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Créditos</span>
 					</div>
-					<input type="text" class="form-control form-control-sm" value="{{Auth::user()->creditos}}" readonly>
+					@php
+    $estudiante = app('App\Http\Controllers\UsuarioController')->obtenerEstudianteActual();
+    $creditos = $estudiante ? $estudiante->creditos : 0;
+@endphp
+					<input type="number" id="creditosusu" class="form-control form-control-sm" value="{{ $creditos }}" readonly >
 					<div class="input-group-append">
 						<span class="input-group-text">$</span>
 					</div>
@@ -137,59 +140,126 @@
 
 
 
-	<script>
-		const modal = document.getElementById("modal");
-		const closeBtn = document.querySelector(".close");
-		var overlay = document.getElementById("overlay");
+<!-- ...código anterior... -->
 
-		// Evento de clic en el botón "close"
-		closeBtn.addEventListener("click", function () {
-			modal.style.display = "none"; // Oculta el modal al hacer clic en "close"
-			overlay.style.display = "none";
-		});
+<div id="modal" class="modal">
+<form method="POST" action="{{route('paywithpaypal')}}">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Detalles de compra</h2>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" disabled>
+    <label for="precio">Precio:</label>
+    <input type="int" id="precio" disabled>
 
-		const comprarButtons = document.querySelectorAll(".comprarBtn");
-		
+    <label for="creditos">Créditos:</label>
 
-		comprarButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            // Obtener los datos del curso/seminario correspondiente al botón "Comprar" clicado
-            const precio = button.closest(".card-body").querySelector(".card-precio").textContent;
-            const nombre = button.closest(".card-body").querySelector(".card-title").textContent;
+    <label for="price">Seleccione cantidad de créditos a usar:</label>
+    <input type="range" name="creditos" id="creditos" min="0" max="0" step="1" value="0">
+    <input type="checkbox" id="aplicarDescuento">
 
-            // Establecer los valores en los campos del modal
-            document.getElementById("precio").value = precio;
-            document.getElementById("nombre").value = nombre;
+    <label for="precioFinal">Precio final:</label>
+    <input type="int" id="precioFinal" disabled>
 
-            // Mostrar el modal y el overlay
-            document.getElementById("modal").style.display = "block";
-            overlay.style.display = "block";
-        });
+    <button id="paypalBtn">
+      <img src="paypal.jpg" alt="PayPal">
+    </button>
+  </div>
+</form>
+</div>
+
+<!-- ...código posterior... -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  const modal = document.getElementById("modal");
+  const closeBtn = document.querySelector(".close");
+  var overlay = document.getElementById("overlay");
+
+  // Evento de clic en el botón "close"
+  closeBtn.addEventListener("click", function () {
+    modal.style.display = "none"; // Oculta el modal al hacer clic en "close"
+    overlay.style.display = "none";
+    updatePrecioFinal();
+  });
+
+  const comprarButtons = document.querySelectorAll(".comprarBtn");
+
+  let button;
+  comprarButtons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      // Obtener los datos del curso/seminario correspondiente al botón "Comprar" clicado
+      const precio = btn.closest(".card-body").querySelector(".card-precio").textContent;
+      const nombre = btn.closest(".card-body").querySelector(".card-title").textContent;
+      //id="creditosusu" class="form-control form-control-sm"
+      // Establecer los valores en los campos del modal
+      document.getElementById("precio").value = (precio);
+      document.getElementById("nombre").value = nombre;
+      if ({{ $creditos }}>precio) {
+        document.getElementById("creditos").max = precio;
+      } else document.getElementById("creditos").max = {{ $creditos }};
+
+      // Asignar el valor a la variable button
+      button = btn;
+
+      // Mostrar el modal y el overlay
+      document.getElementById("modal").style.display = "block";
+      overlay.style.display = "block";
+
+      // Actualizar el precio final
+      updatePrecioFinal();
     });
+  });
 
-		document.getElementById("aplicarDescuento").addEventListener("change", function () {
-			updatePrecioFinal();
-		});
+  document.getElementById("aplicarDescuento").addEventListener("change", function () {
+    updatePrecioFinal();
+  });
 
-		document.getElementById("creditos").addEventListener("input", function () {
-			updatePrecioFinal();
-		});
+  document.getElementById("creditos").addEventListener("input", function () {
+    updatePrecioFinal();
+  });
 
-		function updatePrecioFinal() {
-			const precio = parseInt(button.closest(".card-body").querySelector(".card-precio").textContent);
-			const creditos = parseInt(document.getElementById("creditos").value);
-			const aplicarDescuento = document.getElementById("aplicarDescuento").checked;
+  function updatePrecioFinal() {
+    const precio = parseInt(button.closest(".card-body").querySelector(".card-precio").textContent);
+    const creditos = parseInt(document.getElementById("creditos").value);
+    const aplicarDescuento = document.getElementById("aplicarDescuento").checked;
 
-			let precioFinal = precio;
+    let precioFinal = precio;
 
-			if (aplicarDescuento && creditos > 0) {
-				precioFinal -= creditos;
-			}
+    if (aplicarDescuento && creditos > 0) {
+      precioFinal -= creditos;
+    }
 
-			document.getElementById("precio").value = precio;
-			document.getElementById("precioFinal").value = precioFinal;
-		}
-	</script>
+    document.getElementById("precioFinal").value = precioFinal;
+  }
+</script>
+
+<!-- ...código posterior... -->
+<script>
+  // Agrega un listener de clic al botón de PayPal
+  $('#paypalBtn').click(function() {
+    // Obtén el total y la moneda desde algún lugar (por ejemplo, podrían ser variables en tu JavaScript)
+	var total = document.getElementById('precioFinal').value; // Ejemplo: reemplaza 100 con la cantidad deseada
+    var currency = 'USD'; // Ejemplo: reemplaza 'USD' con la moneda deseada
+
+    // Realiza una solicitud AJAX al controlador de pagos
+    $.ajax({
+		url: 'http://localhost/learndo/public/paypal/pay',
+  method: 'POST',
+  data: {
+    total: total,
+    currency: currency
+  },
+  success: function(response) {
+    // Redirige al usuario a la URL de aprobación de PayPal
+    window.location.href = response.approvalUrl;
+  },
+  error: function(xhr, status, error) {
+    // Maneja el error de conexión con PayPal
+    console.error(error);
+  }
+});
+  });
+</script>
 	<script>
 		// Obtener referencias a los elementos del DOM
 		const toggleButton = document.getElementById('toggleButton');

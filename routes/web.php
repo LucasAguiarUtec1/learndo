@@ -117,7 +117,7 @@ Route::get('/Cursos/Comprar', [ClaseController::class, 'show'])->name('comprar')
 
 Route::view('/paypal', 'paypal')->name('paypal');
 
-Route::get('/paypal/pay', [PaymentController::class, 'payWithPayPal']);
+Route::post('/paypal/pay', [PaymentController::class, 'payWithPayPal'])->name('paywithpaypal');
 
 Route::get('/paypal/status', [PaymentController::class, 'payPalStatus']);
 

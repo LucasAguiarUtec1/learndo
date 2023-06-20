@@ -30,6 +30,34 @@ class UsuarioController extends Controller
         $usuarios = User::all();
         return view('verUsuarios', ['usuarios' => $usuarios]);
     }
+    public function obtenerCreditos()
+    {
+        // Obtener el id del usuario autenticado
+        $userId = Auth::id();
+
+        // Obtener el estudiante correspondiente al usuario
+        $estudiante = Estudiante::where('userable_id', $userId)->first();
+
+        // Verificar si se encontró el estudiante
+        if ($estudiante) {
+            $creditos = $estudiante->creditos;
+        } else {
+            // Si no se encontró el estudiante, asignar un valor predeterminado o lanzar una excepción, según lo prefieras
+            $creditos = 0; // Valor predeterminado
+            // throw new \Exception('Estudiante no encontrado'); // Lanzar excepción
+        }
+
+        return $creditos;
+    }
+    public function obtenerEstudianteActual()
+    {
+        $userId = Auth::id();
+        $usuario =User::find($userId);
+        $estudiante = $usuario->userable;
+        return $estudiante;
+    }
+
+
 
     public function verperfil($id)
     {
