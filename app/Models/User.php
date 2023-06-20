@@ -127,4 +127,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return 'remember_token';
     }
+
+    public function colaboraciones()
+    {
+        return $this->hasMany('App\Models\Colaboracion');
+    }
 }

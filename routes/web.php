@@ -8,6 +8,7 @@ use App\Http\Controllers\SeminarioController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EvaluacionController;
+use App\Http\Controllers\ColaboracionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
@@ -114,3 +115,8 @@ Route::get('/paypal/status', [PaymentController::class, 'payPalStatus']);
 Route::get('/chatify/{id}', [MessagesController::class, 'index'])->name('chat');
 
 Route::get('/chatify', [MessagesController::class, 'index'])->name('chat_inicio');
+
+Route::post('/enviarInvitacion', [UsuarioController::class, 'enviarInvitacion'])->name('enviarInvitacion');
+
+Route::get('/aceptar-invitacion/{cursoId}/{usuarioId}/{eltoken}', [ColaboracionController::class, 'aceptarInvitacion'])->name('aceptar.invitacion')->middleware('auth');
+

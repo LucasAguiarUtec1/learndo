@@ -30,4 +30,9 @@ class Clase extends Model
     {
         return $this->belongsTo('App\Models\Organizador');
     }
+
+    public function colaboraciones()
+    {
+        return $this->hasMany('App\Models\Colaboracion');
+    }
 }
