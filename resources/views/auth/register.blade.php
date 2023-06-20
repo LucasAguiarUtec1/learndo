@@ -105,7 +105,6 @@
 					<label for="rol">Rol</label>
 					<select class="form-control" id="rol" name="rol" value="{{old('rol')}}">
 						<option>Estudiante</option>
-						<option>Colaborador</option>
 						<option>Organizador</option>
 					</select>
 					@error('rol')
