@@ -128,4 +128,6 @@ Route::post('/enviarInvitacion', [UsuarioController::class, 'enviarInvitacion'])
 
 Route::get('/aceptar-invitacion/{cursoId}/{usuarioId}/{eltoken}', [ColaboracionController::class, 'aceptarInvitacion'])->name('aceptar.invitacion')->middleware('auth');
 
+Route::get('/realizarevaluacion/{idEvaluacion}', [EvaluacionController::class, 'realizarevaluacion'])->name('realizarevaluacion')->middleware('auth');
 
+Route::post('/ConfirmarEvaluacion', [EvaluacionController::class, 'ConfirmarEvaluacion'])->name('ConfirmarEvaluacion')->middleware('auth');
