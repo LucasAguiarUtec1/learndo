@@ -14,14 +14,6 @@
 	
 	
 	<div class="container">
-		<div class="d-flex justify-content-end">
-			@if(Auth::user()->userable_type=='App\Models\Estudiante')
-			<button class="btn btn-primary mt-2 text-center">Comprar Curso</button>
-			<div class="contenido-adicional" id="contenido-adicional-cursos" style="display: none;"></div>
-			<button class="btn btn-primary mt-2 ml-2 text-center">Comprar Seminario</button>
-			<div class="contenido-adicional" id="contenido-adicional-seminarios" style="display: none;"></div>
-			@endif
-		  </div>
 
 		<div class="card mt-4 modulo" id="modulo-1" >
 			<div class="card-header">

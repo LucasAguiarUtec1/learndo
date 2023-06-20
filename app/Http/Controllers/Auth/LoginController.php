@@ -59,7 +59,6 @@ class LoginController extends Controller
             return redirect()->intended('/');
         } else {
             // Las credenciales no son válidas
-            dd($credentials);
             return redirect()->back()->withErrors([
                 'email' => 'No se pudo iniciar sesión. Error.',
             ]);
