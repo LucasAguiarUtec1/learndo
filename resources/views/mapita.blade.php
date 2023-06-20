@@ -34,7 +34,7 @@
                     <label>Descripción:</label>
                     <p id="seminarioDescripcion"></p>
                     <br>
-                    <label>Ubicación:</label>
+                    <label>Precio:</label>
                     <p id="precio"></p>
                     <br>
                     <label>Fecha:</label>
