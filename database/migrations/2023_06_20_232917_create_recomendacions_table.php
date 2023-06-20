@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comprados', function (Blueprint $table) {
+        Schema::create('recomendaciones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("clase_id");
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
-
-            $table->foreign("clase_id")->references("id")->on("clases")->onDelete("cascade");
+            $table->unsignedBigInteger('emisor_id');
+            $table->unsignedBigInteger('receptor_id');
+            $table->unsignedBigInteger('curso_id');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comprados');
+        Schema::dropIfExists('recomendaciones');
     }
 };

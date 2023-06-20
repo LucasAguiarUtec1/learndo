@@ -20,17 +20,17 @@
 				@csrf
 				<div class="form-group">
 				  <label for="nombreCurso">Nombre del Curso</label>
-				  <input type="text" class="form-control" id="nombreCurso" placeholder="Ingrese el nombre del curso" name="name">
+				  <input type="text" class="form-control" id="nombreCurso" placeholder="Ingrese el nombre del curso" name="name" required>
 				</div>
 				<div class="form-group">
 				  <label for="descripcion">Descripción</label>
-				  <textarea class="form-control" id="descripcion" rows="4" placeholder="Ingrese la descripción del curso" name="descripcion"></textarea>
+				  <textarea class="form-control" id="descripcion" rows="4" placeholder="Ingrese la descripción del curso" name="descripcion" required></textarea>
 				</div>
 				<div class="form-group">
 				  <label for="precio">Precio</label>
-				  <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio">
+				  <input type="number" class="form-control" id="precio" placeholder="Ingrese el precio del curso" name="precio" required>
 				</div>
-				<input type="hidden" id="profesor" name="instructor" value="{{ Auth::user()->email }}">
+				<input type="hidden" id="profesor" name="instructor" value="{{ Auth::user()->email }}" required>
 				<div class="form-group">
 					<label for="color">Color en el foro</label>
 					<input type="color" id="color" name="color">
