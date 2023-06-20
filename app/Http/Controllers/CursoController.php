@@ -122,6 +122,33 @@ class CursoController extends Controller
             $leccion->path = $path;
             $leccion->modulo_id = $moduloId;
             $leccion->nombre_archivo = $fileName;
+            $leccion->aceptado = 1;
+            $leccion->save();
+            return $response = ['message' => 'El archivo se subio correctamente'];
+        } else {
+            return $response = ['message' => 'Debe Subir un Archivo PDF', 400];
+        }
+    }
+
+    public function sug_pdf(Request $request)
+    {
+        $request->validate([
+            'pdf_file' => 'required|mimes:pdf',
+            'name' => 'required',
+        ]);
+
+        $moduloId = $request->input('moduloId');
+        $leccion = new Leccion();
+        $leccion->nombre = $request->input('name');
+        if ($request->hasFile('pdf_file')) {
+            $file = $request->file('pdf_file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = 'pdfs/' . $fileName;
+            Storage::disk('public')->put('pdfs/' . $fileName, \File::get($file));
+            $leccion->path = $path;
+            $leccion->modulo_id = $moduloId;
+            $leccion->nombre_archivo = $fileName;
+            $leccion->aceptado = 0;
             $leccion->save();
             return $response = ['message' => 'El archivo se subio correctamente'];
         } else {
@@ -148,6 +175,14 @@ class CursoController extends Controller
         $leccion = Leccion::find($idLeccion);
         Storage::disk('public')->delete($leccion->path);
         $leccion->delete();
+        return redirect()->route('modulos', $idCurso);
+    }
+
+    public function aceptarLeccion($idCurso, $idLeccion)
+    {
+        $leccion = Leccion::find($idLeccion);
+        $leccion->aceptado = 1;
+        $leccion->save();
         return redirect()->route('modulos', $idCurso);
     }
 

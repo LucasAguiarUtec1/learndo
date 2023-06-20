@@ -90,6 +90,8 @@ Route::post('/modulos/{idMod}/crearEvaluacion', [EvaluacionController::class, 'c
 
 Route::post('/uploadPDF', [CursoController::class, 'upload'])->name('uploadPDF')->middleware('auth');
 
+Route::post('/sugPDF', [CursoController::class, 'sug_pdf'])->name('sug_pdf')->middleware('auth');
+
 Route::get('/usuarios', [UsuarioController::class, 'listar'])->name('ListarUsuarios')->middleware('auth');
 
 Route::get('/usuarios/{id}/profile', [UsuarioController::class, 'verperfil'])->name('verperfil')->middleware('auth');
@@ -97,6 +99,8 @@ Route::get('/usuarios/{id}/profile', [UsuarioController::class, 'verperfil'])->n
 Route::get('/openPDF', [CursoController::class, 'verLeccion'])->name('openPDF')->middleware('auth');
 
 Route::get('/eliminarLeccion/{idCurso}/{idLeccion}', [CursoController::class, 'eliminarLeccion'])->name('eliminarLeccion')->middleware('auth');
+
+Route::get('/aceptarLeccion/{idCurso}/{idLeccion}', [CursoController::class, 'aceptarLeccion'])->name('aceptarLeccion')->middleware('auth');
 
 Route::post('/agregarMultimedia', [CursoController::class, 'agregarMultimedia'])->name('agregarMultimedia')->middleware('auth');
 

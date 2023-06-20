@@ -49,17 +49,37 @@
 			<div class="card-body">
 				<ul class="list-group">
 					@foreach($lecciones as $leccion)
+					@if ($leccion->aceptado)
 					<li class="list-group-item">
 						<img src="{{asset('images/libro.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
 						<a href="#" class="open-pdf-link" data-leccion-id="{{ $leccion->id }}">{{$leccion->nombre}}</a>
+						@if(Auth::user()->userable_type=='App\Models\Organizador')
 						<a href="{{route('eliminarLeccion', ['idCurso' => $clase->id, 'idLeccion' => $leccion->id])}}" class="btn btn-danger float-right">Eliminar</a>
+						@endif
 					</li>
+					@endif
 					@endforeach
+
+					@foreach($lecciones as $leccion)
+					@if (!$leccion->aceptado)
+					<li class="list-group-item">
+						<img src="{{asset('images/libro.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
+						<a href="#" class="open-pdf-link" data-leccion-id="{{ $leccion->id }}">{{$leccion->nombre}} </a>(Sugerida, pendiente)
+						@if(Auth::user()->userable_type=='App\Models\Organizador')
+						<a href="{{route('aceptarLeccion', ['idCurso' => $clase->id, 'idLeccion' => $leccion->id])}}" class="btn btn-success float-right">Aceptar</a>
+						<a href="{{route('eliminarLeccion', ['idCurso' => $clase->id, 'idLeccion' => $leccion->id])}}" class="btn btn-danger float-right mr-1">Rechazar</a>
+						@endif
+					</li>
+					@endif
+					@endforeach
+
 					@foreach($multimedias as $multimedia)
 					<li class="list-group-item">
 						<img src="{{asset('images/multimedia.png')}}" alt="Icono de video" class="mr-3" width="30" height="30">
 						<a href="{{$multimedia->link}}" target="_blank">Clase {{$multimedia->id}}</a>
+						@if(Auth::user()->userable_type=='App\Models\Organizador')
 						<a href="{{route('eliminarMultimedia', ['idCurso' => $clase->id, 'idMultimedia' => $multimedia->id])}}" class="btn btn-danger float-right">Eliminar</a>
+						@endif
 					</li>
 					@endforeach
 					<li class="list-group-item">
@@ -97,16 +117,9 @@
 							@endif
 
 							@if(Auth::user()->userable_type=='App\Models\Colaborador')
-							<button class="btn btn-primary" data-toggle="modal" data-target="#leccion-modal" data-modulo-id="{{$modulo->id}}">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#sug-leccion-modal" data-modulo-id="{{$modulo->id}}">
 								<img src="{{asset('images/libro.png')}}" alt="Icono" class="mr-2" width="20" height="20">
 								Sugerir Lección
-							</button>
-							@endif
-
-							@if(Auth::user()->userable_type=='App\Models\Colaborador')
-							<button class="btn btn-primary" data-toggle="modal" data-target="#multimedia-modal" data-modulo-id="{{$modulo->id}}">
-								<img src="{{asset('images/multimedia.png')}}" alt="Icono" class="mr-2" width="20" height="20">
-								Sugerir Contenido Multimedia
 							</button>
 							@endif
 						
@@ -140,12 +153,26 @@
 			<div class="card-body">
 				<ul class="list-group">
 					@foreach($lecciones as $leccion)
+					@if ($leccion->aceptado)
 					<li class="list-group-item">
 						<img src="{{asset('images/libro.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
 						<a href="#" class="open-pdf-link" data-leccion-id="{{ $leccion->id }}">{{$leccion->nombre}}</a>
 						<a href="{{route('eliminarLeccion', ['idCurso' => $clase->id, 'idLeccion' => $leccion->id])}}" class="btn btn-danger float-right">Eliminar</a>
 					</li>
+					@endif
 					@endforeach
+
+					@foreach($lecciones as $leccion)
+					@if (!$leccion->aceptado)
+					<li class="list-group-item">
+						<img src="{{asset('images/libro.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
+						<a href="#" class="open-pdf-link" data-leccion-id="{{ $leccion->id }}">{{$leccion->nombre}}</a>
+						<a href="{{route('aceptarLeccion', ['idCurso' => $clase->id, 'idLeccion' => $leccion->id])}}" class="btn btn-danger float-right mr-1">Aceptar</a>
+						<a href="{{route('eliminarLeccion', ['idCurso' => $clase->id, 'idLeccion' => $leccion->id])}}" class="btn btn-danger float-right">Rechazar</a>
+					</li>
+					@endif
+					@endforeach
+
 					@foreach($multimedias as $multimedia)
 					<li class="list-group-item">
 						<img src="{{asset('images/multimedia.png')}}" alt="Icono de video" class="mr-3" width="30" height="30">
@@ -166,8 +193,23 @@
 					</li>
 					<div class="card">
 						<div class="card-body text-center d-flex justify-content-center">
+							@if(Auth::user()->userable_type=='App\Models\Colaborador')
+							<button class="btn btn-primary mr-1" data-toggle="modal" data-target="#leccion-modal" data-modulo-id="{{$modulo->id}}">
+								<img src="{{asset('images/libro.png')}}" alt="Icono" class="mr-2" width="20" height="20">
+								Incluir Lección
+							</button>
+							@endif
+ 
+							@if(Auth::user()->userable_type=='App\Models\Colaborador')
+							<button class="btn btn-primary" data-toggle="modal" data-target="#multimedia-modal" data-modulo-id="{{$modulo->id}}">
+								<img src="{{asset('images/multimedia.png')}}" alt="Icono" class="mr-2" width="20" height="20">
+								Incluir Contenido Multimedia
+							</button>
+							@endif
+
+
 							@if(Auth::user()->userable_type=='App\Models\Organizador')
-							<a href="{{route('aceptarModulo', ['id' => $clase->id, 'idMod' => $modulo->id])}}" class="btn btn-success float-right mt-2">Aceptar sugerencia</a>
+							<a href="{{route('aceptarModulo', ['id' => $clase->id, 'idMod' => $modulo->id])}}" class="btn btn-success float-right mt-2 mr-4">Aceptar sugerencia</a>
 							@endif
 
 							@if(Auth::user()->userable_type=='App\Models\Organizador')
@@ -196,6 +238,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
+
 					<form method="POST" action="{{route('uploadPDF')}}" enctype="multipart/form-data">
 						@csrf
 						<div class="form-group">
@@ -211,6 +254,45 @@
 							<button type="submit" class="btn btn-primary">Guardar</button>
 						</div>
 					</form>
+
+
+				
+				</div>
+			</div>
+		</div>	
+	</div>
+
+	<!-- Modal para añadir lección -->
+	<div class="modal fade" id="sug-leccion-modal" tabindex="-1" role="dialog" aria-labelledby="sug-leccion-modal-label"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="sug-leccion-modal-label">Sugerir Lección</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+				<form method="POST" action="{{route('sug_pdf')}}" enctype="multipart/form-data">
+						@csrf
+						<div class="form-group">
+							<label for="nombre-leccion">Nombre de la Lección</label>
+							<input type="text" class="form-control" id="nombre-leccion" placeholder="Ingrese el nombre de la lección" name="name">
+						</div>
+						<div class="form-group">
+							<label for="pdf-leccion">Archivo PDF</label>
+							<input type="file" class="form-control-file" id="pdf-leccion" name="pdf_file">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+							<button type="submit" class="btn btn-primary">Sugerir</button>
+						</div>
+					</form>
+
+
+				
 				</div>
 			</div>
 		</div>	
@@ -399,10 +481,62 @@
       });
     }
 
+
+
     $('#leccion-modal').on('click', '.btn-primary', function(e) {
       e.preventDefault();
       agregarLeccion(moduloId);
       $('#leccion-modal').modal('hide');
+    });
+  });
+</script>
+
+<script>
+  $('#sug-leccion-modal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget);
+    var moduloId = button.data('modulo-id');
+    var form = $(this).find('form');
+    var action = form.attr('action');
+    action = action.replace('{modulo}', moduloId);
+    form.attr('action', action);
+
+    function agregarLeccion(moduloId) {
+      var url = 'http://localhost/learndo/public/sugPDF';
+      var formData = new FormData(form[0]);
+      formData.append('moduloId', moduloId);
+
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          alert(response.message);
+          $('#sug-leccion-modal').modal('hide');
+          location.reload();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+			if (jqXHR.status === 422) {
+        var errors = jqXHR.responseJSON.errors;
+        // Mostrar los mensajes de error al usuario
+        for (var key in errors) {
+            if (errors.hasOwnProperty(key)) {
+                var errorMessage = errors[key][0];
+                alert(errorMessage);
+            }
+        }
+    }
+        }
+      });
+    }
+
+
+
+    $('#sug-leccion-modal').on('click', '.btn-primary', function(e) {
+      e.preventDefault();
+      agregarLeccion(moduloId);
+      $('#sug-leccion-modal').modal('hide');
     });
   });
 </script>

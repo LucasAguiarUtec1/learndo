@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('path');
             $table->string('nombre_archivo');
+            $table->boolean('aceptado');
             $table->unsignedBigInteger('modulo_id');
             $table->foreign('modulo_id')->references('id')->on('modulos')->onDelete('cascade');
             $table->timestamps();
