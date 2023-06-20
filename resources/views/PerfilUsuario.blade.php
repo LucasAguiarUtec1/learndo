@@ -26,12 +26,17 @@
 				<h4 style="padding-top: 10px; padding-bottom: 10px;"><strong>{{$usuario->nickname}}</strong></h4>
 				<div>
 					@if(Auth::check() && Auth::user()->nickname == $usuario->nickname)
-					<button id="edit-button" class="btn btn-primary align-content-center text-center">Editar</button>
+						<!-- <button id="edit-button" class="btn btn-primary align-content-center text-center">Editar</button> -->
+					@endif
+					@if($usuario->userable_type == 'App\Models\Colaborador')
+						@if( Auth::user()->userable_type == 'App\Models\Organizador')
+							<button id="invite-button" class="btn btn-primary align-content-center text-center">Invitar a colaborar</button>
+						@endif
 					@endif
 					@if(Auth::check() && Auth::user()->nickname != $usuario->nickname)
-					<button id="mensaje-button" class="btn btn-primary align-content-center text-center" >
-					<a href="{{route('chat', $usuario->id)}}" style="color: white;">Enviar Mensaje</a>
-					</button>
+						<button id="mensaje-button" class="btn btn-primary align-content-center text-center" >
+						<a href="{{route('chat', $usuario->id)}}" style="color: white;">Enviar Mensaje</a>
+						</button>
 					@endif
 				</div>
 			</div>
@@ -112,9 +117,47 @@
 					</div>
 				</div>
 
+				<!-- Modal -->
+				<div class="modal fade" id="inviteModal" tabindex="-1" aria-labelledby="inviteModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="inviteModalLabel">Invitación a colaborar</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form action="{{ route('enviarInvitacion') }}" method="POST">
+									@csrf
+									<input type="hidden" id="id_user" name="id_user" value="{{ $usuario->id }}">
+									<div class="mb-3">
+										<label for="cursoSelect" class="form-label">Seleccione un curso:</label>
+										<select class="form-select" id="cursoSelect" name="cursoSelect">
+											@foreach($cursos_propios as $curso)
+												<option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
+											@endforeach
+										</select>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+										<button type="submit" class="btn btn-primary">Invitar</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				
+
 				<script>
 					document.getElementById("edit-button").addEventListener("click", function () {
 						$('#editModal').modal('show');
+					});
+				</script>
+
+				<script>
+					document.getElementById("invite-button").addEventListener("click", function () {
+						$('#inviteModal').modal('show');
 					});
 				</script>
 

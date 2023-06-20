@@ -16,6 +16,7 @@ class Leccion extends Model
         'path',
         'modulo_id',
         'nombre_archivo',
+        'aceptado',
     ];
 
     public function modulo()

@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lecciones', function (Blueprint $table) {
+        Schema::create('colaboracion', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('path');
-            $table->string('nombre_archivo');
-            $table->boolean('aceptado');
-            $table->unsignedBigInteger('modulo_id');
-            $table->foreign('modulo_id')->references('id')->on('modulos')->onDelete('cascade');
+            $table->unsignedBigInteger('clase_id');
+            $table->unsignedBigInteger('usuario_id');
+            $table->foreign('clase_id')->references('id')->on('clases')->onDelete('cascade');
+            $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lecciones');
+        Schema::dropIfExists('colaboracion');
     }
 };

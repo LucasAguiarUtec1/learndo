@@ -9,15 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
+    protected $table = 'resultado';
+
     public function up(): void
     {
-        Schema::create('comprados', function (Blueprint $table) {
+        Schema::create('resultado', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("curso_id");
+            $table->unsignedBigInteger('evaluacion_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('nota');
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
-
-            $table->foreign("curso_id")->references("id")->on("cursos")->onDelete("cascade");
+            $table->foreign("evaluacion_id")->references("id")->on("evaluaciones")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comprados');
+        Schema::dropIfExists('resultado');
     }
 };

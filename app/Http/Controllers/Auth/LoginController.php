@@ -56,10 +56,15 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // La autenticación ha sido exitosa
             //dd(Auth::user());
+            if (Auth::user()->email_verified_at == null) {
+                Auth::logout();
+                return redirect()->back()->withErrors([
+                    'email' => 'Su Cuenta No Ha Sido Verificada.',
+                ]);
+            }
             return redirect()->intended('/');
         } else {
             // Las credenciales no son válidas
-            dd($credentials);
             return redirect()->back()->withErrors([
                 'email' => 'No se pudo iniciar sesión. Error.',
             ]);

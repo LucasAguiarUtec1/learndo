@@ -120,21 +120,27 @@
 					@enderror
 					</div>
 					<div class="form-group">
-						<label for="imagen">Imagen de perfil</label>
+						<label for="imagen">Imagen</label>
 						<input type="file" class="form-control-file" id="imagen" name="image" value="{{old('image')}}">
 						@error('image')
 						<br>
 							<small>*{{$message}}</small>
 						<br>
 					@enderror
+					</div>
+					<div class="form-group">
+						<label for="color">Color en el foro</label>
+						<input type="color" id="color" name="color">
 					</div> 
 					<div class="text-center">
-						<button type="submit" class="btn btn-primary">Crear Clase</button>
+						<button type="submit" class="btn btn-primary">Crear Seminario</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+
+
 	
 	
 	

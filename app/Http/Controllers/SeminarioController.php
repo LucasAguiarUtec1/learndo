@@ -9,6 +9,8 @@ use App\Models\Clase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Google_Client;
+use Google_Service_Calendar;
 
 class SeminarioController extends Controller
 {
@@ -96,5 +98,65 @@ class SeminarioController extends Controller
         $url = Storage::disk('public')->url($clase->foto);
         $url = substr($url, 18);
         return view('seminario', compact('clase', 'url'));
+    }
+
+    public function agregarACalendario($id)
+    {
+        $clase = Clase::find($id);
+        $seminario = $clase->claseable;
+
+        $client = $this->getClient();
+        $service = new Google_Service_Calendar($client);
+
+        $event = new Google_Service_Calendar_Event([
+            'summary' => $clase->nombre,
+            'location' => $seminario->ubicacion,
+            'description' => $clase->descripcion,
+            'start' => [
+                'dateTime' => $seminario->fecha,
+                'timeZone' => 'America/New_York', // Ajusta la zona horaria según corresponda
+            ],
+            'end' => [
+                'dateTime' => $seminario->fecha,
+                'timeZone' => 'America/New_York',
+            ],
+        ]);
+
+        $calendarId = 'primary'; // ID del calendario principal del usuario
+        $event = $service->events->insert($calendarId, $event);
+
+        return "El seminario se agregó correctamente a Google Calendar.";
+    }
+
+    private function getClient()
+    {
+        $client = new Google_Client();
+        $client->setClientId(config('services.google.client_id'));
+        $client->setClientSecret(config('services.google.client_secret'));
+        $client->setRedirectUri(config('services.google.redirect'));
+        $client->addScope(Google_Service_Calendar::CALENDAR);
+        return $client;
+    }
+
+    public function comprar(Request $request)
+    {
+        $seminarioId = $request->input('seminarioId');
+
+        // Realizar las acciones de compra con la ID del seminario
+
+        // Por ejemplo, obtener el seminario según la ID
+        $seminario = Seminario::find($seminarioId);
+
+        $clase = $seminario->clase;
+
+        $user = Auth::user();
+
+        $estudiante = $user->userable;
+
+        $estudiante->clases()->attach($clase);
+        // Realizar acciones adicionales, como procesar el pago, guardar la información de la compra, etc.
+
+        // Devolver una respuesta si es necesario
+        return response()->json(['message' => 'Compra realizada con éxito: ' . $seminarioId]);
     }
 }

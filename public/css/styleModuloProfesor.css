@@ -70,6 +70,10 @@ h2 {
   /* Cambia este valor al gris claro deseado */
 }
 
+.bg-pendiente {
+  background-color: #000000; /* Aquí puedes ajustar el tono de azul según tus preferencias */
+}
+
 alert {
   background-color: rgba(255, 255, 255, 0.9);
   color: black;
