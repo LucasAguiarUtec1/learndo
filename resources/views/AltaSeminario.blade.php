@@ -120,13 +120,17 @@
 					@enderror
 					</div>
 					<div class="form-group">
-						<label for="imagen">Imagen de perfil</label>
+						<label for="imagen">Imagen</label>
 						<input type="file" class="form-control-file" id="imagen" name="image" value="{{old('image')}}">
 						@error('image')
 						<br>
 							<small>*{{$message}}</small>
 						<br>
 					@enderror
+					</div>
+					<div class="form-group">
+						<label for="color">Color en el foro</label>
+						<input type="color" id="color" name="color">
 					</div> 
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">Crear Clase</button>
@@ -135,6 +139,41 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		$(document).ready(function() {
+			$('form').on('submit', function(event) {
+			event.preventDefault(); // Evita que el formulario se envíe normalmente
+
+			// Obtiene el nombre del curso ingresado
+			var formData = {
+				title: $('#nombreCurso').val(),
+				description: $('#descripcion').val(),
+				color: $('#color').val(),
+				accepts_threads: 1,
+				is_private: 0,
+				_token: '{{ csrf_token() }}'
+			};
+
+			// Realiza una solicitud AJAX al controlador del foro para crear la sección
+			$.ajax({
+				url: '{{ Forum::route('category.store') }}', // Reemplaza con la ruta adecuada para crear la sección del foro
+				method: 'POST',
+				data: formData,
+				success: function(response) {
+				// Sección creada exitosamente, puedes redirigir a otra página o realizar otras acciones
+				$('form')[0].submit();
+				// Aquí puedes agregar el código para redirigir a la página deseada o realizar otras acciones necesarias
+				},
+				error: function(xhr, status, error) {
+				// Ocurrió un error al crear la sección del foro
+				alert('Ocurrió un error al crear la sección del foro.');
+				console.error(xhr.responseText);
+				}
+			});
+			});
+		});
+	</script>
 	
 	
 	
