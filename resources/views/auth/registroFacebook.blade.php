@@ -45,6 +45,7 @@
 			<label for="rol">Rol</label>
 			<select class="form-control shorter-input" id="rol" name="rol">
 			  <option>Estudiante</option>
+			  <option>Colaborador</option>
 			  <option>Organizador</option>
 			</select>
 		  </div>
