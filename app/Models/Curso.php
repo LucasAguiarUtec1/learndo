@@ -22,4 +22,9 @@ class Curso extends Model
     {
         return $this->hasMany('App\Models\Modulo');
     }
+
+    public function usuarios()
+    {
+        return $this->belongsToMany('App\Models\User');
+    }
 }
