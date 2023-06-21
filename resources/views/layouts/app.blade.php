@@ -44,9 +44,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('registro')}}">Registrarse</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{route('maps')}}">Mapa</a>
-				</li>
+				
 				@endif
 				@if(Auth::check() && Auth::user()->userable_type == 'App\Models\Organizador')
 				<li class="nav-item">

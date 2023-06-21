@@ -34,7 +34,8 @@
 		</div>
 	</div>
 
-	
+	<form method="POST" action="{{route('paywithpaypal')}}">
+	@csrf
 	<div id="modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -58,6 +59,7 @@
     </button>
   </div>
 </div>
+</form>
 
 
 	<div class="container mt-5">
@@ -144,6 +146,7 @@
 
 <div id="modal" class="modal">
 <form method="POST" action="{{route('paywithpaypal')}}">
+@csrf
   <div class="modal-content">
     <span class="close">&times;</span>
     <h2>Detalles de compra</h2>
