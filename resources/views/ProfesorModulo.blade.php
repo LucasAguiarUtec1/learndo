@@ -85,7 +85,15 @@
 					<li class="list-group-item">
 						@foreach($evaluaciones as $evaluacion)
 							<img src="{{asset('images/lapiz.png')}}" alt="Icono de lápiz" class="mr-3" width="30" height="30">
+							@if(Auth::user()->userable_type=='App\Models\Organizador')
 							<a href="#">{{$evaluacion->nombre}}</a>
+							@endif
+							@if(Auth::user()->userable_type=='App\Models\Colaborador')
+							<a href="#">{{$evaluacion->nombre}}</a>
+							@endif
+							@if(Auth::user()->userable_type=='App\Models\Estudiante')
+							<a href="{{route('realizarevaluacion', ['idEvaluacion' => $evaluacion->id])}}">{{$evaluacion->nombre}}</a>
+							@endif
 							@if(Auth::user()->userable_type=='App\Models\Organizador')
 							<button class="btn btn-danger float-right">Eliminar</button>
 							@endif

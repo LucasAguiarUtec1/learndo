@@ -138,3 +138,6 @@ Route::get('/recomendaciones', [UsuarioController::class, 'recomendaciones'])->n
 Route::get('/recomendaciones/aceptar/{id}', [UsuarioController::class, 'aceptarRecomendacion'])->name('aceptarrecomendacion')->middleware('auth');
 
 Route::get('/recomendaciones/rechazar/{id}', [UsuarioController::class, 'rechazarRecomendacion'])->name('rechazarrecomendacion')->middleware('auth');
+Route::get('/realizarevaluacion/{idEvaluacion}', [EvaluacionController::class, 'realizarevaluacion'])->name('realizarevaluacion')->middleware('auth');
+
+Route::post('/ConfirmarEvaluacion', [EvaluacionController::class, 'ConfirmarEvaluacion'])->name('ConfirmarEvaluacion')->middleware('auth');
