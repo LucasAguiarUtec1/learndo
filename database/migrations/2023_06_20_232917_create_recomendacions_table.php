@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('emisor_id');
             $table->unsignedBigInteger('receptor_id');
-            $table->unsignedBigInteger('curso_id');
+            $table->unsignedBigInteger('curso_id')->unique();
+            $table->integer('estado')->default(0);
             $table->timestamps();
         });
     }

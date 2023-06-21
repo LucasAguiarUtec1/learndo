@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('comprados', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("clase_id");
+            $table->unsignedBigInteger("curso_id");
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
 
-            $table->foreign("clase_id")->references("id")->on("clases")->onDelete("cascade");
+            $table->foreign("curso_id")->references("id")->on("cursos")->onDelete("cascade");
             $table->timestamps();
         });
     }

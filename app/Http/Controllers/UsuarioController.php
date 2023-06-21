@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Recomendacion;
+use Illuminate\Support\Facades\DB;
+
 
 class UsuarioController extends Controller
 {
@@ -51,26 +54,26 @@ class UsuarioController extends Controller
             'token' => $token,
         ];
 
-        
+
         $invitacion = Invitacion::firstOrCreate([
             'usuario_id' => $usuarioId,
             'clase_id' => $cursoId,
             'token' => $token,
         ]);
-    
+
         Mail::send('emails.invitacion', $data, function ($message) use ($usuario) {
             $message->to($usuario->email)
                 ->subject('Invitación a colaborar');
         });
 
-        
+
 
         if (!$invitacion) {
             // Invitación no válida
             return redirect()->back()->with('error', 'Invitación no válida');
         }
 
-        
+
         return redirect()->back()->with('success', 'Invitación enviada correctamente');
     }
 
@@ -105,5 +108,38 @@ class UsuarioController extends Controller
         $request->session()->regenerateToken();
 
         return view('inicio');
+    }
+
+    public function recomendaciones()
+    {
+        $recomendaciones = Recomendacion::where('receptor_id', Auth::user()->id)->where('estado', 0)->get();
+        $cursos = [];
+
+        foreach ($recomendaciones as $recomendacion) {
+            $cursos[] = Curso::find($recomendacion->curso_id);
+        }
+        return view('misRecomendaciones', compact('recomendaciones', 'cursos'));
+    }
+
+    public function aceptarRecomendacion($id)
+    {
+        $clase = Clase::find($id);
+        $curso = $clase->claseable;
+
+        DB::insert('insert into comprados (user_id, curso_id) values (?, ?)', [Auth::user()->id, $curso->id]);
+
+        DB::update('update recomendaciones set estado = 1 where curso_id = ? and receptor_id = ?', [$curso->id, Auth::user()->id]);
+
+        return redirect()->back();
+    }
+
+    public function rechazarRecomendacion($id)
+    {
+        $clase = Clase::find($id);
+        $curso = $clase->claseable;
+
+        DB::update('update recomendaciones set estado = 2 where curso_id = ? and receptor_id = ?', [$curso->id, Auth::user()->id]);
+
+        return redirect()->back();
     }
 }

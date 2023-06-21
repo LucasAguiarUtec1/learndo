@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\vendor\Chatify\MessagesController;
+use App\Models\Estudiante;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,4 +129,12 @@ Route::post('/enviarInvitacion', [UsuarioController::class, 'enviarInvitacion'])
 
 Route::get('/aceptar-invitacion/{cursoId}/{usuarioId}/{eltoken}', [ColaboracionController::class, 'aceptarInvitacion'])->name('aceptar.invitacion')->middleware('auth');
 
+Route::get('/compartir/curso/{id}', [ColaboracionController::class, 'compartir'])->name('compartir.curso')->middleware('auth');
 
+Route::get('/compartir/seminario/{id}/{idE}', [ColaboracionController::class, 'compartirCurso'])->name('compartir')->middleware('auth');
+
+Route::get('/recomendaciones', [UsuarioController::class, 'recomendaciones'])->name('recomendaciones')->middleware('auth');
+
+Route::get('/recomendaciones/aceptar/{id}', [UsuarioController::class, 'aceptarRecomendacion'])->name('aceptarrecomendacion')->middleware('auth');
+
+Route::get('/recomendaciones/rechazar/{id}', [UsuarioController::class, 'rechazarRecomendacion'])->name('rechazarrecomendacion')->middleware('auth');

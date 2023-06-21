@@ -45,6 +45,7 @@
 							<li class="list-group-item">
 							<img src="{{asset('images/cursos.png')}}" alt="Icono de libro" class="mr-3" width="30" height="30">
 							<a href="{{route('modulos', $curso_e->id)}}">{{$curso_e->nombre}}</a>
+							<a href="{{route('compartir.curso', $curso_e->id)}}" class="btn btn-primary float-right compartirBtn">Compartir</a>
 						@endforeach
 					@endif
 				</ul>
